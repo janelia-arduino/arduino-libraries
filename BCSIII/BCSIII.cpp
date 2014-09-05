@@ -247,7 +247,7 @@ Serial.println(IOtype[9]);
      SPI.transfer( muxbit >> 8);    // do this BNC
      SPI.transfer( muxbit & 0xff);
 
- Serial.println(muxbit, HEX);
+ //Serial.println(muxbit, HEX);
 
      if( pindex < 16 ) // we have a real channel
      {
@@ -283,18 +283,17 @@ Serial.println(IOtype[9]);
    SPIselect(NO_CS);
 
 
+//Serial.print("dirL, dirH:");
 
-Serial.print("dirL, dirH:");
 
-
-Serial.print(dirL, HEX);
+//Serial.print(dirL, HEX);
         Wire.beginTransmission(PCA9555L_ADR);
         Wire.write(PCA9555_OUT1);   // set direction
         Wire.write(dirL);           // dir is in
         Wire.endTransmission();     // stop transmitting
-Serial.print(",");
+//Serial.print(",");
 
-Serial.println(dirH,HEX);
+//Serial.println(dirH,HEX);
 
         Wire.beginTransmission(PCA9555H_ADR);
         Wire.write(PCA9555_OUT0);   // set direction and enables

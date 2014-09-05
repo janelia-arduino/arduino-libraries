@@ -69,8 +69,11 @@ void DRIVER::setChannels(uint32_t channels) {
   digitalRead(csPin);
 }
 
-void DRIVER::setChannelOn(int channel) {
-  if ((0 <= channel) && (channel < 32)) {
+void DRIVER::setChannelOn(int channel)
+{
+  channel--; // 1-8 to 0-7
+  if ((0 <= channel) && (channel < 8))
+  {
     uint32_t bit = 1;
     bit = bit << channel;
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
@@ -80,8 +83,11 @@ void DRIVER::setChannelOn(int channel) {
   }
 }
 
-void DRIVER::setChannelOff(int channel) {
-  if ((0 <= channel) && (channel < 32)) {
+void DRIVER::setChannelOff(int channel)
+{
+  channel--; // 1-8 to 0-7
+  if ((0 <= channel) && (channel < 8))
+  {
     uint32_t bit = 1;
     bit = bit << channel;
     ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {

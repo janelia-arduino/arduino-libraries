@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include "StandardCplusplus.h"
-#include "LinearSensorArray.h"
+#include "linear_sensor_array.h"
 #include <Streaming.h>
 
 const uint8_t si_pin = 2;

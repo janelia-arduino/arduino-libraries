@@ -1,33 +1,35 @@
 // ----------------------------------------------------------------------------
-// DRIVER.h
-//
-// Provides an SPI based interface to the TLE7232 eight channel
-// low-side power switch for enhanced relay control
+// power_switch.h
 //
 // Author: Peter Polidoro
 // ----------------------------------------------------------------------------
 
-#ifndef DRIVER_H_
-#define DRIVER_H_
+#ifndef POWER_SWITCH_H
+#define POWER_SWITCH_H
 #include <util/atomic.h>
 
-class DRIVER {
- public:
-  DRIVER();
+class PowerSwitch
+{
+public:
+  PowerSwitch();
+  PowerSwitch(int cs_pin);
+  PowerSwitch(int cs_pin, int in_pin);
 
-  // You must specify the clock select pin
-  DRIVER(int csPin);
-
-  void init();
-  void init(int deviceCount);
+  void spiBegin();
+  void init(int device_count=1, bool spi_reset=true);
   void setChannels(uint32_t channels);
   void setChannelOn(int channel);
   void setChannelOff(int channel);
   uint32_t getChannelsOn();
+  int getChannelCount();
 
- private:
+private:
   // Private Constants
+  const static int DEVICE_COUNT_MIN = 1;
   const static int DEVICE_COUNT_MAX = 4;
+
+  const static int CHANNEL_COUNT_PER_DEVICE = 8;
+  const static int CHANNEL_COUNT_MAX = 32;
 
   const static byte CMD_DIAGNOSIS = 0b11<<6;
   const static byte CMD_READ = 0b01<<6;
@@ -42,14 +44,12 @@ class DRIVER {
   const static byte ADDR_STA = 0b110; // Output Status Monitor
   const static byte ADDR_CTL = 0b111; // Output Control Register
 
-  int csPin;
-  int inPin;
-  bool initialized;
-  uint32_t channels;
-  int deviceCount;
+  int cs_pin_;
+  int in_pin_;
+  bool initialized_;
+  uint32_t channels_;
+  int device_count_;
+  bool spi_reset_;
 };
 
-#endif // DRIVER_H_
-
-
-
+#endif // POWER_SWITCH_H

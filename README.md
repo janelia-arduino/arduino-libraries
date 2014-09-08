@@ -1,4 +1,5 @@
 arduino-libraries
 =================
 
-libraries for use with Arduino hardware
+Libraries for use with Arduino hardware. For information on installing
+libraries, see: http://arduino.cc/en/Guide/Libraries

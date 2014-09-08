@@ -1,6 +1,0 @@
-DRIVER	KEYWORD1
-init	KEYWORD2
-setChannels	KEYWORD2
-setChannelOn	KEYWORD2
-setChannelOff	KEYWORD2
-getChannelsOn	KEYWORD2

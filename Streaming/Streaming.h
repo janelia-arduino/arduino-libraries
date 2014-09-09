@@ -37,7 +37,7 @@ struct _BASED
 {
   long val;
   int base;
-_BASED(long v, int b): val(v), base(b)
+  _BASED(long v, int b): val(v), base(b)
   {}
 };
 
@@ -46,7 +46,7 @@ _BASED(long v, int b): val(v), base(b)
 struct _BYTE_CODE
 {
   byte val;
-_BYTE_CODE(byte v) : val(v)
+  _BYTE_CODE(byte v) : val(v)
   {}
 };
 #define _BYTE(a)    _BYTE_CODE(a)
@@ -84,7 +84,7 @@ struct _FLOAT
 {
   float val;
   int digits;
-_FLOAT(double v, int d): val(v), digits(d)
+  _FLOAT(double v, int d): val(v), digits(d)
   {}
 };
 

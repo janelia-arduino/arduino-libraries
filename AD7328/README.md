@@ -11,7 +11,7 @@ A C++ object to control the Analog Devices AD7328 ADC
 
 ### Features
 
-* 
+*
 
 ### Requirements
 

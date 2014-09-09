@@ -16,7 +16,7 @@ public:
   PowerSwitch(int cs_pin, int in_pin);
 
   void spiBegin();
-  void init(int device_count=1, bool spi_reset=true);
+  void init(int device_count=1, bool spi_reset=false);
   void setChannels(uint32_t channels);
   void setChannelOn(int channel);
   void setChannelOff(int channel);

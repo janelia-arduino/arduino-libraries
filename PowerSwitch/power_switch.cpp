@@ -76,7 +76,7 @@ void PowerSwitch::setChannels(uint32_t channels)
 {
   if (spi_reset_)
     {
-      SPI.setDataMode(SPI_MODE1);
+      spiBegin();
     }
   digitalWrite(cs_pin_, LOW);
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)

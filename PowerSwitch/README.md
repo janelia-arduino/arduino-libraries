@@ -1,5 +1,5 @@
 PowerSwitch
------------
+===========
 
 A C++ object to control the Infineon Spider TLE723X SPI driver for
 enhanced relay control. Eight channel low-side switch. For the Arduino
@@ -13,3 +13,4 @@ diagnosis of the device and the load. For direct control, there is an
 input pin available.  The power transistors are built by N-channel
 vertical power MOSFETs. The device is monolithically integrated in
 Smart Power Technology.
+

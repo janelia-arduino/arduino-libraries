@@ -1,7 +1,7 @@
 arduino-libraries
 =================
 
-Libraries for use with Arduino hardware.
+C++ libraries for running on Arduino hardware.
 
 Install symbolic library links into the default sketchbook directory
 using python:

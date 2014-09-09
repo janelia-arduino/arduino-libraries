@@ -4,7 +4,7 @@ arduino-libraries
 C++ libraries for running on Arduino hardware.
 
 Install symbolic library links into the default sketchbook directory
-using python:
+using python when running Linux or Mac:
 
 ```
 python symlinks.py --install

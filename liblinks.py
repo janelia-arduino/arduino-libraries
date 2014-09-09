@@ -1,7 +1,7 @@
 """
 liblinks.py
 
-Creates a set of symbolic link in the HOME/sketchbook/libraries directory for
+Creates a set of symbolic link in the ~/sketchbook/libraries directory for
 all subdirectories of the current directory. The purpose is to make it easy to
 install a set of Arduino libraries.
 
@@ -77,10 +77,9 @@ if __name__ == '__main__':
 
     # Get command - either 'create' or 'remove'
     if len(sys.argv) < 2:
-        print('Error: two few arguments')
-        sys.exit(0)
-
-    cmd = sys.argv[1]
+        cmd = 'install'
+    else:
+        cmd = sys.argv[1]
 
     # Take action based of command
     if cmd.lower() == 'install':

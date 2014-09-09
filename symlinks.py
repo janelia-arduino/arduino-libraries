@@ -33,7 +33,7 @@ USERDIR = os.path.expanduser('~')
 if platform.system() == 'Linux':
     LIBDIR = os.path.join(USERDIR,'sketchbook','libraries')
 elif platform.system() == 'Darwin':
-    LIBDIR = os.path.join(USERDIR,'Documents','Arduino')
+    LIBDIR = os.path.join(USERDIR,'Documents','Arduino','libraries')
 
 def create_symlinks():
 

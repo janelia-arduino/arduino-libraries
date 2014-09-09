@@ -1,24 +1,39 @@
 """
-liblinks.py
+symlinks.py
 
-Creates a set of symbolic link in the ~/sketchbook/libraries directory for
-all subdirectories of the current directory. The purpose is to make it easy to
+Creates a set of symbolic links in the default sketchbook directory for
+all Arduino libraries in this repository. The purpose is to make it easy to
 install a set of Arduino libraries.
 
-Usage:
 
-    python liblinks.py install  # Creates links to the libraries
-    python liblinks.py remove   # Removes links to the libraries
+Python Installation
+
+Python should already be installed on linux or mac.
+
+Mac python installation instructions:
+http://www.lowindata.com/2013/installing-scientific-python-on-mac-os-x/
+
+Windows python installation instructions:
+https://code.google.com/p/pythonxy/wiki/Downloads?tm=2
 
 
-Author: Will Dickson
+symlinks.py usage:
+
+    python symlinks.py --install  # Creates or refreshes links to the libraries
+    python symlinks.py --remove   # Removes links to the libraries
+
+Author: Will Dickson, modified by Peter Polidoro
 """
 import sys
 import os
-import os.path
+import argparse
+import platform
 
 USERDIR = os.path.expanduser('~')
-LIBDIR = os.path.join(USERDIR,'sketchbook','libraries')
+if platform.system() == 'Linux':
+    LIBDIR = os.path.join(USERDIR,'sketchbook','libraries')
+elif platform.system() == 'Darwin':
+    LIBDIR = os.path.join(USERDIR,'Documents','Arduino')
 
 def create_symlinks():
 
@@ -74,20 +89,19 @@ def get_paths():
 
 # -----------------------------------------------------------------------------
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Arduino Libraries Symlinks')
+    parser.add_argument('-i','--install',
+                        help='Install all of the Arduino libraries in this repository to the default sketcbook directory as a set of symbolic links.',
+                        action='store_true')
+    parser.add_argument('-r','--remove',
+                        help='Remove all of the Arduino library symbolic links from the default sketcbook directory.',
+                        action='store_true')
 
-    # Get command - either 'create' or 'remove'
-    if len(sys.argv) < 2:
-        cmd = 'install'
-    else:
-        cmd = sys.argv[1]
-
-    # Take action based of command
-    if cmd.lower() == 'install':
+    if len(sys.argv)==1:
+        parser.print_help()
+        sys.exit(1)
+    args = parser.parse_args()
+    if args.install:
         create_symlinks()
-    elif cmd.lower() == 'remove':
+    elif args.remove:
         remove_symlinks()
-    else:
-        print("Error: unknown argument {0} - should be 'install' or 'remove'".format(cmd))
-
-
-

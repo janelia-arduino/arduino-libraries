@@ -3,11 +3,12 @@ arduino-libraries
 
 Libraries for use with Arduino hardware.
 
-Install symbolic library links into ~/sketchbook/libraries:
+Install symbolic library links into the default sketchbook directory
+using python:
 
 ```
-python liblinks.py install
+python symlinks.py --install
 ```
 
-For information on installing libraries, see:
+Or for more information on installing libraries, see:
 http://arduino.cc/en/Guide/Libraries

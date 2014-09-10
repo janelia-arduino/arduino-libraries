@@ -34,19 +34,19 @@ void setup()
 void loop()
 {
   for (int channel = -1; channel < channel_count; channel++)
+  {
+    if (0 <= channel)
     {
-      if (0 <= channel)
-        {
-          bit = 1;
-          bit = bit << channel;
-          channels = channels | bit;
-        }
-      else
-        {
-          channels = 0;
-        }
-      power_switch.setChannels(channels);
-      Serial << "channels = " << _BIN(channels) << endl;
-      delay(LOOP_DELAY);
+      bit = 1;
+      bit = bit << channel;
+      channels = channels | bit;
     }
+    else
+    {
+      channels = 0;
+    }
+    power_switch.setChannels(channels);
+    Serial << "channels = " << _BIN(channels) << endl;
+    delay(LOOP_DELAY);
+  }
 }

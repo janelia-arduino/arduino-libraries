@@ -71,28 +71,28 @@ void LinearSensorArray::getImage(LinearSensorArrayImage* image)
   clk_out_deref_ &= ~clk_bitmask_;
 
   for (int p=0; p<(image->getPixelPerSensorCount()+1); p++)
-    {
-      // si_pin = 0, clk_pin = 1
-      // digitalWrite(clk_pin,HIGH);
-      clk_out_deref_ |= clk_bitmask_;
-      // si_pin = 0, clk_pin = 0
-      // digitalWrite(clk_pin,LOW);
-      clk_out_deref_ &= ~clk_bitmask_;
-    }
+  {
+    // si_pin = 0, clk_pin = 1
+    // digitalWrite(clk_pin,HIGH);
+    clk_out_deref_ |= clk_bitmask_;
+    // si_pin = 0, clk_pin = 0
+    // digitalWrite(clk_pin,LOW);
+    clk_out_deref_ &= ~clk_bitmask_;
+  }
 
   // do the integration pause
 
   // integration time in the range 0 - 32767
   int itime = 0;
   for (int i=0; i<itime; i++)
-    {
-      // si_pin = 0, clk_pin = 1
-      // digitalWrite(clk_pin,HIGH);
-      clk_out_deref_ |= clk_bitmask_;
-      // si_pin = 0, clk_pin = 0
-      // digitalWrite(clk_pin,LOW);
-      clk_out_deref_ &= ~clk_bitmask_;
-    }
+  {
+    // si_pin = 0, clk_pin = 1
+    // digitalWrite(clk_pin,HIGH);
+    clk_out_deref_ |= clk_bitmask_;
+    // si_pin = 0, clk_pin = 0
+    // digitalWrite(clk_pin,LOW);
+    clk_out_deref_ &= ~clk_bitmask_;
+  }
 
   // read out the image
   // si_pin = 1, clk_pin = 0
@@ -111,21 +111,21 @@ void LinearSensorArray::getImage(LinearSensorArrayImage* image)
   clk_out_deref_ &= ~clk_bitmask_;
 
   for (int p=0; p<image->getPixelPerSensorCount(); p++)
+  {
+    // read the current pixel analog value from each sensor
+    for (int s=0; s<image->getSensorCount(); s++)
     {
-      // read the current pixel analog value from each sensor
-      for (int s=0; s<image->getSensorCount(); s++)
-        {
-          image->setPixel(s, p, analogRead(analog_pins_[s]));
-        }
-
-      // clock out the next pixel from each sensor
-      // si_pin = 0, clk_pin = 1
-      // digitalWrite(clk_pin,HIGH);
-      clk_out_deref_ |= clk_bitmask_;
-      // si_pin = 0, clk_pin = 0
-      // digitalWrite(clk_pin,LOW);
-      clk_out_deref_ &= ~clk_bitmask_;
+      image->setPixel(s, p, analogRead(analog_pins_[s]));
     }
+
+    // clock out the next pixel from each sensor
+    // si_pin = 0, clk_pin = 1
+    // digitalWrite(clk_pin,HIGH);
+    clk_out_deref_ |= clk_bitmask_;
+    // si_pin = 0, clk_pin = 0
+    // digitalWrite(clk_pin,LOW);
+    clk_out_deref_ &= ~clk_bitmask_;
+  }
   // extra clock at the end
   // si_pin = 0, clk_pin = 1 */
   // digitalWrite(clk_pin,HIGH);

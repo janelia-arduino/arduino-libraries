@@ -111,9 +111,9 @@ int8_t BCSIII::setIO(uint8_t BNC, uint8_t IO, uint8_t type)
 
   // check for unsupported pin number
   for( i = 0; i < 16; i++ )
-    {
-      if( IO == pin_number[i]) break;
-    }
+  {
+    if( IO == pin_number[i]) break;
+  }
   if( i == 16  ) return BAD_PIN;
 
   // clear any previous settings for the chosen IO
@@ -128,39 +128,39 @@ int8_t BCSIII::setIO(uint8_t BNC, uint8_t IO, uint8_t type)
 
   // if it's an input, set the IO as input first so we don't fight BNC vs IO out
   if( type == ANALOG_IN )
+  {
+    if( (IO >= A8) && (IO <= A15) ) // only IOs 8-15 can be analog
     {
-      if( (IO >= A8) && (IO <= A15) ) // only IOs 8-15 can be analog
-        {
-          analogRead(IO);         // good one - set it - Analog inputs numbered same as IO pin names
-          IOpin[BNC] = IO;
-          IOtype[BNC]= type;     // and remember the new connection
-        }
-      else  // try to connect non-analog as analog
-        {
-          return BAD_ANALOG;
-        }
+      analogRead(IO);         // good one - set it - Analog inputs numbered same as IO pin names
+      IOpin[BNC] = IO;
+      IOtype[BNC]= type;     // and remember the new connection
     }
+    else  // try to connect non-analog as analog
+    {
+      return BAD_ANALOG;
+    }
+  }
   else if( type == INPUT )     // or if it's a digital in
-    {
-      pinMode( IO, INPUT);     // set it
-      IOpin[BNC] = IO;
-      IOtype[BNC] = type; // and remember the new connection
-    }
+  {
+    pinMode( IO, INPUT);     // set it
+    IOpin[BNC] = IO;
+    IOtype[BNC] = type; // and remember the new connection
+  }
   else if( type == INPUT_PULLUP )     // or if it's a digital in w/ pullup
-    {
-      pinMode( IO, INPUT_PULLUP);     // set it
-      IOpin[BNC] = IO;
-      IOtype[BNC] = type; // and remember the new connection
-    }
+  {
+    pinMode( IO, INPUT_PULLUP);     // set it
+    IOpin[BNC] = IO;
+    IOtype[BNC] = type; // and remember the new connection
+  }
   else if( (type == OUTPUT) || (type == NO_CONNECT) )
-    {
-      IOpin[BNC] = IO;
-      IOtype[BNC] = type; // and remember the new connection
-    }
+  {
+    IOpin[BNC] = IO;
+    IOtype[BNC] = type; // and remember the new connection
+  }
   else // not a known IO type
-    {
-      return BAD_TYPE;
-    }
+  {
+    return BAD_TYPE;
+  }
 
 
   UpdateIOs(); // and update the physical connections
@@ -189,9 +189,9 @@ void BCSIII::SPIselect(uint8_t chip)
   digitalWrite(MUX_CS_PIN, HIGH);
 
   if( chip != NO_CS)
-    {
-      digitalWrite(chip, LOW);
-    }
+  {
+    digitalWrite(chip, LOW);
+  }
 }
 
 
@@ -230,55 +230,55 @@ void BCSIII::UpdateIOs(void)
 
   for( int8_t bnc = 0; bnc < 16; bnc++) // walk through BNC array- low to high -
     // - should be high to low but then BNCs are all backwards - fix that in SW
+  {
+
+    // figure which IO channel this is
+    for( pindex = 0; pindex < 16; pindex++ )
     {
+      if( pin_number[pindex] == IOpin[bnc]) break;
+    }
 
-      // figure which IO channel this is
-      for( pindex = 0; pindex < 16; pindex++ )
-        {
-          if( pin_number[pindex] == IOpin[bnc]) break;
+    // only set a channel if it has a direction (not a NC)
+    if( IOtype[bnc] == NO_CONNECT )
+      muxbit = 0;
+    else
+      muxbit = 1 << pindex; //put a connection '1' in right spot
+
+    SPI.transfer( muxbit >> 8);    // do this BNC
+    SPI.transfer( muxbit & 0xff);
+
+    //Serial.println(muxbit, HEX);
+
+    if( pindex < 16 ) // we have a real channel
+    {
+      // and while we are here, set the dir and enable lines
+      if( pindex < 8 ) // lower 8 IOs are only digital so no enables
+      {
+        if( IOtype[bnc] == OUTPUT ) // if output
+          dirL |= (1 << pindex); // an output needs a '1' in right spot
+      }
+      else  // higher 8 - have dir and enable , intermixed
+      {   // get bit position of enable
+        shift = pindex - 8; // 8-15 -> 0-7
+        shift += shift;     // 0-7 -> 0-14
+
+        if( IOtype[bnc] == OUTPUT ) // if output
+        {  // set direction to '1'
+          dirH |= (1 << (shift+1) ); // dir is one above enable (1-15)
         }
 
-      // only set a channel if it has a direction (not a NC)
-      if( IOtype[bnc] == NO_CONNECT )
-        muxbit = 0;
-      else
-        muxbit = 1 << pindex; //put a connection '1' in right spot
-
-      SPI.transfer( muxbit >> 8);    // do this BNC
-      SPI.transfer( muxbit & 0xff);
-
-      //Serial.println(muxbit, HEX);
-
-      if( pindex < 16 ) // we have a real channel
+        if( IOtype[bnc] == ANALOG_IN ) // if analog, disable digital
         {
-          // and while we are here, set the dir and enable lines
-          if( pindex < 8 ) // lower 8 IOs are only digital so no enables
-            {
-              if( IOtype[bnc] == OUTPUT ) // if output
-                dirL |= (1 << pindex); // an output needs a '1' in right spot
-            }
-          else  // higher 8 - have dir and enable , intermixed
-            {   // get bit position of enable
-              shift = pindex - 8; // 8-15 -> 0-7
-              shift += shift;     // 0-7 -> 0-14
-
-              if( IOtype[bnc] == OUTPUT ) // if output
-                {  // set direction to '1'
-                  dirH |= (1 << (shift+1) ); // dir is one above enable (1-15)
-                }
-
-              if( IOtype[bnc] == ANALOG_IN ) // if analog, disable digital
-                {
-                  dirH &= ~(1 << shift); // analog needs a '0' in the right spot
-                }
-              else
-                {
-                  dirH |= (1 << shift); // digital needs a '1' in right spot
-                }
-
-            } // endif low or high ports
+          dirH &= ~(1 << shift); // analog needs a '0' in the right spot
         }
-    } // next BNC
+        else
+        {
+          dirH |= (1 << shift); // digital needs a '1' in right spot
+        }
+
+      } // endif low or high ports
+    }
+  } // next BNC
 
   SPIselect(NO_CS);
 

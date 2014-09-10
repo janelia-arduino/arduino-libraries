@@ -135,9 +135,9 @@ void AD57X4R::setHeader(byte value, byte bit_shift, byte bit_count)
 {
   byte bit_mask = 0;
   for (byte bit=0; bit<bit_count; bit++)
-    {
-      bitSet(bit_mask,(bit+bit_shift));
-    }
+  {
+    bitSet(bit_mask,(bit+bit_shift));
+  }
   byte header = output_.header;
   header &= ~bit_mask;
   value = value << bit_shift;
@@ -174,7 +174,7 @@ void AD57X4R::setDACAddress(channels channel)
 {
   byte value;
   switch (channel)
-    {
+  {
     case A:
       value = DAC_ADDRESS_A;
       break;
@@ -190,7 +190,7 @@ void AD57X4R::setDACAddress(channels channel)
     case ALL:
       value = DAC_ADDRESS_ALL;
       break;
-    }
+  }
   setHeader(value,DAC_ADDRESS_BIT_SHIFT,DAC_ADDRESS_BIT_COUNT);
 }
 
@@ -212,13 +212,13 @@ void AD57X4R::setNOP()
 void AD57X4R::csEnable()
 {
   if (cs_invert_flag_ == false)
-    {
-      digitalWrite(cs_pin_,LOW);
-    }
+  {
+    digitalWrite(cs_pin_,LOW);
+  }
   else
-    {
-      digitalWrite(cs_pin_,HIGH);
-    }
+  {
+    digitalWrite(cs_pin_,HIGH);
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -229,13 +229,13 @@ void AD57X4R::csEnable()
 void AD57X4R::csDisable()
 {
   if (cs_invert_flag_ == false)
-    {
-      digitalWrite(cs_pin_,HIGH);
-    }
+  {
+    digitalWrite(cs_pin_,HIGH);
+  }
   else
-    {
-      digitalWrite(cs_pin_,LOW);
-    }
+  {
+    digitalWrite(cs_pin_,LOW);
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -256,21 +256,21 @@ void AD57X4R::sendOutput()
   // Create and send command bytes
   out_byte_header = output_.header;
   if (unipolar_)
-    {
-      unsigned int data;
-      data = output_.data.unipolar;
-      output_.data.unipolar = 0;
-      out_byte_data_high = highByte(data);
-      out_byte_data_low = lowByte(data);
-    }
+  {
+    unsigned int data;
+    data = output_.data.unipolar;
+    output_.data.unipolar = 0;
+    out_byte_data_high = highByte(data);
+    out_byte_data_low = lowByte(data);
+  }
   else
-    {
-      int data;
-      data = output_.data.bipolar;
-      output_.data.bipolar = 0;
-      out_byte_data_high = highByte(data);
-      out_byte_data_low = lowByte(data);
-    }
+  {
+    int data;
+    data = output_.data.bipolar;
+    output_.data.bipolar = 0;
+    out_byte_data_high = highByte(data);
+    out_byte_data_low = lowByte(data);
+  }
   return_byte = SPI.transfer(out_byte_header);
   return_byte = SPI.transfer(out_byte_data_high);
   return_byte = SPI.transfer(out_byte_data_low);
@@ -330,7 +330,7 @@ int AD57X4R::readInput()
 void AD57X4R::setData(unsigned int value)
 {
   switch (resolution_)
-    {
+  {
     case AD5754R:
       output_.data.unipolar = value;
       break;
@@ -340,7 +340,7 @@ void AD57X4R::setData(unsigned int value)
     case AD5724R:
       output_.data.unipolar = value << 4;
       break;
-    }
+  }
 }
 
 // ----------------------------------------------------------------------------
@@ -363,7 +363,7 @@ void AD57X4R::setOutputRange(output_ranges output_range, channels channel)
   setRegisterSelect(REGISTER_SELECT_OUTPUT_RANGE_SELECT);
   setDACAddress(channel);
   switch (output_range)
-    {
+  {
     case UNIPOLAR_5V:
       unipolar_ = true;
       output_.data.unipolar = 0b000;
@@ -380,7 +380,7 @@ void AD57X4R::setOutputRange(output_ranges output_range, channels channel)
       unipolar_ = false;
       output_.data.bipolar = 0b101;
       break;
-    }
+  }
   sendOutput();
 }
 
@@ -400,7 +400,7 @@ void AD57X4R::setPowerControlRegister(channels channel)
   output_.data.unipolar = 0b10000;
   // power up DACs
   switch (channel)
-    {
+  {
     case A:
       output_.data.unipolar |= 0b0001;
       break;
@@ -416,7 +416,7 @@ void AD57X4R::setPowerControlRegister(channels channel)
     case ALL:
       output_.data.unipolar |= 0b1111;
       break;
-    }
+  }
   sendOutput();
   unipolar_ = unipolar_previous;
 }
@@ -445,13 +445,13 @@ int AD57X4R::readPowerControlRegister()
 void AD57X4R::analogWrite(channels channel, unsigned int value)
 {
   if (unipolar_)
-    {
-      setReadWrite(WRITE);
-      setRegisterSelect(REGISTER_SELECT_DAC);
-      setDACAddress(channel);
-      setData(value);
-      sendOutput();
-    }
+  {
+    setReadWrite(WRITE);
+    setRegisterSelect(REGISTER_SELECT_DAC);
+    setDACAddress(channel);
+    setData(value);
+    sendOutput();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -473,7 +473,7 @@ void AD57X4R::analogWrite(int pin, unsigned int value)
   channels channel;
   // Unnecessary and way too much code, but very explicit
   switch (pin)
-    {
+  {
     case 0:
       channel = A;
       break;
@@ -486,7 +486,7 @@ void AD57X4R::analogWrite(int pin, unsigned int value)
     case 3:
       channel = D;
       break;
-    }
+  }
   analogWrite(channel, value);
 }
 
@@ -500,7 +500,7 @@ void AD57X4R::analogWrite(int pin, int value)
   channels channel;
   // Unnecessary and way too much code, but very explicit
   switch (pin)
-    {
+  {
     case 0:
       channel = A;
       break;
@@ -513,7 +513,7 @@ void AD57X4R::analogWrite(int pin, int value)
     case 3:
       channel = D;
       break;
-    }
+  }
   analogWrite(channel, value);
 }
 
@@ -525,7 +525,7 @@ void AD57X4R::analogWrite(int pin, int value)
 unsigned int AD57X4R::getMaxDacValue()
 {
   switch (resolution_)
-    {
+  {
     case AD5724R:
       return 4095;
       break;
@@ -535,7 +535,7 @@ unsigned int AD57X4R::getMaxDacValue()
     case AD5754R:
       return 65535;
       break;
-    }
+  }
 }
 
 // ----------------------------------------------------------------------------

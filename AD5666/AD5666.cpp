@@ -62,13 +62,13 @@ void AD5666::init(bool standalone_mode, bool ref_off, bool spi_reset)
   int s_bit = 0;
   int r_bit = 0;
   if (!standalone_mode)
-    {
-      s_bit = 1;
-    }
+  {
+    s_bit = 1;
+  }
   if (!ref_off)
-    {
-      r_bit = 1;
-    }
+  {
+    r_bit = 1;
+  }
   // Setup DAC REF register
   digitalWrite(cs_pin_, LOW);
   SPI.transfer(CMD_SET_UP_DCEN_REF_REG);
@@ -91,13 +91,13 @@ void AD5666::init(bool standalone_mode, bool ref_off, bool spi_reset)
 void AD5666::analogWrite(channels channel, uint16_t value)
 {
   if (spi_reset_)
-    {
-      spiBegin();
-    }
+  {
+    spiBegin();
+  }
   // value = 16 bit output value
   int dac;
   switch (channel)
-    {
+  {
     case A:
       dac = DAC_ADDRESS_A;
       break;
@@ -113,7 +113,7 @@ void AD5666::analogWrite(channels channel, uint16_t value)
     case ALL:
       dac = DAC_ADDRESS_ALL;
       break;
-    }
+  }
   digitalWrite(cs_pin_, LOW);
   SPI.transfer(CMD_WRITE_N_UPDATE_N);
   SPI.transfer(((dac & 0x0f)<<4) | ((value & 0xf000)>>12));

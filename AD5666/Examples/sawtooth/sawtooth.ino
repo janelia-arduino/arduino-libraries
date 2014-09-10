@@ -28,13 +28,13 @@ void loop()
 {
   Serial << "value = " << _DEC(value) << endl;
   if (value <= value_max)
-    {
-      value += value_inc;
-    }
+  {
+    value += value_inc;
+  }
   else
-    {
-      value = value_min;
-    }
+  {
+    value = value_min;
+  }
   dac.analogWrite(AD5666::ALL,value);
   delay(LOOP_DELAY);
 }

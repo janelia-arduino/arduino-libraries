@@ -20,7 +20,9 @@ LinearSensorArrayImage::LinearSensorArrayImage(int sensor_count, int pixel_per_s
   // Set up data sizes. (sensor_count x pixel_per_sensor_count)
   data_.resize(sensor_count_);
   for (int s = 0; s < sensor_count_; ++s)
+  {
     data_[s].resize(pixel_per_sensor_count_);
+  }
 }
 
 //---------- public ----------------------------------------------------
@@ -33,14 +35,14 @@ int LinearSensorArrayImage::getPixel(int sensor, int pixel)
 bool LinearSensorArrayImage::setPixel(int sensor, int pixel, int value)
 {
   if ((sensor < sensor_count_) && (pixel < pixel_per_sensor_count_))
-    {
-      data_[sensor][pixel] = value;
-      return true;
-    }
+  {
+    data_[sensor][pixel] = value;
+    return true;
+  }
   else
-    {
-      return false;
-    }
+  {
+    return false;
+  }
 }
 
 int LinearSensorArrayImage::getSensorCount()

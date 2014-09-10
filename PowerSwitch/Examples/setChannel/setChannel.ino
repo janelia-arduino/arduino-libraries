@@ -32,26 +32,24 @@ void setup()
 void loop()
 {
   for (int channel = 0; channel < channel_count; channel++)
-    {
+  {
     if (channel%2 == 0)
-      {
-        power_switch.setChannelOn(channel);
-        Serial << "set channel " << channel << " on" << endl;
-      }
+    {
+      power_switch.setChannelOn(channel);
+      Serial << "set channel " << channel << " on" << endl;
+    }
     else
+    {
+      if (channel > 0)
       {
-        if (channel > 0)
-          {
-            power_switch.setChannelOff(channel-1);
-            Serial << "set channel " << (channel-1) << " off" << endl;
-          }
-        power_switch.setChannelOn(channel);
-        Serial << "set channel " << (channel) << " on" << endl;
+        power_switch.setChannelOff(channel-1);
+        Serial << "set channel " << (channel-1) << " off" << endl;
       }
+      power_switch.setChannelOn(channel);
+      Serial << "set channel " << (channel) << " on" << endl;
+    }
     delay(LOOP_DELAY);
   }
   // Set all channels to off
   power_switch.setChannels(0);
 }
-
-

@@ -30,9 +30,9 @@ void loop()
 {
   value += value_inc;
   if (value > dac.getMaxDacValue())
-    {
-      value = 0;
-    }
+  {
+    value = 0;
+  }
   Serial << "value = " << _DEC(value) << endl;
   dac.analogWrite(AD57X4R::ALL,value);
   delay(LOOP_DELAY);

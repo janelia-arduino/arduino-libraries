@@ -32,11 +32,11 @@ void loop()
 {
   linear_sensor_array.getImage(&image);
   for (int s=0; s<image.getSensorCount(); s++)
+  {
+    for (int p=0; p<image.getPixelPerSensorCount(); p++)
     {
-      for (int p=0; p<image.getPixelPerSensorCount(); p++)
-        {
-          Serial << image.getPixel(s,p) << ",";
-        }
+      Serial << image.getPixel(s,p) << ",";
     }
+  }
   Serial << endl;
 }

@@ -32,7 +32,7 @@ ADC_AD7328::ADC_AD7328(uint8_t cs_pin) :
 void ADC_AD7328::setRange( uint8_t ch, uint8_t range)
 {
   switch (ch)
-    {
+  {
     case 0:
       range_l_ = range_l_ & CH0_MASK;
       range_l_ |= range << 11;
@@ -66,22 +66,22 @@ void ADC_AD7328::setRange( uint8_t ch, uint8_t range)
       range_h_ |= range << 5;
       break;
 
-    }
+  }
 
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
     SPI.setDataMode(SPI_MODE2);  // set proper mode, clk idle hi, edeg = 0 => mode = 2
     digitalWrite(cs_pin_, LOW);
     if( ch < 4 )
-      {
-        SPI.transfer( range_l_ >> 8);
-        SPI.transfer( range_l_ & 0xff);
-      }
+    {
+      SPI.transfer( range_l_ >> 8);
+      SPI.transfer( range_l_ & 0xff);
+    }
     else
-      {
-        SPI.transfer( range_h_ >> 8);
-        SPI.transfer( range_h_ & 0xff);
-      }
+    {
+      SPI.transfer( range_h_ >> 8);
+      SPI.transfer( range_h_ & 0xff);
+    }
     digitalWrite(cs_pin_, HIGH);
 
   }
@@ -91,7 +91,7 @@ void ADC_AD7328::setRange( uint8_t ch, uint8_t range)
 uint8_t ADC_AD7328::getRange( uint8_t ch)
 {
   switch (ch)
-    {
+  {
     case 0:
       return(( range_l_ >> 11 ) & 0x03);
       break;
@@ -117,7 +117,7 @@ uint8_t ADC_AD7328::getRange( uint8_t ch)
       return(( range_h_ >>  5 ) & 0x03);
       break;
 
-    }
+  }
   return 0;
 }
 

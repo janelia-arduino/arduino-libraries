@@ -56,13 +56,13 @@ void PowerSwitch::init(int device_count, bool spi_reset)
 {
   spi_reset_ = spi_reset;
   if ((0 < device_count) && (device_count <= DEVICE_COUNT_MAX))
-    {
-      device_count_ = device_count;
-    }
+  {
+    device_count_ = device_count;
+  }
   else
-    {
-      device_count_ = DEVICE_COUNT_MIN;
-    }
+  {
+    device_count_ = DEVICE_COUNT_MIN;
+  }
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
     channels_ = 0;
@@ -75,9 +75,9 @@ void PowerSwitch::init(int device_count, bool spi_reset)
 void PowerSwitch::setChannels(uint32_t channels)
 {
   if (spi_reset_)
-    {
-      spiBegin();
-    }
+  {
+    spiBegin();
+  }
   digitalWrite(cs_pin_, LOW);
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
@@ -94,29 +94,29 @@ void PowerSwitch::setChannels(uint32_t channels)
 void PowerSwitch::setChannelOn(int channel)
 {
   if ((0 <= channel) && (channel < CHANNEL_COUNT_MAX))
+  {
+    uint32_t bit = 1;
+    bit = bit << channel;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
     {
-      uint32_t bit = 1;
-      bit = bit << channel;
-      ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-      {
-        channels_ = channels_ | bit;
-      }
-      setChannels(channels_);
+      channels_ = channels_ | bit;
     }
+    setChannels(channels_);
+  }
 }
 
 void PowerSwitch::setChannelOff(int channel)
 {
   if ((0 <= channel) && (channel < CHANNEL_COUNT_MAX))
+  {
+    uint32_t bit = 1;
+    bit = bit << channel;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
     {
-      uint32_t bit = 1;
-      bit = bit << channel;
-      ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
-      {
-        channels_ = channels_ & ~bit;
-      }
-      setChannels(channels_);
+      channels_ = channels_ & ~bit;
     }
+    setChannels(channels_);
+  }
 }
 
 uint32_t PowerSwitch::getChannelsOn()

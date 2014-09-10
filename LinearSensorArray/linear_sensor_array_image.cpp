@@ -2,7 +2,8 @@
 // LinearSensorArrayImage.cpp
 //
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 #include "LinearSensorArrayImage.h"
 

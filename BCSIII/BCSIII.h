@@ -3,7 +3,8 @@
 //
 // Setup and control code needed for the BCS III
 //
-// Author: SWS based on code by Peter Polidoro
+// Authors:
+// Steve Sawtelle sawtelles@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 
 #ifndef BCSIII_H_

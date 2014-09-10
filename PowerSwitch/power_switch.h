@@ -1,7 +1,8 @@
 // ----------------------------------------------------------------------------
 // power_switch.h
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 
 #ifndef POWER_SWITCH_H

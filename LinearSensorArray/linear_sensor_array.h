@@ -2,7 +2,8 @@
 // LinearSensorArray.h
 //
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 
 #ifndef LINEAR_SENSOR_ARRAY_H

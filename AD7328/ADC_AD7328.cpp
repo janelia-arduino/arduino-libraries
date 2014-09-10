@@ -1,10 +1,13 @@
 // ----------------------------------------------------------------------------
-// AD7328.h
+// ADC_AD7328.h
 //
-// Provides an SPI based interface to the
+// Provides an SPI based interface to the ADC_AD7328 eight channel
+// 12 bit plus sign ADC
 //
-// Author: Steve Sawtelle - based on TLE7232 by Peter Polidoro
-// -------------------------------------------------------------
+// Authors:
+// Steve Sawtelle sawtelles@janelia.hhmi.org
+// Peter Polidoro polidorop@janelia.hhmi.org
+// ----------------------------------------------------------------------------
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"

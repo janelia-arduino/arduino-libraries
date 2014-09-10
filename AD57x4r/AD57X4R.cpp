@@ -5,7 +5,8 @@
 // Complete, Quad, 12-/14-/16-Bit, Serial Input,
 // Unipolar/Bipolar Voltage Output DACs.
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"

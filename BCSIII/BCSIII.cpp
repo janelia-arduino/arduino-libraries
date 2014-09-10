@@ -5,7 +5,8 @@
 //  - IO setup
 //  - SPI control
 //
-// Author: Steve Sawtelle - based on code by Peter Polidoro
+// Authors:
+// Steve Sawtelle sawtelles@janelia.hhmi.org
 // -------------------------------------------------------------
 
 #if defined(ARDUINO) && ARDUINO >= 100

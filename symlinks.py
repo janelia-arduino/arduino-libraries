@@ -22,7 +22,9 @@ symlinks.py usage:
     python symlinks.py --install  # Creates or refreshes links to the libraries
     python symlinks.py --remove   # Removes links to the libraries
 
-Author: Will Dickson, modified by Peter Polidoro
+Authors:
+Will Dickson will@iorodeo.com
+Peter Polidoro polidorop@janelia.hhmi.org
 """
 import sys
 import os

@@ -2,7 +2,8 @@
 // LinearSensorArray.cpp
 //
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"

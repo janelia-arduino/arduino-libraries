@@ -4,7 +4,9 @@
 // Provides an SPI based interface to the ADC_AD7328 eight channel
 // 12 bit plus sign ADC
 //
-// Author: SWS based on code by Peter Polidoro
+// Authors:
+// Steve Sawtelle sawtelles@janelia.hhmi.org
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 
 #ifndef ADC_AD7328_H_

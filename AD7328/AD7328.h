@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
-// ADC_AD7328.h
+// AD7328.h
 //
-// Provides an SPI based interface to the ADC_AD7328 eight channel
+// Provides an SPI based interface to the AD7328 eight channel
 // 12 bit plus sign ADC
 //
 // Authors:
@@ -9,8 +9,8 @@
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 
-#ifndef ADC_AD7328_H_
-#define ADC_AD7328_H_
+#ifndef AD7328_H_
+#define AD7328_H_
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
@@ -20,10 +20,10 @@
 
 #include <util/atomic.h>
 
-class ADC_AD7328
+class AD7328
 {
 public:
-  ADC_AD7328(uint8_t cs_pin);
+  AD7328(uint8_t cs_pin);
   void setRange(uint8_t channel, uint8_t range);
   uint8_t getRange(uint8_t channel);
   uint16_t read(uint8_t channel);
@@ -57,4 +57,4 @@ private:
   uint16_t range_h_;
 };
 
-#endif // ADC_AD7328
+#endif // AD7328

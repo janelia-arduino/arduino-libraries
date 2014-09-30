@@ -1,7 +1,7 @@
 #include "Arduino.h"
 #include "SPI.h"
 #include "Streaming.h"
-#include "power_switch.h"
+#include "PowerSwitch.h"
 
 #define LOOP_DELAY 1000
 #define CS_PIN  49

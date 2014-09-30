@@ -1,7 +1,7 @@
 // ----------------------------------------------------------------------------
-// ADC_AD7328.h
+// AD7328.h
 //
-// Provides an SPI based interface to the ADC_AD7328 eight channel
+// Provides an SPI based interface to the AD7328 eight channel
 // 12 bit plus sign ADC
 //
 // Authors:
@@ -16,12 +16,12 @@
 #endif
 
 #include <SPI.h>
-#include "ADC_AD7328.h"
+#include "AD7328.h"
 
 
 //---------- constructor  ---------------------------------------
 
-ADC_AD7328::ADC_AD7328(uint8_t cs_pin) :
+AD7328::AD7328(uint8_t cs_pin) :
   cs_pin_(cs_pin)
 {
   pinMode(cs_pin_, OUTPUT);
@@ -32,7 +32,7 @@ ADC_AD7328::ADC_AD7328(uint8_t cs_pin) :
 
 
 //---------- public  ------------------------------------
-void ADC_AD7328::setRange( uint8_t ch, uint8_t range)
+void AD7328::setRange( uint8_t ch, uint8_t range)
 {
   switch (ch)
   {
@@ -91,7 +91,7 @@ void ADC_AD7328::setRange( uint8_t ch, uint8_t range)
 }
 
 
-uint8_t ADC_AD7328::getRange( uint8_t ch)
+uint8_t AD7328::getRange( uint8_t ch)
 {
   switch (ch)
   {
@@ -124,7 +124,7 @@ uint8_t ADC_AD7328::getRange( uint8_t ch)
   return 0;
 }
 
-uint16_t ADC_AD7328::read(uint8_t adc) //, uint8_t coding)
+uint16_t AD7328::read(uint8_t adc) //, uint8_t coding)
 {
   uint16_t adc_value;
   uint16_t setup;

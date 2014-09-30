@@ -82,7 +82,7 @@ def get_paths():
     dst_paths = []
     for item in dir_list:
         if os.path.isdir(item):
-            if item == '.hg':
+            if (item == '.hg') or (item == '.git'):
                 continue
             src = os.path.join(curdir,item)
             dst = os.path.join(LIBDIR,item)
@@ -95,10 +95,10 @@ def get_paths():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Arduino Libraries Symlinks')
     parser.add_argument('-i','--install',
-                        help='Install all of the Arduino libraries in this repository to the default sketcbook directory as a set of symbolic links.',
+                        help='Install all of the Arduino libraries in this repository to the default sketchbook directory as a set of symbolic links.',
                         action='store_true')
     parser.add_argument('-r','--remove',
-                        help='Remove all of the Arduino library symbolic links from the default sketcbook directory.',
+                        help='Remove all of the Arduino library symbolic links from the default sketchbook directory.',
                         action='store_true')
 
     if len(sys.argv)==1:

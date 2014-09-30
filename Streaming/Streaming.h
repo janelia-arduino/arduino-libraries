@@ -1,20 +1,20 @@
 /*
-  Streaming.h - Arduino library for supporting the << streaming operator
-  Copyright (c) 2010-2012 Mikal Hart.  All rights reserved.
+Streaming.h - Arduino library for supporting the << streaming operator
+Copyright (c) 2010-2012 Mikal Hart.  All rights reserved.
 
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
 
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
 
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 #ifndef ARDUINO_STREAMING
@@ -29,15 +29,15 @@
 #define STREAMING_LIBRARY_VERSION 5
 
 // Generic template
-template<class T>
-inline Print &operator <<(Print &stream, T arg)
+template<class T> 
+inline Print &operator <<(Print &stream, T arg) 
 { stream.print(arg); return stream; }
 
-struct _BASED
-{
-  long val;
+struct _BASED 
+{ 
+  long val; 
   int base;
-  _BASED(long v, int b): val(v), base(b)
+  _BASED(long v, int b): val(v), base(b) 
   {}
 };
 
@@ -45,14 +45,14 @@ struct _BASED
 
 struct _BYTE_CODE
 {
-  byte val;
-  _BYTE_CODE(byte v) : val(v)
-  {}
+	byte val;
+	_BYTE_CODE(byte v) : val(v)
+	{}
 };
 #define _BYTE(a)    _BYTE_CODE(a)
 
 inline Print &operator <<(Print &obj, const _BYTE_CODE &arg)
-{ obj.write(arg.val); return obj; }
+{ obj.write(arg.val); return obj; } 
 
 #else
 
@@ -66,12 +66,12 @@ inline Print &operator <<(Print &obj, const _BYTE_CODE &arg)
 #define _BIN(a)     _BASED(a, BIN)
 
 // Specialization for class _BASED
-// Thanks to Arduino forum user Ben Combee who suggested this
+// Thanks to Arduino forum user Ben Combee who suggested this 
 // clever technique to allow for expressions like
 //   Serial << _HEX(a);
 
 inline Print &operator <<(Print &obj, const _BASED &arg)
-{ obj.print(arg.val, arg.base); return obj; }
+{ obj.print(arg.val, arg.base); return obj; } 
 
 #if ARDUINO >= 18
 // Specialization for class _FLOAT
@@ -99,7 +99,7 @@ inline Print &operator <<(Print &obj, const _FLOAT &arg)
 
 enum _EndLineCode { endl };
 
-inline Print &operator <<(Print &obj, _EndLineCode arg)
+inline Print &operator <<(Print &obj, _EndLineCode arg) 
 { obj.println(); return obj; }
 
 #endif

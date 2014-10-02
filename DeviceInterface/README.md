@@ -1,6 +1,0 @@
-DeviceInterface
----------------
-
-
-Author: Peter Polidoro
-

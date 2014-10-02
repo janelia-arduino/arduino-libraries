@@ -5,18 +5,6 @@ Creates a set of symbolic links in the default sketchbook directory for
 all Arduino libraries in this repository. The purpose is to make it easy to
 install a set of Arduino libraries.
 
-
-Python Installation
-
-Python should already be installed on linux or mac.
-
-Mac python installation instructions:
-http://www.lowindata.com/2013/installing-scientific-python-on-mac-os-x/
-
-Windows python installation instructions:
-https://code.google.com/p/pythonxy/wiki/Downloads?tm=2
-
-
 symlinks.py usage:
 
     python symlinks.py --install  # Creates or refreshes links to the libraries
@@ -41,7 +29,7 @@ elif platform.system() == 'Windows':
 
 def create_symlinks():
 
-    # Create library dircetory if it doesn't exist
+    # Create library directory if it doesn't exist
     if not os.path.isdir(LIBDIR):
         print('libraries directory does not exist - creating')
         os.makedirs(LIBDIR)

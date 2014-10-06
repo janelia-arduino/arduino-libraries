@@ -4,3 +4,6 @@
 [submodule "DeviceInterface"]
 	path = DeviceInterface
 	url = https://github.com/JaneliaSciComp/arduino_device_interface.git
+[submodule "StandardCplusplus"]
+	path = StandardCplusplus
+	url = https://github.com/maniacbug/StandardCplusplus.git

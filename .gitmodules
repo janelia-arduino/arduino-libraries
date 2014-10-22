@@ -10,3 +10,6 @@
 [submodule "MemoryFree"]
 	path = MemoryFree
 	url = https://github.com/maniacbug/MemoryFree
+[submodule "Flash"]
+	path = Flash
+	url = https://github.com/mikalhart/Flash.git

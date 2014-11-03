@@ -13,6 +13,7 @@ Author: Peter Polidoro
 ##Serial Connection
 
 pixel\_per\_sensor\_count = 768
+
 sensor\_count = 1
 
 Connect SO1 to SI2.
@@ -38,6 +39,7 @@ SO2 not connected.
 ##Parallel Connection
 
 pixel\_per\_sensor\_count = 384
+
 sensor\_count = 2
 
 SO1 not connected.

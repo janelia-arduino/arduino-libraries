@@ -19,8 +19,8 @@ Connect SO1 to SI2.
 
 SO2 not connected.
 
-| TSL1406RS |       | Arduino |       |
-|-----------+-------+---------+-------|
+| TSL1406RS | Description | Arduino | Description |
+|----------:|:------|--------:|:------|
 |         1 | Vpp   | GND     | GND   |
 |         2 | SI1   | 2       | SI    |
 |         3 | HOLD1 | 2       | SI    |
@@ -44,8 +44,8 @@ SO1 not connected.
 
 SO2 not connected.
 
-| TSL1406RS |       | Arduino |       |
-|-----------+-------+---------+-------|
+| TSL1406RS | Description | Arduino | Description |
+|----------:|:------|--------:|:------|
 |         1 | Vpp   |     GND | GND   |
 |         2 | SI1   |       2 | SI    |
 |         3 | HOLD1 |       2 | SI    |

@@ -8,7 +8,7 @@ Notes:
 Author: Peter Polidoro
 
 
-#Example Wiring of One TSL1406RS
+#Example Wiring of a Single TSL1406RS
 
 ##Serial Connection
 

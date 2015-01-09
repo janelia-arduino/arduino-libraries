@@ -43,7 +43,7 @@
 // or shift register circuit which emulates a quadrature encoder
 //  case 1: both pins are interrupts
 //  case 2: only first pin used as interrupt
-Encoder myEnc(5, 6);
+Encoder myEnc(3,2);
 
 // Connect a DC voltmeter to this pin.
 const int outputPin = 12;
@@ -86,7 +86,8 @@ const int outputPin = 12;
 */
 
 
-void setup() {
+void setup()
+{
   pinMode(outputPin, OUTPUT);
 }
 
@@ -96,12 +97,14 @@ void setup() {
 #define REGTYPE unsigned long
 #endif
 
-void loop() {
+void loop()
+{
   volatile int count = 0;
   volatile REGTYPE *reg = portOutputRegister(digitalPinToPort(outputPin));
   REGTYPE mask = digitalPinToBitMask(outputPin);
 
-  while (1) {
+  while (1)
+  {
     myEnc.read();	// Read the encoder while interrupts are enabled.
     noInterrupts();
     *reg |= mask;	// Pulse the pin high, while interrupts are disabled.

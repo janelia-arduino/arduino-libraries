@@ -23,19 +23,22 @@
 // Change these two numbers to the pins connected to your encoder.
 //   With ENCODER_DO_NOT_USE_INTERRUPTS, no interrupts are ever
 //   used, even if the pin has interrupt capability
-Encoder myEnc(5, 6);
+Encoder myEnc(3,2);
 //   avoid using pins with LEDs attached
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
   Serial.println("Basic NoInterrupts Test:");
 }
 
 long position  = -999;
 
-void loop() {
+void loop()
+{
   long newPos = myEnc.read();
-  if (newPos != position) {
+  if (newPos != position)
+  {
     position = newPos;
     Serial.println(position);
   }

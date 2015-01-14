@@ -17,7 +17,7 @@ public:
   PowerSwitch(int cs_pin, int in_pin);
 
   void spiBegin();
-  void init(int device_count=1, bool spi_reset=false);
+  void init(int ic_count=1, bool spi_reset=false);
   void setChannels(uint32_t channels);
   void setChannelOn(int channel);
   void setChannelOff(int channel);
@@ -26,10 +26,10 @@ public:
 
 private:
   // Private Constants
-  const static int DEVICE_COUNT_MIN = 1;
-  const static int DEVICE_COUNT_MAX = 4;
+  const static int IC_COUNT_MIN = 1;
+  const static int IC_COUNT_MAX = 4;
 
-  const static int CHANNEL_COUNT_PER_DEVICE = 8;
+  const static int CHANNEL_COUNT_PER_IC = 8;
   const static int CHANNEL_COUNT_MAX = 32;
 
   const static byte CMD_DIAGNOSIS = 0b11<<6;
@@ -49,7 +49,7 @@ private:
   int in_pin_;
   bool initialized_;
   uint32_t channels_;
-  int device_count_;
+  int ic_count_;
   bool spi_reset_;
 };
 

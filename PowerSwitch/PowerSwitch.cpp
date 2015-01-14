@@ -11,7 +11,7 @@
 #include "WProgram.h"
 #endif
 #include "SPI.h"
-#include "power_switch.h"
+#include "PowerSwitch.h"
 
 //---------- constructor ----------------------------------------------------
 
@@ -53,16 +53,16 @@ void PowerSwitch::spiBegin()
   SPI.begin();
 }
 
-void PowerSwitch::init(int device_count, bool spi_reset)
+void PowerSwitch::init(int ic_count, bool spi_reset)
 {
   spi_reset_ = spi_reset;
-  if ((0 < device_count) && (device_count <= DEVICE_COUNT_MAX))
+  if ((0 < ic_count) && (ic_count <= IC_COUNT_MAX))
   {
-    device_count_ = device_count;
+    ic_count_ = ic_count;
   }
   else
   {
-    device_count_ = DEVICE_COUNT_MIN;
+    ic_count_ = IC_COUNT_MIN;
   }
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
@@ -83,9 +83,9 @@ void PowerSwitch::setChannels(uint32_t channels)
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
     channels_ = channels;
-    for (int device = (device_count_ - 1); 0 <= device; device--) {
+    for (int ic = (ic_count_ - 1); 0 <= ic; ic--) {
       SPI.transfer(CMD_WRITE + ADDR_CTL);
-      SPI.transfer(channels_>>(device*8));
+      SPI.transfer(channels_>>(ic*8));
     }
   }
   digitalWrite(cs_pin_, HIGH);
@@ -127,7 +127,7 @@ uint32_t PowerSwitch::getChannelsOn()
 
 int PowerSwitch::getChannelCount()
 {
-  return device_count_*CHANNEL_COUNT_PER_DEVICE;
+  return ic_count_*CHANNEL_COUNT_PER_IC;
 }
 
 //------------------ private -----------------------------------------------

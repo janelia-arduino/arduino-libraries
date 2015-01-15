@@ -112,6 +112,25 @@ void PowerSwitch::setChannelOff(int channel)
   }
 }
 
+void PowerSwitch::setAllChannelsOn()
+{
+  uint32_t bit = 1;
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    channels_ = (bit << getChannelCount()) - 1;
+  }
+  setChannels(channels_);
+}
+
+void PowerSwitch::setAllChannelsOff()
+{
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    channels_ = 0;
+  }
+  setChannels(channels_);
+}
+
 uint32_t PowerSwitch::getChannelsOn()
 {
   return channels_;

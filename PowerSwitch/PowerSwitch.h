@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// power_switch.h
+// PowerSwitch.h
 //
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
@@ -16,7 +16,6 @@ public:
   PowerSwitch(int cs_pin);
   PowerSwitch(int cs_pin, int in_pin);
 
-  void spiBegin();
   void init(int ic_count=1, bool spi_reset=false);
   void setChannels(uint32_t channels);
   void setChannelOn(int channel);
@@ -25,6 +24,7 @@ public:
   int getChannelCount();
 
 private:
+  void spiBegin();
   // Private Constants
   const static int IC_COUNT_MIN = 1;
   const static int IC_COUNT_MAX = 4;

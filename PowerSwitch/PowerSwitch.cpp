@@ -1,5 +1,5 @@
 // ----------------------------------------------------------------------------
-// power_switch.cpp
+// PowerSwitch.cpp
 //
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
@@ -44,14 +44,6 @@ PowerSwitch::PowerSwitch(int cs_pin, int in_pin) :
 
 //---------- public ----------------------------------------------------
 
-
-void PowerSwitch::spiBegin()
-{
-  SPI.setDataMode(SPI_MODE1);
-  SPI.setClockDivider(SPI_CLOCK_DIV4);
-  SPI.setBitOrder(MSBFIRST);
-  SPI.begin();
-}
 
 void PowerSwitch::init(int ic_count, bool spi_reset)
 {
@@ -131,3 +123,11 @@ int PowerSwitch::getChannelCount()
 }
 
 //------------------ private -----------------------------------------------
+void PowerSwitch::spiBegin()
+{
+  SPI.setDataMode(SPI_MODE1);
+  SPI.setClockDivider(SPI_CLOCK_DIV4);
+  SPI.setBitOrder(MSBFIRST);
+  SPI.begin();
+}
+

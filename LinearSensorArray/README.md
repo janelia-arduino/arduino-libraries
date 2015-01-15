@@ -1,5 +1,13 @@
 LinearSensorArray
------------------
+=================
+
+Authors:
+
+    Peter Polidoro <polidorop@janelia.hhmi.org>
+
+License:
+
+    BSD
 
 AMS-TAOS linear sensor array driver for TSL family e.g. TSL1406RS
 

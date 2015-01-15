@@ -42,7 +42,6 @@ void setup()
   Serial.begin(BAUDRATE);
   Serial.println("* System ready *");
 
-  Serial3.begin(display.getBaudrate());
   display.init();
 }
 

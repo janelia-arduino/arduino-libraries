@@ -7,32 +7,28 @@
 // ----------------------------------------------------------------------------
 #include "NewhavenDisplay.h"
 
-NewhavenDisplay::NewhavenDisplay(Stream &stream) :
+NewhavenDisplay::NewhavenDisplay(HardwareSerial &serial) :
   row_count_(ROW_COUNT_DEFAULT),
   col_count_(COL_COUNT_DEFAULT)
 {
-  setStream(stream);
+  setSerial(serial);
 }
 
-NewhavenDisplay::NewhavenDisplay(Stream &stream, int row_count, int col_count)
+NewhavenDisplay::NewhavenDisplay(HardwareSerial &serial, int row_count, int col_count)
 {
-  setStream(stream);
+  setSerial(serial);
   row_count_ = row_count;
   col_count_ = col_count;
 }
 
-void NewhavenDisplay::setStream(Stream &stream)
+void NewhavenDisplay::setSerial(HardwareSerial &serial)
 {
-  stream_ptr_ = &stream;
-}
-
-int NewhavenDisplay::getBaudrate()
-{
-  return BAUDRATE;
+  serial_ptr_ = &serial;
 }
 
 void NewhavenDisplay::init()
 {
+  serial_ptr_->begin(BAUDRATE);
   setBrightness(BRIGHTNESS_PERCENT_DEFAULT);
   setContrast(CONTRAST_PERCENT_DEFAULT);
   clearScreen();
@@ -43,59 +39,59 @@ void NewhavenDisplay::init()
 
 void NewhavenDisplay::print(const String &s)
 {
-  stream_ptr_->print(s);
+  serial_ptr_->print(s);
 }
 
 void NewhavenDisplay::print(const char str[])
 {
-  stream_ptr_->print(str);
+  serial_ptr_->print(str);
 }
 
 void NewhavenDisplay::print(char c)
 {
-  stream_ptr_->print(c);
+  serial_ptr_->print(c);
 }
 
 void NewhavenDisplay::printPadLeft(const String &s, int total_length)
 {
   String string = s;
   stringPadLeft(string,total_length);
-  stream_ptr_->print(string);
+  serial_ptr_->print(string);
 }
 
 void NewhavenDisplay::printPadLeft(const char str[], int total_length)
 {
   String string = String(str);
   stringPadLeft(string,total_length);
-  stream_ptr_->print(string);
+  serial_ptr_->print(string);
 }
 
 void NewhavenDisplay::printPadLeft(char c, int total_length)
 {
   String string = String(c);
   stringPadLeft(string,total_length);
-  stream_ptr_->print(string);
+  serial_ptr_->print(string);
 }
 
 void NewhavenDisplay::printPadRight(const String &s, int total_length)
 {
   String string = s;
   stringPadRight(string,total_length);
-  stream_ptr_->print(string);
+  serial_ptr_->print(string);
 }
 
 void NewhavenDisplay::printPadRight(const char str[], int total_length)
 {
   String string = String(str);
   stringPadRight(string,total_length);
-  stream_ptr_->print(string);
+  serial_ptr_->print(string);
 }
 
 void NewhavenDisplay::printPadRight(char c, int total_length)
 {
   String string = String(c);
   stringPadRight(string,total_length);
-  stream_ptr_->print(string);
+  serial_ptr_->print(string);
 }
 
 void NewhavenDisplay::displayOn()
@@ -133,7 +129,7 @@ void NewhavenDisplay::setCursor(int row, int col)
   }
   pos += col;
   sendCmd(0x45);
-  stream_ptr_->write(pos);
+  serial_ptr_->write(pos);
 }
 
 void NewhavenDisplay::homeCursor()
@@ -197,7 +193,7 @@ void NewhavenDisplay::setContrast(int percent)
                          CONTRAST_MIN,
                          CONTRAST_MAX);
   sendCmd(0x52);
-  stream_ptr_->write(contrast);
+  serial_ptr_->write(contrast);
 }
 
 void NewhavenDisplay::setBrightness(int percent)
@@ -216,7 +212,7 @@ void NewhavenDisplay::setBrightness(int percent)
                            BRIGHTNESS_MIN,
                            BRIGHTNESS_MAX);
   sendCmd(0x53);
-  stream_ptr_->write(brightness);
+  serial_ptr_->write(brightness);
 }
 
 void NewhavenDisplay::moveDisplayLeft()
@@ -241,9 +237,9 @@ void NewhavenDisplay::displayRs232Rate()
 
 void NewhavenDisplay::sendCmd(int cmd)
 {
-  // stream_ptr_->flush();
-  stream_ptr_->write(0xFE);
-  stream_ptr_->write(cmd);
+  // serial_ptr_->flush();
+  serial_ptr_->write(0xFE);
+  serial_ptr_->write(cmd);
 }
 
 void NewhavenDisplay::stringPadLeft(String &str, int length_total)

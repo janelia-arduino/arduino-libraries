@@ -15,14 +15,14 @@
 #include "WProgram.h"
 #endif
 #include <Stream.h>
+#include <HardwareSerial.h>
 #include "Streaming.h"
 
 class NewhavenDisplay {
  public:
-  NewhavenDisplay(Stream &stream);
-  NewhavenDisplay(Stream &stream, int row_count, int col_count);
-  void setStream(Stream &stream);
-  int getBaudrate();
+  NewhavenDisplay(HardwareSerial &serial);
+  NewhavenDisplay(HardwareSerial &serial, int row_count, int col_count);
+  void setSerial(HardwareSerial &serial);
   void init();
   void print(const String &);
   void print(const char[]);
@@ -53,7 +53,7 @@ class NewhavenDisplay {
   void displayRs232Rate();
 
  private:
-  Stream *stream_ptr_;
+  HardwareSerial *serial_ptr_;
   int row_count_;
   int col_count_;
   const static int ROW_COUNT_DEFAULT = 4;

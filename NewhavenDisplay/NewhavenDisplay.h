@@ -14,12 +14,15 @@
 #else
 #include "WProgram.h"
 #endif
+#include <Stream.h>
 #include "Streaming.h"
 
 class NewhavenDisplay {
  public:
-  NewhavenDisplay();
-  NewhavenDisplay(int rowCount, int colCount);
+  NewhavenDisplay(Stream &stream);
+  NewhavenDisplay(Stream &stream, int row_count, int col_count);
+  void setStream(Stream &stream);
+  int getBaudrate();
   void init();
   void print(const String &);
   void print(const char[]);
@@ -32,7 +35,7 @@ class NewhavenDisplay {
   void printPadRight(char, int total_length);
   void displayOn();
   void displayOff();
-  void setCursor(int row,int col);
+  void setCursor(int row, int col);
   void homeCursor();
   void underlineCursorOn();
   void underlineCursorOff();
@@ -42,16 +45,28 @@ class NewhavenDisplay {
   void blinkingCursorOff();
   void backspace();
   void clearScreen();
-  void setContrast(int contrast);
-  void setBrightness(int brightness);
+  void setContrast(int percent);
+  void setBrightness(int percent);
   void moveDisplayLeft();
   void moveDisplayRight();
   void displayFirmwareVersion();
   void displayRs232Rate();
 
  private:
-  int rowCount;
-  int colCount;
+  Stream *stream_ptr_;
+  int row_count_;
+  int col_count_;
+  const static int ROW_COUNT_DEFAULT = 4;
+  const static int COL_COUNT_DEFAULT = 20;
+  const static int BAUDRATE = 9600;
+  const static int PERCENT_MIN = 0;
+  const static int PERCENT_MAX = 100;
+  const static int BRIGHTNESS_MIN = 1;
+  const static int BRIGHTNESS_MAX = 8;
+  const static int BRIGHTNESS_PERCENT_DEFAULT = 15;
+  const static int CONTRAST_MIN = 1;
+  const static int CONTRAST_MAX = 50;
+  const static int CONTRAST_PERCENT_DEFAULT = 80;
   void sendCmd(int cmd);
   void stringPadLeft(String &, int length_total);
   void stringPadRight(String &, int length_total);

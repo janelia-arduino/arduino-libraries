@@ -3,12 +3,14 @@
 #include "NewhavenDisplay.h"
 
 
-NewhavenDisplay display = NewhavenDisplay();
+NewhavenDisplay display = NewhavenDisplay(Serial3);
 char inputBuffer[128];
 uint8_t idx = 0;
 boolean inputComplete = false;
 char *argv[8];
 int arg1, arg2, arg3;
+
+const int BAUDRATE = 9600;
 
 void parse(char *line, char **argv, uint8_t maxArgs)
 {
@@ -37,9 +39,10 @@ void parse(char *line, char **argv, uint8_t maxArgs)
 void setup()
 {
   // PC communications
-  Serial.begin(9600);
+  Serial.begin(BAUDRATE);
   Serial.println("* System ready *");
 
+  Serial3.begin(display.getBaudrate());
   display.init();
 }
 
@@ -136,7 +139,7 @@ void loop() {
       }
       else
       {
-        Serial.println("setBrightness <BRIGHTNESS>, BRIGHTNESS = {1..8}");
+        Serial.println("setBrightness <PERCENT>, PERCENT = {0..100}");
       }
     }
     else if (strcmp(argv[0], "moveDisplayLeft") == 0)

@@ -13,3 +13,6 @@
 [submodule "Flash"]
 	path = Flash
 	url = https://github.com/mikalhart/Flash.git
+[submodule "StandaloneInterface"]
+	path = StandaloneInterface
+	url = git@github.com:JaneliaSciComp/arduino_standalone_interface.git

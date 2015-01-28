@@ -13,3 +13,6 @@
 [submodule "ArduinoJson"]
 	path = ArduinoJson
 	url = https://github.com/peterpolidoro/ArduinoJson.git
+[submodule "StandardCplusplus"]
+	path = StandardCplusplus
+	url = https://github.com/peterpolidoro/StandardCplusplus.git

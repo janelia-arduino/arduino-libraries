@@ -1,6 +1,3 @@
-[submodule "ArduinoJson"]
-	path = ArduinoJson
-	url = https://github.com/bblanchon/ArduinoJson.git
 [submodule "StandardCplusplus"]
 	path = StandardCplusplus
 	url = https://github.com/maniacbug/StandardCplusplus.git

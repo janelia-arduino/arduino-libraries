@@ -13,3 +13,6 @@
 [submodule "Flash"]
 	path = Flash
 	url = https://github.com/peterpolidoro/Flash.git
+[submodule "ArduinoJson"]
+	path = ArduinoJson
+	url = https://github.com/peterpolidoro/ArduinoJson.git

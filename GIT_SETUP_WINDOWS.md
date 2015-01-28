@@ -8,7 +8,8 @@ Git Setup Windows
 ##Install Git
 
 Select Options:
-Use Git from Bash only
-Use OpenSSH
-Checkout Windows-style, commit Unix-style line endings
+
+* Use Git from Bash only
+* Use OpenSSH
+* Checkout Windows-style, commit Unix-style line endings
 

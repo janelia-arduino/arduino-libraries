@@ -1,6 +1,3 @@
-[submodule "StandardCplusplus"]
-	path = StandardCplusplus
-	url = https://github.com/maniacbug/StandardCplusplus.git
 [submodule "MemoryFree"]
 	path = MemoryFree
 	url = https://github.com/maniacbug/MemoryFree

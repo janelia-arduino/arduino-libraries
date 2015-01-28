@@ -1,9 +1,6 @@
 [submodule "ArduinoJson"]
 	path = ArduinoJson
 	url = https://github.com/bblanchon/ArduinoJson.git
-[submodule "RemoteDevice"]
-	path = RemoteDevice
-	url = https://github.com/JaneliaSciComp/arduino_remote_device.git
 [submodule "StandardCplusplus"]
 	path = StandardCplusplus
 	url = https://github.com/maniacbug/StandardCplusplus.git

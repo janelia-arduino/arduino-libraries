@@ -1,6 +1,3 @@
-[submodule "MemoryFree"]
-	path = MemoryFree
-	url = https://github.com/maniacbug/MemoryFree
 [submodule "StandaloneInterface"]
 	path = StandaloneInterface
 	url = https://github.com/JaneliaSciComp/arduino_standalone_interface.git

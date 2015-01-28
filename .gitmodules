@@ -7,12 +7,12 @@
 [submodule "MemoryFree"]
 	path = MemoryFree
 	url = https://github.com/maniacbug/MemoryFree
-[submodule "Flash"]
-	path = Flash
-	url = https://github.com/mikalhart/Flash.git
 [submodule "StandaloneInterface"]
 	path = StandaloneInterface
 	url = https://github.com/JaneliaSciComp/arduino_standalone_interface.git
 [submodule "ModularDevice"]
 	path = ModularDevice
 	url = https://github.com/JaneliaSciComp/modular_device_arduino.git
+[submodule "Flash"]
+	path = Flash
+	url = https://github.com/peterpolidoro/Flash.git

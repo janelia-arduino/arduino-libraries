@@ -21,21 +21,22 @@
 class NewhavenDisplay {
  public:
   NewhavenDisplay(HardwareSerial &serial);
-  NewhavenDisplay(HardwareSerial &serial, int row_count, int col_count);
+  NewhavenDisplay(HardwareSerial &serial, const int row_count, const int col_count);
   void setSerial(HardwareSerial &serial);
   void init();
   void print(const String &);
   void print(const char[]);
-  void print(char);
-  void printPadLeft(const String &, int total_length);
-  void printPadLeft(const char[], int total_length);
-  void printPadLeft(char, int total_length);
-  void printPadRight(const String &, int total_length);
-  void printPadRight(const char[], int total_length);
-  void printPadRight(char, int total_length);
+  void print(const char);
+  void printPadLeft(const String &, const int total_length);
+  void printPadLeft(const char[], const int total_length);
+  void printPadLeft(const char, const int total_length);
+  void printPadRight(const String &, const int total_length);
+  void printPadRight(const char[], const int total_length);
+  void printPadRight(const char, const int total_length);
   void displayOn();
   void displayOff();
-  void setCursor(int row, int col);
+  void setCursor(const int row, const int col);
+  void setCursor(const int pos);
   void homeCursor();
   void underlineCursorOn();
   void underlineCursorOff();
@@ -45,17 +46,19 @@ class NewhavenDisplay {
   void blinkingCursorOff();
   void backspace();
   void clearScreen();
-  void setContrast(int percent);
-  void setBrightness(int percent);
+  void setContrast(const int percent);
+  void setBrightness(const int percent);
   void moveDisplayLeft();
   void moveDisplayRight();
   void displayFirmwareVersion();
   void displayRs232Rate();
+  int getRowCount();
+  int getColCount();
 
  private:
   HardwareSerial *serial_ptr_;
-  int row_count_;
-  int col_count_;
+  const int row_count_;
+  const int col_count_;
   const static int ROW_COUNT_DEFAULT = 4;
   const static int COL_COUNT_DEFAULT = 20;
   const static int BAUDRATE = 9600;
@@ -67,9 +70,9 @@ class NewhavenDisplay {
   const static int CONTRAST_MIN = 1;
   const static int CONTRAST_MAX = 50;
   const static int CONTRAST_PERCENT_DEFAULT = 80;
-  void sendCmd(int cmd);
-  void stringPadLeft(String &, int length_total);
-  void stringPadRight(String &, int length_total);
+  void sendCmd(const int cmd);
+  void stringPadLeft(String &, const int length_total);
+  void stringPadRight(String &, const int length_total);
 };
 
 

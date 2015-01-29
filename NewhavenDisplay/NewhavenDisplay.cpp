@@ -14,11 +14,11 @@ NewhavenDisplay::NewhavenDisplay(HardwareSerial &serial) :
   setSerial(serial);
 }
 
-NewhavenDisplay::NewhavenDisplay(HardwareSerial &serial, int row_count, int col_count)
+NewhavenDisplay::NewhavenDisplay(HardwareSerial &serial, const int row_count, const int col_count) :
+  row_count_(row_count),
+  col_count_(col_count)
 {
   setSerial(serial);
-  row_count_ = row_count;
-  col_count_ = col_count;
 }
 
 void NewhavenDisplay::setSerial(HardwareSerial &serial)
@@ -47,47 +47,47 @@ void NewhavenDisplay::print(const char str[])
   serial_ptr_->print(str);
 }
 
-void NewhavenDisplay::print(char c)
+void NewhavenDisplay::print(const char c)
 {
   serial_ptr_->print(c);
 }
 
-void NewhavenDisplay::printPadLeft(const String &s, int total_length)
+void NewhavenDisplay::printPadLeft(const String &s, const int total_length)
 {
   String string = s;
   stringPadLeft(string,total_length);
   serial_ptr_->print(string);
 }
 
-void NewhavenDisplay::printPadLeft(const char str[], int total_length)
+void NewhavenDisplay::printPadLeft(const char str[], const int total_length)
 {
   String string = String(str);
   stringPadLeft(string,total_length);
   serial_ptr_->print(string);
 }
 
-void NewhavenDisplay::printPadLeft(char c, int total_length)
+void NewhavenDisplay::printPadLeft(const char c, const int total_length)
 {
   String string = String(c);
   stringPadLeft(string,total_length);
   serial_ptr_->print(string);
 }
 
-void NewhavenDisplay::printPadRight(const String &s, int total_length)
+void NewhavenDisplay::printPadRight(const String &s, const int total_length)
 {
   String string = s;
   stringPadRight(string,total_length);
   serial_ptr_->print(string);
 }
 
-void NewhavenDisplay::printPadRight(const char str[], int total_length)
+void NewhavenDisplay::printPadRight(const char str[], const int total_length)
 {
   String string = String(str);
   stringPadRight(string,total_length);
   serial_ptr_->print(string);
 }
 
-void NewhavenDisplay::printPadRight(char c, int total_length)
+void NewhavenDisplay::printPadRight(char c, const int total_length)
 {
   String string = String(c);
   stringPadRight(string,total_length);
@@ -104,12 +104,12 @@ void NewhavenDisplay::displayOff()
   sendCmd(0x42);
 }
 
-void NewhavenDisplay::setCursor(int row, int col)
+void NewhavenDisplay::setCursor(const int row, const int col)
 {
-  row = row%row_count_;
-  col = col%col_count_;
+  int row_mod = row%row_count_;
+  int col_mod = col%col_count_;
   uint8_t pos;
-  switch (row)
+  switch (row_mod)
   {
     case 0:
       pos = 0;
@@ -127,9 +127,14 @@ void NewhavenDisplay::setCursor(int row, int col)
       pos = 0;
       break;
   }
-  pos += col;
+  pos += col_mod;
   sendCmd(0x45);
   serial_ptr_->write(pos);
+}
+
+void NewhavenDisplay::setCursor(const int pos)
+{
+  int row = 
 }
 
 void NewhavenDisplay::homeCursor()
@@ -177,17 +182,18 @@ void NewhavenDisplay::clearScreen()
   sendCmd(0x51);
 }
 
-void NewhavenDisplay::setContrast(int percent)
+void NewhavenDisplay::setContrast(const int percent)
 {
-  if (percent < PERCENT_MIN)
+  int percent_checked = percent;
+  if (percent_checked < PERCENT_MIN)
   {
-    percent = PERCENT_MIN;
+    percent_checked = PERCENT_MIN;
   }
-  else if (percent > PERCENT_MAX)
+  else if (percent_checked > PERCENT_MAX)
   {
-    percent = PERCENT_MAX;
+    percent_checked = PERCENT_MAX;
   }
-  uint8_t contrast = map(percent,
+  uint8_t contrast = map(percent_checked,
                          PERCENT_MIN,
                          PERCENT_MAX,
                          CONTRAST_MIN,
@@ -196,17 +202,18 @@ void NewhavenDisplay::setContrast(int percent)
   serial_ptr_->write(contrast);
 }
 
-void NewhavenDisplay::setBrightness(int percent)
+void NewhavenDisplay::setBrightness(const int percent)
 {
-  if (percent < PERCENT_MIN)
+  int percent_checked = percent;
+  if (percent_checked < PERCENT_MIN)
   {
-    percent = PERCENT_MIN;
+    percent_checked = PERCENT_MIN;
   }
-  else if (percent > PERCENT_MAX)
+  else if (percent_checked > PERCENT_MAX)
   {
-    percent = PERCENT_MAX;
+    percent_checked = PERCENT_MAX;
   }
-  uint8_t brightness = map(percent,
+  uint8_t brightness = map(percent_checked,
                            PERCENT_MIN,
                            PERCENT_MAX,
                            BRIGHTNESS_MIN,
@@ -235,14 +242,24 @@ void NewhavenDisplay::displayRs232Rate()
   sendCmd(0x71);
 }
 
-void NewhavenDisplay::sendCmd(int cmd)
+int NewhavenDisplay::getRowCount()
+{
+  return row_count_;
+}
+
+int NewhavenDisplay::getColCount()
+{
+  return col_count_;
+}
+
+void NewhavenDisplay::sendCmd(const int cmd)
 {
   // serial_ptr_->flush();
   serial_ptr_->write(0xFE);
   serial_ptr_->write(cmd);
 }
 
-void NewhavenDisplay::stringPadLeft(String &str, int length_total)
+void NewhavenDisplay::stringPadLeft(String &str, const int length_total)
 {
   str.trim();
   if (str.length() > length_total)
@@ -256,7 +273,7 @@ void NewhavenDisplay::stringPadLeft(String &str, int length_total)
   }
 }
 
-void NewhavenDisplay::stringPadRight(String &str, int length_total)
+void NewhavenDisplay::stringPadRight(String &str, const int length_total)
 {
   str.trim();
   if (str.length() > length_total)

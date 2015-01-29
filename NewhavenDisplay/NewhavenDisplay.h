@@ -24,15 +24,25 @@ class NewhavenDisplay {
   NewhavenDisplay(HardwareSerial &serial, const int row_count, const int col_count);
   void setSerial(HardwareSerial &serial);
   void init();
-  void print(const String &);
-  void print(const char[]);
-  void print(const char);
-  void printPadLeft(const String &, const int total_length);
-  void printPadLeft(const char[], const int total_length);
-  void printPadLeft(const char, const int total_length);
-  void printPadRight(const String &, const int total_length);
-  void printPadRight(const char[], const int total_length);
-  void printPadRight(const char, const int total_length);
+  template<typename T>
+  void print(const T value)
+  {
+    serial_ptr_->print(value);
+  }
+  template<typename T>
+  void printPadLeft(const T value, const int total_length)
+  {
+    String string = String(value);
+    stringPadLeft(string,total_length);
+    serial_ptr_->print(string);
+  }
+  template<typename T>
+  void printPadRight(const T value, const int total_length)
+  {
+    String string = String(value);
+    stringPadRight(string,total_length);
+    serial_ptr_->print(string);
+  }
   void displayOn();
   void displayOff();
   void setCursor(const int row, const int col);

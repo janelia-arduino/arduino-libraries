@@ -37,63 +37,6 @@ void NewhavenDisplay::init()
   displayOn();
 }
 
-void NewhavenDisplay::print(const String &s)
-{
-  serial_ptr_->print(s);
-}
-
-void NewhavenDisplay::print(const char str[])
-{
-  serial_ptr_->print(str);
-}
-
-void NewhavenDisplay::print(const char c)
-{
-  serial_ptr_->print(c);
-}
-
-void NewhavenDisplay::printPadLeft(const String &s, const int total_length)
-{
-  String string = s;
-  stringPadLeft(string,total_length);
-  serial_ptr_->print(string);
-}
-
-void NewhavenDisplay::printPadLeft(const char str[], const int total_length)
-{
-  String string = String(str);
-  stringPadLeft(string,total_length);
-  serial_ptr_->print(string);
-}
-
-void NewhavenDisplay::printPadLeft(const char c, const int total_length)
-{
-  String string = String(c);
-  stringPadLeft(string,total_length);
-  serial_ptr_->print(string);
-}
-
-void NewhavenDisplay::printPadRight(const String &s, const int total_length)
-{
-  String string = s;
-  stringPadRight(string,total_length);
-  serial_ptr_->print(string);
-}
-
-void NewhavenDisplay::printPadRight(const char str[], const int total_length)
-{
-  String string = String(str);
-  stringPadRight(string,total_length);
-  serial_ptr_->print(string);
-}
-
-void NewhavenDisplay::printPadRight(char c, const int total_length)
-{
-  String string = String(c);
-  stringPadRight(string,total_length);
-  serial_ptr_->print(string);
-}
-
 void NewhavenDisplay::displayOn()
 {
   sendCmd(0x41);

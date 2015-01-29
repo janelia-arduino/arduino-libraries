@@ -14,9 +14,10 @@ modules.
 
 * row_count = 4
 * col_count = 20
-* position = row*col_count + row_count
+* position = row*col_count + col
 * row = position//col_count
 * col = position%col_count
+* position_max = row_count*col_count - 1
 
 |   |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
 |---|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|

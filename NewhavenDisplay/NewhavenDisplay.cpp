@@ -134,7 +134,9 @@ void NewhavenDisplay::setCursor(const int row, const int col)
 
 void NewhavenDisplay::setCursor(const int pos)
 {
-  int row = 
+  int row = pos / col_count_;
+  int col = pos % col_count_;
+  setCursor(row,col);
 }
 
 void NewhavenDisplay::homeCursor()

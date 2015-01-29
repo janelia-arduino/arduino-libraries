@@ -12,11 +12,11 @@ License:
 Provides an interface to the Newhaven serial liquid crystal display
 modules.
 
-> row_count = 4
-> col_count = 20
-> position = row*col_count + row_count
-> row = position//col_count
-> col = position%col_count
+* row_count = 4
+* col_count = 20
+* position = row*col_count + row_count
+* row = position//col_count
+* col = position%col_count
 
 |   |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 |
 |---|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|----|

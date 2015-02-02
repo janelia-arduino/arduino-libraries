@@ -1,4 +1,8 @@
+#if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 #include <SPI.h>
 #include <Streaming.h>
 #include "InputCapture.h"
@@ -35,33 +39,33 @@ void writeFreqDac(uint16_t period, uint16_t onDuration) {
   }
 }
 
-void watchdogSetup(void)
-{
-  // disable interrupts
-  cli();
-  // reset watchdog timer
-  wdt_reset();
-  /*
-    WDTCSR configuration:
-    WDIE = 1: Interrupt Enable
-    WDE = 1 :Reset Enable
-    See table for time-out variations:
-    WDP3 = 0 :For 1000ms Time-out
-    WDP2 = 1 :For 1000ms Time-out
-    WDP1 = 1 :For 1000ms Time-out
-    WDP0 = 0 :For 1000ms Time-out
-  */
-  // Enter Watchdog Configuration mode:
-  WDTCSR |= (1<<WDCE) | (1<<WDE);
-  // Set Watchdog settings:
-  WDTCSR = (1<<WDIE) | (1<<WDE) |
-    (0<<WDP3) | (1<<WDP2) | (1<<WDP1) |
-    (0<<WDP0);
-  sei();
-}
+// void watchdogSetup(void)
+// {
+//   // disable interrupts
+//   cli();
+//   // reset watchdog timer
+//   wdt_reset();
+//   /*
+//     WDTCSR configuration:
+//     WDIE = 1: Interrupt Enable
+//     WDE = 1 :Reset Enable
+//     See table for time-out variations:
+//     WDP3 = 0 :For 1000ms Time-out
+//     WDP2 = 1 :For 1000ms Time-out
+//     WDP1 = 1 :For 1000ms Time-out
+//     WDP0 = 0 :For 1000ms Time-out
+//   */
+//   // Enter Watchdog Configuration mode:
+//   WDTCSR |= (1<<WDCE) | (1<<WDE);
+//   // Set Watchdog settings:
+//   WDTCSR = (1<<WDIE) | (1<<WDE) |
+//     (0<<WDP3) | (1<<WDP2) | (1<<WDP1) |
+//     (0<<WDP0);
+//   sei();
+// }
 
 void setup() {
-  inputCapture.init();
+  input_capture.init();
 
   // Setup SPI communications
   SPI.setDataMode(SPI_MODE2);
@@ -73,7 +77,7 @@ void setup() {
   dac.init(AD57X4R::AD5724R, AD57X4R::UNIPOLAR_5V, AD57X4R::A);
   dac.analogWrite(AD57X4R::A,0);
 
-  inputCapture.addCycleTask(writeFreqDac);
+  input_capture.addCycleTask(writeFreqDac);
 }
 
 

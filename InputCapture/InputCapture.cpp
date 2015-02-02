@@ -1,48 +1,44 @@
 // ----------------------------------------------------------------------------
-// InputCapture.cpp
+// InputCapture.cppp
 //
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
 #include "InputCapture.h"
-#include <Streaming.h>
 
-//---------- constructor ----------------------------------------------------
 
-InputCapture::InputCapture() {
+InputCapture::InputCapture()
+{
 }
 
-//---------- public ----------------------------------------------------
-
-void InputCapture::init() {
-  cycleTask.enabled = false;
-  captureTime = 0;
+void InputCapture::init()
+{
+  cycle_task_.enabled = false;
+  capture_time_ = 0;
   duration = 0;
-  riseTimePrevious = 0;
-  onDuration = 0;
+  rise_time_prev = 0;
+  on_duration = 0;
   period = 0;
 
   startTimer();
 }
 
-void InputCapture::addCycleTask(void (*userFunc)(uint16_t period, uint16_t onDuration)) {
-  cycleTask.func = userFunc;
-  cycleTask.enabled = true;
+void InputCapture::addCycleTask(void (*userFunc)(uint16_t period, uint16_t on_duration))
+{
+  cycle_task_.func = userFunc;
+  cycle_task_.enabled = true;
 }
 
-void InputCapture::removeCycleTask() {
-  cycleTask.enabled = false;
+void InputCapture::removeCycleTask()
+{
+  cycle_task_.enabled = false;
 }
 
-//------------------ private -----------------------------------------------
-
-void InputCapture::startTimer() {
-  ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+void InputCapture::startTimer()
+{
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
     TCCR5A = 0; // clear control register A
     TCCR5B = 0; // set mode 0: normal operation, stop the timer
     // TCCR5B |= _BV(ICNC5); // activate noise canceler
@@ -52,8 +48,9 @@ void InputCapture::startTimer() {
   }
 }
 
-InputCapture inputCapture;
+InputCapture input_capture;
 
-ISR(TIMER5_CAPT_vect) {
-  inputCapture.update();
+ISR(TIMER5_CAPT_vect)
+{
+  input_capture.update();
 }

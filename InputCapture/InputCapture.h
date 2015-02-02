@@ -2,75 +2,74 @@
 // InputCapture.h
 //
 //
-// Author: Peter Polidoro
+// Authors:
+// Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-
-#ifndef INPUT_CAPTURE_H_
-#define INPUT_CAPTURE_H_
+#ifndef INPUT_CAPTURE_H
+#define INPUT_CAPTURE_H
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
 #include <util/atomic.h>
-#include <avr/wdt.h>
+// #include <avr/wdt.h>
 
-#ifndef cbi
-#define cbi(sfr, bit) (_SFR_BYTE(sfr) &= ~_BV(bit))
-#endif
-
-#ifndef sbi
-#define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
-#endif
-
-class InputCapture {
- public:
+class InputCapture
+{
+public:
   InputCapture();
-
   void init();
   void update();
-  void addCycleTask(void (*userFunc)(uint16_t period, uint16_t onDuration));
+  void addCycleTask(void (*userFunc)(uint16_t period, uint16_t on_duration));
   void removeCycleTask();
-
- private:
+private:
   struct task_t {
     bool enabled;
-    void (*func)(uint16_t period, uint16_t onDuration);
+    void (*func)(uint16_t period, uint16_t on_duration);
   };
-  task_t cycleTask;
-  volatile uint16_t captureTime;
+  task_t cycle_task_;
+  volatile uint16_t capture_time_;
   volatile uint16_t duration;
-  volatile uint16_t riseTimePrevious;
-  volatile uint16_t onDuration;
+  volatile uint16_t rise_time_prev;
+  volatile uint16_t on_duration;
   volatile uint16_t period;
 
   void startTimer();
 };
 
-extern InputCapture inputCapture;
+extern InputCapture input_capture;
 
-inline void InputCapture::update() {
+inline void InputCapture::update()
+{
   noInterrupts();
-  captureTime = ICR5;
+  capture_time_ = ICR5;
   TCCR5B ^= _BV(ICES5); // toggle capture edge
   interrupts();
 
   // check for rollover
-  if (captureTime > riseTimePrevious) {
-    duration = captureTime - riseTimePrevious;
-  } else {
-    duration = captureTime + (0xffff - riseTimePrevious) + 1;
+  if (capture_time_ > rise_time_prev)
+  {
+    duration = capture_time_ - rise_time_prev;
+  }
+  else
+  {
+    duration = capture_time_ + (0xffff - rise_time_prev) + 1;
   }
 
-  if (TCCR5B & _BV(ICES5)) { // captured falling edge
-    onDuration = duration;
-  } else { // captured rising edge
-    riseTimePrevious = captureTime;
+  if (TCCR5B & _BV(ICES5))
+  { // captured falling edge
+    on_duration = duration;
+  }
+  else
+  { // captured rising edge
+    rise_time_prev = capture_time_;
     period = duration;
-    if (cycleTask.enabled) {
-      (*cycleTask.func)(period, onDuration);
+    if (cycle_task_.enabled)
+    {
+      (*cycle_task_.func)(period, on_duration);
     }
   }
 
 }
-
-
-#endif // INPUT_CAPTURE_H_
-
-
-
+#endif // INPUT_CAPTURE_H

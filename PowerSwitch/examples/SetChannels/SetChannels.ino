@@ -3,7 +3,7 @@
 #include "Streaming.h"
 #include "PowerSwitch.h"
 
-const int BAUD_RATE = 9600;
+const int BAUDRATE = 9600;
 const int LOOP_DELAY = 1000;
 const int CS_PIN = 49;
 const int IN_PIN = 48;
@@ -30,7 +30,7 @@ uint32_t bit;
 void setup()
 {
   // Setup serial communications
-  Serial.begin(BAUD_RATE);
+  Serial.begin(BAUDRATE);
 
   power_switch.init(IC_COUNT,SPI_RESET);
   channel_count = power_switch.getChannelCount();

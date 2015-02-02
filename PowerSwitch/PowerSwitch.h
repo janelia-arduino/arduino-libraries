@@ -7,7 +7,14 @@
 
 #ifndef POWER_SWITCH_H
 #define POWER_SWITCH_H
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
+#include "SPI.h"
 #include <util/atomic.h>
+
 
 class PowerSwitch
 {
@@ -27,7 +34,6 @@ public:
 
 private:
   void spiBegin();
-  // Private Constants
   const static int IC_COUNT_MIN = 1;
   const static int IC_COUNT_MAX = 4;
 

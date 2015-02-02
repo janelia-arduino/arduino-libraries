@@ -5,15 +5,8 @@
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
-#include "SPI.h"
 #include "PowerSwitch.h"
 
-//---------- constructor ----------------------------------------------------
 
 PowerSwitch::PowerSwitch()
 {
@@ -41,9 +34,6 @@ PowerSwitch::PowerSwitch(int cs_pin, int in_pin) :
   pinMode(in_pin,OUTPUT);
   digitalWrite(in_pin, LOW);
 }
-
-//---------- public ----------------------------------------------------
-
 
 void PowerSwitch::init(int ic_count, bool spi_reset)
 {
@@ -141,7 +131,6 @@ int PowerSwitch::getChannelCount()
   return ic_count_*CHANNEL_COUNT_PER_IC;
 }
 
-//------------------ private -----------------------------------------------
 void PowerSwitch::spiBegin()
 {
   SPI.setDataMode(SPI_MODE1);

@@ -13,7 +13,7 @@ PowerSwitch::PowerSwitch()
   initialized_ = false;
 }
 
-PowerSwitch::PowerSwitch(int cs_pin) :
+PowerSwitch::PowerSwitch(const int cs_pin) :
   cs_pin_(cs_pin)
 {
   initialized_ = false;
@@ -22,7 +22,7 @@ PowerSwitch::PowerSwitch(int cs_pin) :
   digitalWrite(cs_pin_, HIGH);
 }
 
-PowerSwitch::PowerSwitch(int cs_pin, int in_pin) :
+PowerSwitch::PowerSwitch(const int cs_pin, const int in_pin) :
   cs_pin_(cs_pin),
   in_pin_(in_pin)
 {
@@ -35,7 +35,7 @@ PowerSwitch::PowerSwitch(int cs_pin, int in_pin) :
   digitalWrite(in_pin, LOW);
 }
 
-void PowerSwitch::init(int ic_count, bool spi_reset)
+void PowerSwitch::init(const int ic_count, const boolean spi_reset)
 {
   spi_reset_ = spi_reset;
   if ((0 < ic_count) && (ic_count <= IC_COUNT_MAX))

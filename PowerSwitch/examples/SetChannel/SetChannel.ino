@@ -15,7 +15,7 @@ const int IC_COUNT = 2;
 // every time before a command is issued over SPI. It could cause
 // slight delays and should only be used when you are also
 // communicating with other SPI devices with different SPI parameters
-const bool SPI_RESET = false;
+const boolean SPI_RESET = false;
 
 // Instantiate PowerSwitch
 PowerSwitch power_switch = PowerSwitch(CS_PIN, IN_PIN);

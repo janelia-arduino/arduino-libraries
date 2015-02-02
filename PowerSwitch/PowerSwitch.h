@@ -23,7 +23,7 @@ public:
   PowerSwitch(int cs_pin);
   PowerSwitch(int cs_pin, int in_pin);
 
-  void init(int ic_count=1, bool spi_reset=false);
+  void init(int ic_count=1, boolean spi_reset=false);
   void setChannels(uint32_t channels);
   void setChannelOn(int channel);
   void setChannelOff(int channel);
@@ -33,7 +33,6 @@ public:
   int getChannelCount();
 
 private:
-  void spiBegin();
   const static int IC_COUNT_MIN = 1;
   const static int IC_COUNT_MAX = 4;
 
@@ -55,10 +54,12 @@ private:
 
   int cs_pin_;
   int in_pin_;
-  bool initialized_;
+  boolean initialized_;
   uint32_t channels_;
   int ic_count_;
-  bool spi_reset_;
+  boolean spi_reset_;
+
+  void spiBegin();
 };
 
 #endif // POWER_SWITCH_H

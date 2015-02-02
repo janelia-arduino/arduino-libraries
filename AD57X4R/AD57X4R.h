@@ -8,8 +8,16 @@
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#ifndef _AD57X4R_H_
-#define _AD57X4R_H_
+#ifndef AD57X4R_H
+#define AD57X4R_H
+#if defined(ARDUINO) && ARDUINO >= 100
+#include "Arduino.h"
+#else
+#include "WProgram.h"
+#endif
+#include "SPI.h"
+#include "Streaming.h"
+
 
 class AD57X4R
 {
@@ -19,10 +27,7 @@ public:
   enum channels {A, B, C, D, ALL};
   AD57X4R();
   AD57X4R(int cs_pin);
-  void spiBegin();
-  void init();
-  void init(resolutions resolution, output_ranges output_range);
-  void init(resolutions resolution, output_ranges output_range, channels channel);
+  void init(resolutions resolution=AD5754R, output_ranges output_range=UNIPOLAR_5V, boolean spi_reset=false);
   int readPowerControlRegister();
   void analogWrite(channels channel, unsigned int value);
   void analogWrite(channels channel, int value);
@@ -44,8 +49,11 @@ private:
     } data;
   } output_;
   struct shift_register input_;
-  bool unipolar_;
-  bool cs_invert_flag_;
+  boolean unipolar_;
+  boolean cs_invert_flag_;
+  boolean spi_reset_;
+
+  void spiBegin();
   void setupCS(int cs_pin);
   void setHeader(byte value, byte bit_shift, byte bit_count);
   void setReadWrite(byte value);
@@ -61,6 +69,4 @@ private:
   void csEnable();
   void csDisable();
 };
-
-
 #endif

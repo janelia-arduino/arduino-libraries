@@ -3,8 +3,10 @@
 #include "SPI.h"
 #include "AD57X4R.h"
 
-#define DAC_CS 49
 
+const int DAC_CS = 49;
+const int BAUDRATE = 9600;
+const unsigned int MILLIVOLT_MAX = 5000;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
@@ -14,18 +16,17 @@ boolean input_complete = false;
 char *argv[8];
 int arg1, arg2, arg3;
 unsigned int dac_value_max;
-unsigned int millivolt_max = 10000;
 
 void parse(char *line, char **argv, uint8_t max_args)
 {
   uint8_t argCount = 0;
   while (*line != '\0')
-  {       /* if not the end of line ....... */
+  { /* if not the end of line ....... */
     while (*line == ',' || *line == ' ' || *line == '\t' || *line == '\n')
     {
-      *line++ = '\0';     /* replace commas and white spaces with 0    */
+      *line++ = '\0'; /* replace commas and white spaces with 0 */
     }
-    *argv++ = line;          /* save the argument position     */
+    *argv++ = line; /* save the argument position */
     argCount++;
     if (argCount == max_args-1)
     {
@@ -34,21 +35,22 @@ void parse(char *line, char **argv, uint8_t max_args)
     while (*line != '\0' && *line != ',' && *line != ' ' &&
            *line != '\t' && *line != '\n')
     {
-      line++;             /* skip the argument until ...    */
+      line++; /* skip the argument until ... */
     }
   }
-  *argv = '\0';                 /* mark the end of argument list  */
+  *argv = '\0'; /* mark the end of argument list */
 }
 
 void setup()
 {
   // PC communications
-  Serial.begin(115200);
+  Serial.begin(BAUDRATE);
   Serial.println("* System ready *");
 
   // Initialize DAC
-  dac.init(AD57X4R::AD5724R, AD57X4R::UNIPOLAR_10V, AD57X4R::ALL);
+  dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac_value_max = dac.getMaxDacValue();
+  Serial << "dac_value_max = " << dac_value_max << endl;
 }
 
 
@@ -62,18 +64,18 @@ void loop()
       if (0 < strlen(argv[1]))
       {
         unsigned int millivolt_value = atoi(argv[1]);
-        unsigned int dac_value = map(millivolt_value,0,millivolt_max,0,dac_value_max);
+        unsigned int dac_value = map(millivolt_value,0,MILLIVOLT_MAX,0,dac_value_max);
         dac.analogWrite(AD57X4R::ALL,dac_value);
       }
       else
       {
-        Serial << "analogWrite <MILLIVOLT_VALUE>, VALUE = {0.." << millivolt_max << "}" << endl;
+        Serial << "analogWrite <MILLIVOLT_VALUE>, VALUE = {0.." << MILLIVOLT_MAX << "}" << endl;
       }
     }
     else if (strcmp(argv[0], "readPowerControlRegister") == 0)
     {
-      int powerControlRegister = dac.readPowerControlRegister();
-      Serial << "powerControlRegister = " << _BIN(powerControlRegister) << endl;
+      int power_control_register = dac.readPowerControlRegister();
+      Serial << "power_control_register = " << _BIN(power_control_register) << endl;
     }
     else
     {
@@ -88,26 +90,26 @@ void serialEvent()
 {
   while (Serial.available())
   {
-    uint8_t inByte;
-    inByte = Serial.read();
-    if ((inByte == '\n') || (inByte == '\r'))
+    uint8_t in_byte;
+    in_byte = Serial.read();
+    if ((in_byte == '\n') || (in_byte == '\r'))
     {
       Serial.println();
       input_buffer[idx] = 0;
       idx = 0;
       input_complete = true;
     }
-    else if (((inByte == '\b') || (inByte == 0x7f)) && (idx > 0))
+    else if (((in_byte == '\b') || (in_byte == 0x7f)) && (idx > 0))
     {
       idx--;
-      Serial.write(inByte);
+      Serial.write(in_byte);
       Serial.print(" ");
-      Serial.write(inByte);
+      Serial.write(in_byte);
     }
-    else if ((inByte >= ' ') && (idx < sizeof(input_buffer) - 1))
+    else if ((in_byte >= ' ') && (idx < sizeof(input_buffer) - 1))
     {
-      input_buffer[idx++] = inByte;
-      Serial.write(inByte);
+      input_buffer[idx++] = in_byte;
+      Serial.write(in_byte);
     }
   }
 }

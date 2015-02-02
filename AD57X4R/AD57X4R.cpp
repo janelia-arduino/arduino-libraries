@@ -8,14 +8,7 @@
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
-#include "SPI.h"
 #include "AD57X4R.h"
-#include "Streaming.h"
 
 
 // Read/Write Bit
@@ -47,31 +40,16 @@
 #define OUTPUT_RANGE_BIPOLAR_5V   0b011
 #define OUTPUT_RANGE_BIPOLAR_10V  0b100
 
-// ----------------------------------------------------------------------------
-// AD57X4R::AD57X4R
-//
-// Constructor
-// ----------------------------------------------------------------------------
 AD57X4R::AD57X4R()
 {
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::AD57X4R
-//
-// Constructor
-// ----------------------------------------------------------------------------
 AD57X4R::AD57X4R(int cs_pin)
 {
   setupCS(cs_pin);
   output_.header = 0;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::spiBegin
-//
-// Setup SPI communications
-// ----------------------------------------------------------------------------
 void AD57X4R::spiBegin()
 {
   SPI.setDataMode(SPI_MODE2);
@@ -80,45 +58,15 @@ void AD57X4R::spiBegin()
   SPI.begin();
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::init
-//
-// Initialize resolution, output range, and power control
-// ----------------------------------------------------------------------------
-void AD57X4R::init()
-{
-  // Set default values
-  init(AD5724R, UNIPOLAR_5V, ALL);
-}
-
-// ----------------------------------------------------------------------------
-// AD57X4R::init
-//
-// Initialize resolution, output range, and power control
-// ----------------------------------------------------------------------------
-void AD57X4R::init(resolutions resolution, output_ranges output_range)
-{
-  init(resolution, output_range, ALL);
-}
-
-// ----------------------------------------------------------------------------
-// AD57X4R::init
-//
-// Initialize resolution, output range, and power control
-// ----------------------------------------------------------------------------
-void AD57X4R::init(resolutions resolution, output_ranges output_range, channels channel)
+void AD57X4R::init(resolutions resolution, output_ranges output_range, boolean spi_reset)
 {
   spiBegin();
   resolution_ = resolution;
-  setOutputRange(output_range, channel);
-  setPowerControlRegister(channel);
+  setOutputRange(output_range, ALL);
+  setPowerControlRegister(ALL);
+  spi_reset_ = spi_reset;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setupCS
-//
-// Set chip select pin for SPI Bus, and start high (disabled)
-// ----------------------------------------------------------------------------
 void AD57X4R::setupCS(int cs_pin)
 {
   cs_invert_flag_ = false;
@@ -127,11 +75,6 @@ void AD57X4R::setupCS(int cs_pin)
   cs_pin_ = cs_pin;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setHeader
-//
-// Set header bits
-// ----------------------------------------------------------------------------
 void AD57X4R::setHeader(byte value, byte bit_shift, byte bit_count)
 {
   byte bit_mask = 0;
@@ -146,31 +89,16 @@ void AD57X4R::setHeader(byte value, byte bit_shift, byte bit_count)
   output_.header = header;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setReadWrite
-//
-// Set header read/write bit to value
-// ----------------------------------------------------------------------------
 void AD57X4R::setReadWrite(byte value)
 {
   setHeader(value,READ_WRITE_BIT_SHIFT,READ_WRITE_BIT_COUNT);
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setRegisterSelect
-//
-// Set header register select bits
-// ----------------------------------------------------------------------------
 void AD57X4R::setRegisterSelect(byte value)
 {
   setHeader(value,REGISTER_SELECT_BIT_SHIFT,REGISTER_SELECT_BIT_COUNT);
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setDACAddress
-//
-// Set header DAC address bits
-// ----------------------------------------------------------------------------
 void AD57X4R::setDACAddress(channels channel)
 {
   byte value;
@@ -195,21 +123,11 @@ void AD57X4R::setDACAddress(channels channel)
   setHeader(value,DAC_ADDRESS_BIT_SHIFT,DAC_ADDRESS_BIT_COUNT);
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setNOP
-//
-// Set header to NOP condition for reading
-// ----------------------------------------------------------------------------
 void AD57X4R::setNOP()
 {
   output_.header = 0x18;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::csEnable
-//
-// Enable spi communications
-// ----------------------------------------------------------------------------
 void AD57X4R::csEnable()
 {
   if (cs_invert_flag_ == false)
@@ -222,11 +140,6 @@ void AD57X4R::csEnable()
   }
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::csDisable
-//
-// Disable spi communications
-// ----------------------------------------------------------------------------
 void AD57X4R::csDisable()
 {
   if (cs_invert_flag_ == false)
@@ -239,17 +152,17 @@ void AD57X4R::csDisable()
   }
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::sendOutput
-//
-// Send output shift register to DAC
-// ----------------------------------------------------------------------------
 void AD57X4R::sendOutput()
 {
   byte out_byte_header;
   byte out_byte_data_high;
   byte out_byte_data_low;
   byte return_byte;
+
+  if (spi_reset_)
+  {
+    spiBegin();
+  }
 
   // Enable SPI communication
   csEnable();
@@ -283,11 +196,6 @@ void AD57X4R::sendOutput()
   csDisable();
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::readInput
-//
-// Sends NOP to the DAC to receive and return data
-// ----------------------------------------------------------------------------
 int AD57X4R::readInput()
 {
   byte out_byte_header;
@@ -300,6 +208,11 @@ int AD57X4R::readInput()
 
   // Send NOP command in header
   setNOP();
+
+  if (spi_reset_)
+  {
+    spiBegin();
+  }
 
   // Enable SPI communication
   csEnable();
@@ -323,11 +236,6 @@ int AD57X4R::readInput()
   return return_data;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setData
-//
-// Sets output shift register data to value
-// ----------------------------------------------------------------------------
 void AD57X4R::setData(unsigned int value)
 {
   switch (resolution_)
@@ -344,20 +252,10 @@ void AD57X4R::setData(unsigned int value)
   }
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setData
-//
-// Sets output shift register data to value
-// ----------------------------------------------------------------------------
 void AD57X4R::setData(int value)
 {
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::setOutputRange
-//
-// Sets the output range
-// ---------------------------------------------------------------------------
 void AD57X4R::setOutputRange(output_ranges output_range, channels channel)
 {
   setReadWrite(WRITE);
@@ -385,11 +283,6 @@ void AD57X4R::setOutputRange(output_ranges output_range, channels channel)
   sendOutput();
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::setPowerControlRegister
-//
-// Set data in the power control register
-// ---------------------------------------------------------------------------
 void AD57X4R::setPowerControlRegister(channels channel)
 {
   setReadWrite(WRITE);
@@ -422,11 +315,6 @@ void AD57X4R::setPowerControlRegister(channels channel)
   unipolar_ = unipolar_previous;
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::readPowerControlRegister
-//
-// Reads and returns the data in the power control register
-// ---------------------------------------------------------------------------
 int AD57X4R::readPowerControlRegister()
 {
   int return_data;
@@ -438,11 +326,6 @@ int AD57X4R::readPowerControlRegister()
   return return_data;
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::analogWrite
-//
-// Sets the DAC channel to value
-// ---------------------------------------------------------------------------
 void AD57X4R::analogWrite(channels channel, unsigned int value)
 {
   if (unipolar_)
@@ -455,20 +338,10 @@ void AD57X4R::analogWrite(channels channel, unsigned int value)
   }
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::analogWrite
-//
-// Sets the DAC channel to value
-// ---------------------------------------------------------------------------
 void AD57X4R::analogWrite(channels channel, int value)
 {
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::analogWrite
-//
-// Sets the DAC channel to value
-// ---------------------------------------------------------------------------
 void AD57X4R::analogWrite(int pin, unsigned int value)
 {
   channels channel;
@@ -491,11 +364,6 @@ void AD57X4R::analogWrite(int pin, unsigned int value)
   analogWrite(channel, value);
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::analogWrite
-//
-// Sets the DAC channel to value
-// ---------------------------------------------------------------------------
 void AD57X4R::analogWrite(int pin, int value)
 {
   channels channel;
@@ -518,11 +386,6 @@ void AD57X4R::analogWrite(int pin, int value)
   analogWrite(channel, value);
 }
 
-// ---------------------------------------------------------------------------
-// AD57X4R::getMaxDacValue
-//
-// Returns the maximum dac value based on resolution
-// ---------------------------------------------------------------------------
 unsigned int AD57X4R::getMaxDacValue()
 {
   switch (resolution_)
@@ -539,21 +402,11 @@ unsigned int AD57X4R::getMaxDacValue()
   }
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setCSInvert
-//
-// use inverted chip select - high to enable
-// ----------------------------------------------------------------------------
 void AD57X4R::setCSInvert()
 {
   cs_invert_flag_ = true;
 }
 
-// ----------------------------------------------------------------------------
-// AD57X4R::setCSNormal
-//
-// use normal chip select - low to enable
-// ----------------------------------------------------------------------------
 void AD57X4R::setCSNormal()
 {
   cs_invert_flag_ = false;

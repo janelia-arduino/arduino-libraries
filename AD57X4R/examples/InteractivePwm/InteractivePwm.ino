@@ -4,8 +4,11 @@
 #include "TimeTriggeredScheduler.h"
 #include "AD57X4R.h"
 
-#define DAC_CS 49
 
+const int DAC_CS = 49;
+const int BAUDRATE = 9600;
+const unsigned int MILLIVOLT_MAX = 10000;
+const int PWM_PIN = 48;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
@@ -15,20 +18,18 @@ boolean input_complete = false;
 char *argv[8];
 int arg1, arg2, arg3;
 unsigned int dac_value_max;
-unsigned int millivolt_max = 10000;
-int pwmPin = 48;
 
 
 void parse(char *line, char **argv, uint8_t maxArgs)
 {
   uint8_t argCount = 0;
   while (*line != '\0')
-  {       /* if not the end of line ....... */
+  { /* if not the end of line ....... */
     while (*line == ',' || *line == ' ' || *line == '\t' || *line == '\n')
     {
-      *line++ = '\0';     /* replace commas and white spaces with 0    */
+      *line++ = '\0'; /* replace commas and white spaces with 0 */
     }
-    *argv++ = line;          /* save the argument position     */
+    *argv++ = line; /* save the argument position */
     argCount++;
     if (argCount == maxArgs-1)
     {
@@ -37,27 +38,27 @@ void parse(char *line, char **argv, uint8_t maxArgs)
     while (*line != '\0' && *line != ',' && *line != ' ' &&
            *line != '\t' && *line != '\n')
     {
-      line++;             /* skip the argument until ...    */
+      line++; /* skip the argument until ... */
     }
   }
-  *argv = '\0';                 /* mark the end of argument list  */
+  *argv = '\0'; /* mark the end of argument list */
 }
 
 void setup() {
   // PC communications
-  Serial.begin(115200);
+  Serial.begin(BAUDRATE);
   Serial.println("* System ready *");
 
   // Initialize DAC
-  dac.init(AD57X4R::AD5724R, AD57X4R::UNIPOLAR_10V, AD57X4R::ALL);
+  dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac_value_max = dac.getMaxDacValue();
 
   // Initialize time triggered scheduler
   tts.init();
 
   // Initialize PWM pin
-  pinMode(pwmPin, OUTPUT);
-  digitalWrite(pwmPin, LOW);
+  pinMode(PWM_PIN, OUTPUT);
+  digitalWrite(PWM_PIN, LOW);
 }
 
 
@@ -70,12 +71,12 @@ void loop() {
       if (0 < strlen(argv[1]))
       {
         unsigned int millivolt_value = atoi(argv[1]);
-        unsigned int dac_value = map(millivolt_value,0,millivolt_max,0,dac_value_max);
+        unsigned int dac_value = map(millivolt_value,0,MILLIVOLT_MAX,0,dac_value_max);
         dac.analogWrite(AD57X4R::ALL,dac_value);
       }
       else
       {
-        Serial << "analogWrite <MILLIVOLT_VALUE>, VALUE = {0.." << millivolt_max << "}" << endl;
+        Serial << "analogWrite <MILLIVOLT_VALUE>, VALUE = {0.." << MILLIVOLT_MAX << "}" << endl;
       }
     }
     else if (strcmp(argv[0], "pwm") == 0)
@@ -101,8 +102,8 @@ void loop() {
           long period = 1000/frequency;
           long count = (duration*1000)/period;
           uint32_t offset = (period*duty_cycle)/100;
-          int onTaskId = (int)tts.addTaskUsingDelay(100,inlinePwmPinHigh,dummy,period,count,false);
-          tts.addTaskUsingOffset((uint8_t)onTaskId,offset,inlinePwmPinLow,dummy,period,count,false);
+          int on_task_id = (int)tts.addTaskUsingDelay(100,inlinePwmPinHigh,dummy,period,count,false);
+          tts.addTaskUsingOffset((uint8_t)on_task_id,offset,inlinePwmPinLow,dummy,period,count,false);
           Serial << "pwm: count = " << count << ", period = " << period << ", offset = " << offset << endl;
         }
       }
@@ -113,8 +114,8 @@ void loop() {
     }
     else if (strcmp(argv[0], "readPowerControlRegister") == 0)
     {
-      int powerControlRegister = dac.readPowerControlRegister();
-      Serial << "powerControlRegister = " << _BIN(powerControlRegister) << endl;
+      int power_control_register = dac.readPowerControlRegister();
+      Serial << "power_control_register = " << _BIN(power_control_register) << endl;
     }
     else
     {
@@ -129,29 +130,29 @@ void serialEvent()
 {
   while (Serial.available())
   {
-    uint8_t inByte;
-    inByte = Serial.read();
-    if ((inByte == '\n') || (inByte == '\r'))
+    uint8_t in_byte;
+    in_byte = Serial.read();
+    if ((in_byte == '\n') || (in_byte == '\r'))
     {
       Serial.println();
       input_buffer[idx] = 0;
       idx = 0;
       input_complete = true;
     }
-    else if (((inByte == '\b') || (inByte == 0x7f)) && (idx > 0))
+    else if (((in_byte == '\b') || (in_byte == 0x7f)) && (idx > 0))
     {
       idx--;
-      Serial.write(inByte);
+      Serial.write(in_byte);
       Serial.print(" ");
-      Serial.write(inByte);
+      Serial.write(in_byte);
     }
-    else if ((inByte >= ' ') && (idx < sizeof(input_buffer) - 1))
+    else if ((in_byte >= ' ') && (idx < sizeof(input_buffer) - 1))
     {
-      input_buffer[idx++] = inByte;
-      Serial.write(inByte);
+      input_buffer[idx++] = in_byte;
+      Serial.write(in_byte);
     }
   }
 }
 
-inline void inlinePwmPinHigh(int dummy) {digitalWrite(pwmPin,HIGH);};
-inline void inlinePwmPinLow(int dummy) {digitalWrite(pwmPin,LOW);};
+inline void inlinePwmPinHigh(int dummy) {digitalWrite(PWM_PIN,HIGH);};
+inline void inlinePwmPinLow(int dummy) {digitalWrite(PWM_PIN,LOW);};

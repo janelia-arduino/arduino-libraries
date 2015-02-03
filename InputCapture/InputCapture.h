@@ -21,7 +21,7 @@ public:
   InputCapture();
   void init();
   void update();
-  void addCycleTask(void (*user_func)(unsigned int period_us, unsigned int on_duration_us));
+  void addCycleTask(void (*userFunc)(unsigned int period_us, unsigned int on_duration_us));
   void removeCycleTask();
 private:
   struct task_t {

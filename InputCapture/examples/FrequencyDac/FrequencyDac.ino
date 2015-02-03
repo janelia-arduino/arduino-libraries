@@ -6,6 +6,7 @@
 #include "SPI.h"
 #include "Streaming.h"
 #include "AD57X4R.h"
+#include "Watchdog.h"
 #include "InputCapture.h"
 
 
@@ -23,12 +24,19 @@ const int FREQ_MAX = 300;
 
 unsigned int dac_value_min;
 unsigned int dac_value_max;
+unsigned int dac_value;
+unsigned int freq;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
+void watchdog_isr()
+{
+  dac_value = 0;
+  dac.analogWrite(AD57X4R::A,dac_value);
+}
+
 void writeFreqDac(unsigned int period_us, unsigned int on_duration_us) {
-  unsigned int dac_value;
-  unsigned int freq = 1000000/period_us;
+  freq = 1000000/period_us;
   if (freq <= FREQ_MAX) {
     if (freq >= FREQ_MIN) {
       dac_value = map(freq, FREQ_MIN, FREQ_MAX, dac_value_min, dac_value_max);
@@ -41,6 +49,7 @@ void writeFreqDac(unsigned int period_us, unsigned int on_duration_us) {
   {
     dac.analogWrite(AD57X4R::A,dac_value_max);
   }
+  watchdog.resetTimer();
 }
 
 void setup()
@@ -51,6 +60,11 @@ void setup()
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac.analogWrite(AD57X4R::A,0);
 
+  // Use watchdog to set dac to 0 when no edges detected
+  watchdog.enableIsr(watchdog_isr);
+  watchdog.begin(Watchdog::TIMEOUT_16MS);
+
+  // Setup input_capture cycle task
   dac_value_min = (0.8/5.0)*dac.getMaxDacValue();
   dac_value_max = (3.0/5.0)*dac.getMaxDacValue();
   input_capture.addCycleTask(writeFreqDac);

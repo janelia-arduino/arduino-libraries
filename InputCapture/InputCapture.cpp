@@ -24,9 +24,9 @@ void InputCapture::init()
   startTimer();
 }
 
-void InputCapture::addCycleTask(void (*userFunc)(unsigned int period_us, unsigned int on_duration_us))
+void InputCapture::addCycleTask(void (*user_func)(unsigned int period_us, unsigned int on_duration_us))
 {
-  cycle_task_.func = userFunc;
+  cycle_task_.func = user_func;
   cycle_task_.enabled = true;
 }
 

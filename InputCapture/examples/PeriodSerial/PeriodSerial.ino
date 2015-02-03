@@ -9,22 +9,35 @@
 // period and on_duration values by 500 to get units of nanoseconds.
 
 const int BAUDRATE = 9600;
+const int LOOP_DELAY = 1000;
 
-void writePeriodSerial(uint16_t period, uint16_t on_duration) {
-  long period_ns = period*500L;
-  long on_duration_ns = on_duration*500L;
-  Serial << "period_ns = " << period_ns << ", on_duration_ns = " << on_duration_ns << endl;
+unsigned int period_display;
+unsigned int on_duration_display;
+unsigned int freq_display;
+
+void writePeriodSerial(unsigned int period_us, unsigned int on_duration_us)
+{
+  period_display = period_us;
+  on_duration_display = on_duration_us;
+  unsigned int freq = 1000000/period_us;
+  freq_display = freq;
 }
 
-void setup() {
-  inputCapture.init();
+void setup()
+{
+  input_capture.init();
 
   // Setup serial communications
   Serial.begin(BAUDRATE);
 
-  inputCapture.addCycleTask(writePeriodSerial);
+  input_capture.addCycleTask(writePeriodSerial);
 }
 
 
-void loop() {
+void loop()
+{
+  Serial << "period = " << period_display << endl;
+  Serial << "on_duration = " << on_duration_display << endl;
+  Serial << "freq = " << freq_display << endl;
+  delay(LOOP_DELAY);
 }

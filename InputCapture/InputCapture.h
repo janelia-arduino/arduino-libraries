@@ -13,7 +13,7 @@
 #include "WProgram.h"
 #endif
 #include <util/atomic.h>
-// #include <avr/wdt.h>
+
 
 class InputCapture
 {
@@ -21,7 +21,7 @@ public:
   InputCapture();
   void init();
   void update();
-  void addCycleTask(void (*userFunc)(unsigned int period_us, unsigned int on_duration_us));
+  void addCycleTask(void (*user_func)(unsigned int period_us, unsigned int on_duration_us));
   void removeCycleTask();
 private:
   struct task_t {
@@ -76,4 +76,4 @@ inline void InputCapture::update()
   }
 
 }
-#endif // INPUT_CAPTURE_H
+#endif

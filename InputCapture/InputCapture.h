@@ -21,19 +21,19 @@ public:
   InputCapture();
   void init();
   void update();
-  void addCycleTask(void (*userFunc)(uint16_t period, uint16_t on_duration));
+  void addCycleTask(void (*userFunc)(unsigned int period_us, unsigned int on_duration_us));
   void removeCycleTask();
 private:
   struct task_t {
     bool enabled;
-    void (*func)(uint16_t period, uint16_t on_duration);
+    void (*func)(unsigned int period_us, unsigned int on_duration_us);
   };
   task_t cycle_task_;
-  volatile uint16_t capture_time_;
-  volatile uint16_t duration;
-  volatile uint16_t rise_time_prev;
-  volatile uint16_t on_duration;
-  volatile uint16_t period;
+  volatile unsigned int capture_time_;
+  volatile unsigned int duration_;
+  volatile unsigned int rise_time_prev_;
+  volatile unsigned int on_duration_us_;
+  volatile unsigned int period_us_;
 
   void startTimer();
 };
@@ -48,26 +48,30 @@ inline void InputCapture::update()
   interrupts();
 
   // check for rollover
-  if (capture_time_ > rise_time_prev)
+  if (capture_time_ > rise_time_prev_)
   {
-    duration = capture_time_ - rise_time_prev;
+    duration_ = capture_time_ - rise_time_prev_;
   }
   else
   {
-    duration = capture_time_ + (0xffff - rise_time_prev) + 1;
+    duration_ = capture_time_ + (0xffff - rise_time_prev_) + 1;
   }
 
   if (TCCR5B & _BV(ICES5))
   { // captured falling edge
-    on_duration = duration;
+    // convert clk count to microseconds (/2)
+    // lose one bit
+    on_duration_us_ = duration_ >> 1;
   }
   else
   { // captured rising edge
-    rise_time_prev = capture_time_;
-    period = duration;
+    rise_time_prev_ = capture_time_;
+    // convert clk count to microseconds (/2)
+    // lose one bit
+    period_us_ = duration_ >> 1;
     if (cycle_task_.enabled)
     {
-      (*cycle_task_.func)(period, on_duration);
+      (*cycle_task_.func)(period_us_, on_duration_us_);
     }
   }
 

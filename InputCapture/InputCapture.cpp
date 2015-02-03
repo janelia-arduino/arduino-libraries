@@ -16,15 +16,15 @@ void InputCapture::init()
 {
   cycle_task_.enabled = false;
   capture_time_ = 0;
-  duration = 0;
-  rise_time_prev = 0;
-  on_duration = 0;
-  period = 0;
+  duration_ = 0;
+  rise_time_prev_ = 0;
+  on_duration_us_ = 0;
+  period_us_ = 0;
 
   startTimer();
 }
 
-void InputCapture::addCycleTask(void (*userFunc)(uint16_t period, uint16_t on_duration))
+void InputCapture::addCycleTask(void (*userFunc)(unsigned int period_us, unsigned int on_duration_us))
 {
   cycle_task_.func = userFunc;
   cycle_task_.enabled = true;

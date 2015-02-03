@@ -17,25 +17,40 @@
 // Attach function generator to ICP5 (pin 48 on Arudino Mega 2560) and
 // use 0-5V square wave from ~31-400Hz (~32-2.5ms period).
 
-#define DAC_CS 49
+const int BAUDRATE = 9600;
+const int DAC_CS = 49;
+const int FREQ_MIN = 80;
+const int FREQ_MAX = 300;
+const int LOOP_DELAY = 1000;
 
-const uint16_t dac_value_min = 655; // 0.8V : (0.8/5)*4096
-const uint16_t dac_value_max = 2458; // 3V : (3/5)*4096
-const float freq_min = 80.0;
-const float freq_max = 300.0;
+unsigned int dac_value_min;
+unsigned int dac_value_max;
+
+unsigned int period_display;
+unsigned int on_duration_display;
+unsigned int freq_display;
+unsigned int dac_value_display;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
-void writeFreqDac(uint16_t period, uint16_t onDuration) {
-  uint16_t dac_value;
-  float freq = 2000000.0/(float)period;
-  if (freq <= freq_max) {
-    if (freq >= freq_min) {
-      dac_value = map(freq*1000, freq_min*1000, freq_max*1000, dac_value_min, dac_value_max);
+void writeFreqDac(unsigned int period_us, unsigned int on_duration_us) {
+  period_display = period_us;
+  on_duration_display = on_duration_us;
+  unsigned int dac_value;
+  unsigned int freq = 1000000/period_us;
+  freq_display = freq;
+  if (freq <= FREQ_MAX) {
+    if (freq >= FREQ_MIN) {
+      dac_value = map(freq, FREQ_MIN, FREQ_MAX, dac_value_min, dac_value_max);
     } else {
       dac_value = 0;
     }
+    dac_value_display = dac_value;
     dac.analogWrite(AD57X4R::A,dac_value);
+  }
+  else
+  {
+    dac.analogWrite(AD57X4R::A,dac_value_max);
   }
 }
 
@@ -64,22 +79,28 @@ void writeFreqDac(uint16_t period, uint16_t onDuration) {
 //   sei();
 // }
 
-void setup() {
+void setup()
+{
   input_capture.init();
 
-  // Setup SPI communications
-  SPI.setDataMode(SPI_MODE2);
-  SPI.setBitOrder(MSBFIRST);
-  SPI.setClockDivider(SPI_CLOCK_DIV2);
-  SPI.begin();
-
   // Initialize DAC
-  dac.init(AD57X4R::AD5724R, AD57X4R::UNIPOLAR_5V, AD57X4R::A);
+  dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac.analogWrite(AD57X4R::A,0);
 
+  dac_value_min = (0.8/5.0)*dac.getMaxDacValue();
+  dac_value_max = (3.0/5.0)*dac.getMaxDacValue();
+  Serial.begin(BAUDRATE);
+  Serial << "dac_value_min = " << dac_value_min << endl;
+  Serial << "dac_value_max = " << dac_value_max << endl;
   input_capture.addCycleTask(writeFreqDac);
 }
 
 
-void loop() {
+void loop()
+{
+  Serial << "period = " << period_display << endl;
+  Serial << "on_duration = " << on_duration_display << endl;
+  Serial << "freq = " << freq_display << endl;
+  Serial << "dac_value = " << dac_value_display << endl;
+  delay(LOOP_DELAY);
 }

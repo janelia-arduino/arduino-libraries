@@ -7,6 +7,13 @@ C++ libraries for running on Arduino hardware.
 
 <http://arduino.cc/en/Guide/HomePage>
 
+On linux, you may need to add yourself to the group 'dialout' in order
+to have write permissions on the USB port:
+
+```shell
+sudo usermod -aG dialout <myuser>
+```
+
 ##Install These Arduino Libraries on your Host Machine
 
 ###Linux or Mac OS X

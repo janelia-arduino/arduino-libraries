@@ -12,34 +12,36 @@
 
 // Writes frequency value to AD57X4R DAC analog output.
 // <80Hz = 0V
-// >=80Hz && <=300Hz : 100Hz = 1V, 250Hz = 2.5V...
-// >300Hz : ignore
+// >=80Hz && <=300Hz : 90HZ = 0.9V, 100Hz = 1V, 250Hz = 2.5V ...
+// >300Hz : 3V
 
 // Attach function generator to ICP5 (pin 48 on Arudino Mega 2560) and
 // use 0-5V square wave from ~31-400Hz (~32-2.5ms period).
 
 const int DAC_CS = 49;
-const int FREQ_MIN = 80;
-const int FREQ_MAX = 300;
+const int FREQ_MIN_HZ = 80;
+const int FREQ_MAX_HZ = 300;
+const double VOLT_MIN = 0.8;
+const double VOLT_MAX = 3.0;
+const double VOLT_RAIL = 5.0;
 
 unsigned int dac_value_min;
 unsigned int dac_value_max;
 unsigned int dac_value;
-unsigned int freq;
+unsigned int freq_hz;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
 void watchdog_isr()
 {
-  dac_value = 0;
-  dac.analogWrite(AD57X4R::A,dac_value);
+  dac.analogWrite(AD57X4R::A,0);
 }
 
 void writeFreqDac(unsigned int period_us, unsigned int on_duration_us) {
-  freq = 1000000/period_us;
-  if (freq <= FREQ_MAX) {
-    if (freq >= FREQ_MIN) {
-      dac_value = map(freq, FREQ_MIN, FREQ_MAX, dac_value_min, dac_value_max);
+  freq_hz = 1000000/period_us;
+  if (freq_hz <= FREQ_MAX_HZ) {
+    if (freq_hz >= FREQ_MIN_HZ) {
+      dac_value = map(freq_hz, FREQ_MIN_HZ, FREQ_MAX_HZ, dac_value_min, dac_value_max);
     } else {
       dac_value = 0;
     }
@@ -65,8 +67,8 @@ void setup()
   watchdog.begin(Watchdog::TIMEOUT_16MS);
 
   // Setup input_capture cycle task
-  dac_value_min = (0.8/5.0)*dac.getMaxDacValue();
-  dac_value_max = (3.0/5.0)*dac.getMaxDacValue();
+  dac_value_min = (VOLT_MIN/VOLT_RAIL)*dac.getMaxDacValue();
+  dac_value_max = (VOLT_MAX/VOLT_RAIL)*dac.getMaxDacValue();
   input_capture.addCycleTask(writeFreqDac);
 }
 

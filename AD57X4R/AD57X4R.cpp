@@ -340,6 +340,10 @@ void AD57X4R::analogWrite(channels channel, unsigned int value)
 
 void AD57X4R::analogWrite(channels channel, int value)
 {
+  if (unipolar_)
+  {
+    analogWrite(channel,(unsigned int)value);
+  }
 }
 
 void AD57X4R::analogWrite(int pin, unsigned int value)

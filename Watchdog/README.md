@@ -12,7 +12,7 @@ License:
 Use Watchdog to execute a function and/or reset the microcontroller
 after a set amount of time passes, unless the timer is reset.
 
-[Useage Examples](./examples)
+[Usage Examples](./examples)
 
 ##Execute Interrupt Service Routine (ISR) Function on Timeout
 

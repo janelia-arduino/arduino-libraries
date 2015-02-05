@@ -11,9 +11,9 @@ const int BAUDRATE = 9600;
 const int LOOP_DELAY_MORE = 300;
 const int LOOP_DELAY_LESS = 200;
 
-void watchdog_isr()
+void watchdogIsr()
 {
-  Serial << "test isr!" << endl;
+  Serial << "Test isr!" << endl;
 }
 
 void setup()
@@ -22,7 +22,7 @@ void setup()
   Serial.begin(BAUDRATE);
 
   // watchdog.enableSystemReset();
-  watchdog.enableIsr(watchdog_isr);
+  watchdog.enableIsr(watchdogIsr);
   watchdog.begin(Watchdog::TIMEOUT_250MS);
 
   Serial << "System reset!" << endl;

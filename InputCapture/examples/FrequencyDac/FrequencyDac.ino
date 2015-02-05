@@ -32,17 +32,22 @@ unsigned int freq_hz;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
-void watchdog_isr()
+void watchdogIsr()
 {
   dac.analogWrite(AD57X4R::A,0);
 }
 
-void writeFreqDac(unsigned int period_us, unsigned int on_duration_us) {
+void writeFreqDac(unsigned int period_us, unsigned int on_duration_us)
+{
   freq_hz = 1000000/period_us;
-  if (freq_hz <= FREQ_MAX_HZ) {
-    if (freq_hz >= FREQ_MIN_HZ) {
+  if (freq_hz <= FREQ_MAX_HZ)
+  {
+    if (freq_hz >= FREQ_MIN_HZ)
+    {
       dac_value = map(freq_hz, FREQ_MIN_HZ, FREQ_MAX_HZ, dac_value_min, dac_value_max);
-    } else {
+    }
+    else
+    {
       dac_value = 0;
     }
     dac.analogWrite(AD57X4R::A,dac_value);
@@ -63,7 +68,7 @@ void setup()
   dac.analogWrite(AD57X4R::A,0);
 
   // Use watchdog to set dac to 0 when no edges detected
-  watchdog.enableIsr(watchdog_isr);
+  watchdog.enableIsr(watchdogIsr);
   watchdog.begin(Watchdog::TIMEOUT_16MS);
 
   // Setup input_capture cycle task

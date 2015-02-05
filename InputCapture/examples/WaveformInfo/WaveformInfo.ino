@@ -13,14 +13,15 @@ const int LOOP_DELAY = 1000;
 
 unsigned int period_display;
 unsigned int on_duration_display;
+unsigned int duty_cycle_display;
 unsigned int freq_display;
 
-void writePeriodSerial(unsigned int period_us, unsigned int on_duration_us)
+void updateWaveformMeasurements(unsigned int period_us, unsigned int on_duration_us)
 {
   period_display = period_us;
   on_duration_display = on_duration_us;
-  unsigned int freq = 1000000/period_us;
-  freq_display = freq;
+  duty_cycle_display = (100*(long)on_duration_us)/period_us;
+  freq_display = 1000000/period_us;
 }
 
 void setup()
@@ -30,14 +31,15 @@ void setup()
   // Setup serial communications
   Serial.begin(BAUDRATE);
 
-  input_capture.addCycleTask(writePeriodSerial);
+  input_capture.addCycleTask(updateWaveformMeasurements);
 }
 
 
 void loop()
 {
-  Serial << "period = " << period_display << endl;
-  Serial << "on_duration = " << on_duration_display << endl;
-  Serial << "freq = " << freq_display << endl;
+  Serial << "period (microseconds) = " << period_display << endl;
+  Serial << "on_duration (microseconds) = " << on_duration_display << endl;
+  Serial << "duty_cycle (%) = " << duty_cycle_display << endl;
+  Serial << "freq (Hz)= " << freq_display << endl;
   delay(LOOP_DELAY);
 }

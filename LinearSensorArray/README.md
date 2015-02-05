@@ -11,14 +11,11 @@ License:
 
 AMS-TAOS linear sensor array driver for TSL family e.g. TSL1406RS
 
-Notes:
+[Usage Examples](./examples)
 
-Author: Peter Polidoro
+##Example Wiring of a Single TSL1406RS
 
-
-#Example Wiring of a Single TSL1406RS
-
-##Serial Connection
+###Serial Connection
 
 pixel\_per\_sensor\_count = 768
 
@@ -44,7 +41,7 @@ SO2 not connected.
 |        12 | AO2   | A0      | A0    |
 |        13 | Vdd   | 5V      | +5VDC |
 
-##Parallel Connection
+###Parallel Connection
 
 pixel\_per\_sensor\_count = 384
 

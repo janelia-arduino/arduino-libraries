@@ -8,17 +8,16 @@
 // Steve Sawtelle sawtelles@janelia.hhmi.org
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-
-#ifndef AD7328_H_
-#define AD7328_H_
-
+#ifndef AD7328_H
+#define AD7328_H
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else
 #include "WProgram.h"
 #endif
-
+#include <SPI.h>
 #include <util/atomic.h>
+
 
 class AD7328
 {
@@ -28,17 +27,13 @@ public:
   uint8_t getRange(uint8_t channel);
   uint16_t read(uint8_t channel);
 
-  // range constants
-
-#define BIP10  0x00  // +/-10V
-#define BIP5   0x01  // +/-5V
+// range constants
+#define BIP10  0x00 // +/-10V
+#define BIP5   0x01 // +/-5V
 #define BIP2V5 0x02 // +/-2.5
 #define UNI10  0x03 // +10V
 
-
-
 private:
-  // Private Constants
   const static uint16_t RANGE_REG_L = 0x2000;  // chs 0-3
   const static uint16_t RANGE_REG_H = 0x4000;  // chs 4-7
   const static uint16_t READ_REG = 0x0000;
@@ -57,4 +52,4 @@ private:
   uint16_t range_h_;
 };
 
-#endif // AD7328
+#endif

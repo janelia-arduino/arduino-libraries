@@ -12,6 +12,8 @@ License:
 Provides an interface to the Newhaven serial liquid crystal display
 modules.
 
+[Usage Examples](./examples)
+
 * row_count = 4
 * col_count = 20
 * position = row*col_count + col

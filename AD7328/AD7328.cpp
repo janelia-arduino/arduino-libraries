@@ -8,18 +8,8 @@
 // Steve Sawtelle sawtelles@janelia.hhmi.org
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-
-#if defined(ARDUINO) && ARDUINO >= 100
-#include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
-
-#include <SPI.h>
 #include "AD7328.h"
 
-
-//---------- constructor  ---------------------------------------
 
 AD7328::AD7328(uint8_t cs_pin) :
   cs_pin_(cs_pin)
@@ -30,8 +20,6 @@ AD7328::AD7328(uint8_t cs_pin) :
   range_h_ = 0xc000;
 }
 
-
-//---------- public  ------------------------------------
 void AD7328::setRange( uint8_t ch, uint8_t range)
 {
   switch (ch)
@@ -157,5 +145,4 @@ uint16_t AD7328::read(uint8_t adc) //, uint8_t coding)
   } // end atomic block
   // return the 12 bit value
   return adc_value;
-
 }

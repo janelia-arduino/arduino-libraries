@@ -21,3 +21,6 @@ diagnosis of the device and the load. For direct control, there is an
 input pin available.  The power transistors are built by N-channel
 vertical power MOSFETs. The device is monolithically integrated in
 Smart Power Technology.
+
+[Usage Examples](./examples)
+

@@ -11,7 +11,7 @@ On linux, you may need to add yourself to the group 'dialout' in order
 to have write permissions on the USB port:
 
 ```shell
-sudo usermod -aG dialout <myuser>
+sudo usermod -aG dialout $USER
 ```
 
 ##Install These Arduino Libraries on your Host Machine

@@ -35,7 +35,7 @@ PowerSwitch::PowerSwitch(const int cs_pin, const int in_pin) :
   digitalWrite(in_pin, LOW);
 }
 
-void PowerSwitch::init(const int ic_count, const boolean spi_reset)
+void PowerSwitch::setup(const int ic_count, const boolean spi_reset)
 {
   spi_reset_ = spi_reset;
   if ((0 < ic_count) && (ic_count <= IC_COUNT_MAX))

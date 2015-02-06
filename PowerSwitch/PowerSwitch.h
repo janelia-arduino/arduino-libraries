@@ -23,7 +23,7 @@ public:
   PowerSwitch(int cs_pin);
   PowerSwitch(int cs_pin, int in_pin);
 
-  void init(int ic_count=1, boolean spi_reset=false);
+  void setup(int ic_count=1, boolean spi_reset=false);
   void setChannels(uint32_t channels);
   void setChannelOn(int channel);
   void setChannelOff(int channel);
@@ -49,8 +49,8 @@ private:
   const static byte ADDR_OLCR = 0b011; // Over Load Configuration Register
   const static byte ADDR_OTCR = 0b100; // Over Temperature Configuration Register
   const static byte ADDR_SRCR = 0b101; // Slew Rate Configuration Register
-  const static byte ADDR_STA = 0b110; // Output Status Monitor
-  const static byte ADDR_CTL = 0b111; // Output Control Register
+  const static byte ADDR_STA = 0b110;  // Output Status Monitor
+  const static byte ADDR_CTL = 0b111;  // Output Control Register
 
   int cs_pin_;
   int in_pin_;
@@ -62,4 +62,4 @@ private:
   void spiBegin();
 };
 
-#endif // POWER_SWITCH_H
+#endif

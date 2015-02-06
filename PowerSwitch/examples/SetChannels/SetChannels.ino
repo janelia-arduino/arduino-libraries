@@ -32,7 +32,7 @@ void setup()
   // Setup serial communications
   Serial.begin(BAUDRATE);
 
-  power_switch.init(IC_COUNT,SPI_RESET);
+  power_switch.setup(IC_COUNT,SPI_RESET);
   channel_count = power_switch.getChannelCount();
 }
 

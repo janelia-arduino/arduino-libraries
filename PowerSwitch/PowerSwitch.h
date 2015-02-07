@@ -31,6 +31,10 @@ public:
   void toggleChannels(uint32_t channels);
   void setAllChannelsOn();
   void setAllChannelsOff();
+  void setChannelOnAllOthersOff(int channel);
+  void setChannelOffAllOthersOn(int channel);
+  void setChannelsOnAllOthersOff(uint32_t channels);
+  void setChannelsOffAllOthersOn(uint32_t channels);
   uint32_t getChannelsOn();
   int getChannelCount();
 

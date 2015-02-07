@@ -144,6 +144,52 @@ void PowerSwitch::setAllChannelsOff()
   setChannels(channels_);
 }
 
+void PowerSwitch::setChannelOnAllOthersOff(int channel)
+{
+  if ((0 <= channel) && (channel < CHANNEL_COUNT_MAX))
+  {
+    uint32_t bit = 1;
+    bit = bit << channel;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+    {
+      channels_ = bit;
+    }
+    setChannels(channels_);
+  }
+}
+
+void PowerSwitch::setChannelOffAllOthersOn(int channel)
+{
+  if ((0 <= channel) && (channel < CHANNEL_COUNT_MAX))
+  {
+    uint32_t bit = 1;
+    bit = bit << channel;
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+    {
+      channels_ = ~bit;
+    }
+    setChannels(channels_);
+  }
+}
+
+void PowerSwitch::setChannelsOnAllOthersOff(uint32_t channels)
+{
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    channels_ = channels;
+  }
+  setChannels(channels_);
+}
+
+void PowerSwitch::setChannelsOffAllOthersOn(uint32_t channels)
+{
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    channels_ = ~channels;
+  }
+  setChannels(channels_);
+}
+
 uint32_t PowerSwitch::getChannelsOn()
 {
   return channels_;

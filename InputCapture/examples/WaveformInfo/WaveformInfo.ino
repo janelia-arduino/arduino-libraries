@@ -9,24 +9,24 @@
 // period and on_duration values by 500 to get units of nanoseconds.
 
 const int BAUDRATE = 9600;
-const int LOOP_DELAY = 1000;
+const int LOOP_DELAY = 300;
 
 unsigned int period_display;
 unsigned int on_duration_display;
 unsigned int duty_cycle_display;
 unsigned int freq_display;
 
-void updateWaveformMeasurements(unsigned int period_us, unsigned int on_duration_us)
+void updateWaveformMeasurements(unsigned long period_us, unsigned long on_duration_us)
 {
   period_display = period_us;
   on_duration_display = on_duration_us;
-  duty_cycle_display = (100*(long)on_duration_us)/period_us;
+  duty_cycle_display = (100*on_duration_us)/period_us;
   freq_display = 1000000/period_us;
 }
 
 void setup()
 {
-  input_capture.init();
+  input_capture.setup();
 
   // Setup serial communications
   Serial.begin(BAUDRATE);

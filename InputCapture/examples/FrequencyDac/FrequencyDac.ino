@@ -35,6 +35,7 @@ AD57X4R dac = AD57X4R(DAC_CS);
 void watchdogIsr()
 {
   dac.analogWrite(AD57X4R::A,0);
+  Serial << "watchdog!" << endl;
 }
 
 void writeFreqDac(unsigned int period_us, unsigned int on_duration_us)
@@ -61,7 +62,9 @@ void writeFreqDac(unsigned int period_us, unsigned int on_duration_us)
 
 void setup()
 {
-  input_capture.init();
+  input_capture.setup();
+
+  Serial.begin(9600);
 
   // Initialize DAC
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);

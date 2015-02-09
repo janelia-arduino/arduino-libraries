@@ -125,6 +125,15 @@ void PowerSwitch::toggleChannels(uint32_t channels)
   setChannels(channels_);
 }
 
+void PowerSwitch::toggleAllChannels()
+{
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    channels_ = ~channels_;
+  }
+  setChannels(channels_);
+}
+
 void PowerSwitch::setAllChannelsOn()
 {
   uint32_t bit = 1;

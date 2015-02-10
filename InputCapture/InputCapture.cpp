@@ -20,7 +20,8 @@ void InputCapture::setup()
   rise_time_prev_ = 0;
   on_duration_us_ = 0;
   period_us_ = 0;
-  virtual_timer_ = 0;
+  overflow_timer_ = 0;
+  ull_max_ = 0ULL - 1ULL;
 
   startTimer();
 }
@@ -56,18 +57,17 @@ void InputCapture::update()
   TCCR5B ^= _BV(ICES5); // toggle capture edge
   interrupts();
 
-  capture_time_ += virtual_timer_;
+  capture_time_ += overflow_timer_;
 
-  duration_ = capture_time_ - rise_time_prev_;
   // check for rollover
-  // if (capture_time_ > rise_time_prev_)
-  // {
-  //   duration_ = capture_time_ - rise_time_prev_;
-  // }
-  // else
-  // {
-  //   duration_ = capture_time_ + (0xffff - rise_time_prev_) + 1;
-  // }
+  if (capture_time_ > rise_time_prev_)
+  {
+    duration_ = capture_time_ - rise_time_prev_;
+  }
+  else
+  {
+    duration_ = capture_time_ + (ull_max_ - rise_time_prev_) + 1;
+  }
 
   if (TCCR5B & _BV(ICES5))
   { // captured falling edge
@@ -88,9 +88,9 @@ void InputCapture::update()
   }
 }
 
-void InputCapture::updateVirtualTimer()
+void InputCapture::updateOverflowTimer()
 {
-  virtual_timer_ += 0x10000ULL;
+  overflow_timer_ += 0x10000ULL;
 }
 
 InputCapture input_capture;
@@ -102,5 +102,5 @@ ISR(TIMER5_CAPT_vect)
 
 ISR(TIMER5_OVF_vect)
 {
-  inputCaptureUpdateVirtualTimer();
+  inputCaptureUpdateOverflowTimer();
 }

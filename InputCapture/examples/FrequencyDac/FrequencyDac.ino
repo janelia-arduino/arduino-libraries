@@ -32,15 +32,20 @@ unsigned int freq_hz;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
+const int BAUDRATE = 9600;
+const int LOOP_DELAY = 300;
+unsigned long period_display;
+unsigned int freq_display;
+unsigned int dac_value_display;
+
 void watchdogIsr()
 {
   dac.analogWrite(AD57X4R::A,0);
-  Serial << "watchdog!" << endl;
 }
 
-void writeFreqDac(unsigned int period_us, unsigned int on_duration_us)
+void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
 {
-  freq_hz = 1000000/period_us;
+  freq_hz = 1000000UL/period_us;
   if (freq_hz <= FREQ_MAX_HZ)
   {
     if (freq_hz >= FREQ_MIN_HZ)
@@ -51,26 +56,31 @@ void writeFreqDac(unsigned int period_us, unsigned int on_duration_us)
     {
       dac_value = 0;
     }
-    dac.analogWrite(AD57X4R::A,dac_value);
   }
   else
   {
-    dac.analogWrite(AD57X4R::A,dac_value_max);
+    dac_value = dac_value_max;
   }
+  dac.analogWrite(AD57X4R::A,dac_value);
   watchdog.resetTimer();
+
+  period_display = period_us;
+  freq_display = freq_hz;
+  dac_value_display = dac_value;
 }
 
 void setup()
 {
   input_capture.setup();
 
-  Serial.begin(9600);
+  Serial.begin(BAUDRATE);
 
   // Initialize DAC
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac.analogWrite(AD57X4R::A,0);
 
   // Use watchdog to set dac to 0 when no edges detected
+  // or frequency is < 62.5Hz (1/16ms)
   watchdog.enableIsr(watchdogIsr);
   watchdog.begin(Watchdog::TIMEOUT_16MS);
 
@@ -83,4 +93,9 @@ void setup()
 
 void loop()
 {
+  Serial << "period (microseconds) = " << period_display << endl;
+  Serial << "freq (Hz)= " << freq_display << endl;
+  Serial << "dac_value = " << dac_value_display << endl;
+  Serial << endl;
+  delay(LOOP_DELAY);
 }

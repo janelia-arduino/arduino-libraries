@@ -11,8 +11,8 @@
 const int BAUDRATE = 9600;
 const int LOOP_DELAY = 300;
 
-unsigned int period_display;
-unsigned int on_duration_display;
+unsigned long period_display;
+unsigned long on_duration_display;
 unsigned int duty_cycle_display;
 unsigned int freq_display;
 

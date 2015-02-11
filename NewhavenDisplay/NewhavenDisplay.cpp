@@ -26,11 +26,11 @@ void NewhavenDisplay::setSerial(HardwareSerial &serial)
   serial_ptr_ = &serial;
 }
 
-void NewhavenDisplay::init()
+void NewhavenDisplay::setup()
 {
   serial_ptr_->begin(BAUDRATE);
-  setBrightness(BRIGHTNESS_PERCENT_DEFAULT);
-  setContrast(CONTRAST_PERCENT_DEFAULT);
+  setContrastDefault();
+  setBrightnessDefault();
   clearScreen();
   blinkingCursorOff();
   underlineCursorOff();
@@ -147,6 +147,11 @@ void NewhavenDisplay::setContrast(const int percent)
   serial_ptr_->write(contrast);
 }
 
+void NewhavenDisplay::setContrastDefault()
+{
+  setContrast(CONTRAST_PERCENT_DEFAULT);
+}
+
 void NewhavenDisplay::setBrightness(const int percent)
 {
   int percent_checked = percent;
@@ -165,6 +170,11 @@ void NewhavenDisplay::setBrightness(const int percent)
                            BRIGHTNESS_MAX);
   sendCmd(0x53);
   serial_ptr_->write(brightness);
+}
+
+void NewhavenDisplay::setBrightnessDefault()
+{
+  setBrightness(BRIGHTNESS_PERCENT_DEFAULT);
 }
 
 void NewhavenDisplay::moveDisplayLeft()

@@ -42,7 +42,7 @@ void setup()
   Serial.begin(BAUDRATE);
   Serial.println("* System ready *");
 
-  display.init();
+  display.setup();
 }
 
 

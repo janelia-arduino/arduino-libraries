@@ -23,7 +23,7 @@ class NewhavenDisplay {
   NewhavenDisplay(HardwareSerial &serial);
   NewhavenDisplay(HardwareSerial &serial, const int row_count, const int col_count);
   void setSerial(HardwareSerial &serial);
-  void init();
+  void setup();
   template<typename T>
   void print(const T value)
   {
@@ -57,7 +57,9 @@ class NewhavenDisplay {
   void backspace();
   void clearScreen();
   void setContrast(const int percent);
+  void setContrastDefault();
   void setBrightness(const int percent);
+  void setBrightnessDefault();
   void moveDisplayLeft();
   void moveDisplayRight();
   void displayFirmwareVersion();

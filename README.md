@@ -3,13 +3,21 @@ arduino-libraries
 
 C++ libraries for running on Arduino hardware.
 
-##Install Latest Version of Arduino on your Host Machine
+##Install Arduino on your Host Machine
 
-###Download the Latest Arduino Software
+<http://arduino.cc/en/Guide/HomePage>
+
+###Ubuntu Repository Arduino Version
+
+```shell
+sudo apt-get install arduino
+```
+
+###Latest Arduino Version
 
 <http://arduino.cc/en/main/software>
 
-###Linux Install
+####Linux Install
 
 ```shell
 mkdir ~/arduino
@@ -27,7 +35,7 @@ to have write permissions on the USB port:
 sudo usermod -aG dialout $USER
 ```
 
-###Run on Linux
+###Linux Setup
 
 ```shell
 arduino

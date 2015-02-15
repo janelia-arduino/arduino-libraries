@@ -33,7 +33,7 @@ sudo usermod -aG dialout $USER
 arduino
 # after Arduino starts, go to File : Preferences
 # set Sketchbook location:
-# /home/<yourusername>/sketchbook/libraries
+# /home/<yourusername>/sketchbook/
 ```
 
 ##Install These Arduino Libraries on your Host Machine

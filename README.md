@@ -5,13 +5,32 @@ C++ libraries for running on Arduino hardware.
 
 ##Install Latest Version of Arduino on your Host Machine
 
-<http://arduino.cc/en/Guide/HomePage>
+###Download the Latest Arduino Software
+
+<http://arduino.cc/en/main/software>
+
+###Linux Install
+
+```shell
+mkdir ~/arduino
+mv ~/Downloads/arduino*.tar.xz ~/arduino/
+tar -xf arduino*.tar.xz
+cd arduino*
+echo "alias arduino=\"cd $PWD && source arduino\"" >> ~/.bashrc
+source ~/.bashrc
+```
 
 On linux, you may need to add yourself to the group 'dialout' in order
 to have write permissions on the USB port:
 
 ```shell
 sudo usermod -aG dialout $USER
+```
+
+###Run on Linux
+
+```shell
+arduino
 ```
 
 ##Install These Arduino Libraries on your Host Machine

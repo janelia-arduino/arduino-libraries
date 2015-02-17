@@ -1,7 +1,7 @@
 #include "Arduino.h"
-#include <Streaming.h>
+#include "Streaming.h"
+#include "BetterMap.h"
 #include "NewhavenDisplay.h"
-
 
 NewhavenDisplay display = NewhavenDisplay(Serial3);
 char inputBuffer[128];

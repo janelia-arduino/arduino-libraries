@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "Streaming.h"
 #include "SPI.h"
+#include "BetterMap.h"
 #include "AD57X4R.h"
 
 
@@ -64,7 +65,7 @@ void loop()
       if (0 < strlen(argv[1]))
       {
         unsigned int millivolt_value = atoi(argv[1]);
-        unsigned int dac_value = map(millivolt_value,0,MILLIVOLT_MAX,0,dac_value_max);
+        unsigned int dac_value = betterMap(millivolt_value,0,MILLIVOLT_MAX,0,dac_value_max);
         dac.analogWrite(AD57X4R::ALL,dac_value);
       }
       else

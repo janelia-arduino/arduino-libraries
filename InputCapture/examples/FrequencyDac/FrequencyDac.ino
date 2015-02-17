@@ -8,6 +8,7 @@
 #include "AD57X4R.h"
 #include "Watchdog.h"
 #include "InputCapture.h"
+#include "BetterMap.h"
 
 
 // Writes frequency value to AD57X4R DAC analog output.
@@ -50,7 +51,7 @@ void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
   {
     if (freq_hz >= FREQ_MIN_HZ)
     {
-      dac_value = map(freq_hz, FREQ_MIN_HZ, FREQ_MAX_HZ, dac_value_min, dac_value_max);
+      dac_value = betterMap(freq_hz, FREQ_MIN_HZ, FREQ_MAX_HZ, dac_value_min, dac_value_max);
     }
     else
     {

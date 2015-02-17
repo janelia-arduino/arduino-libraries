@@ -17,6 +17,7 @@
 #include <Stream.h>
 #include <HardwareSerial.h>
 #include "Streaming.h"
+#include "BetterMap.h"
 
 class NewhavenDisplay {
  public:

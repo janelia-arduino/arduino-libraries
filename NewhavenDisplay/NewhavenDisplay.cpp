@@ -138,11 +138,11 @@ void NewhavenDisplay::setContrast(const int percent)
   {
     percent_checked = PERCENT_MAX;
   }
-  uint8_t contrast = map(percent_checked,
-                         PERCENT_MIN,
-                         PERCENT_MAX,
-                         CONTRAST_MIN,
-                         CONTRAST_MAX);
+  uint8_t contrast = betterMap(percent_checked,
+                               PERCENT_MIN,
+                               PERCENT_MAX,
+                               CONTRAST_MIN,
+                               CONTRAST_MAX);
   sendCmd(0x52);
   serial_ptr_->write(contrast);
 }
@@ -163,11 +163,11 @@ void NewhavenDisplay::setBrightness(const int percent)
   {
     percent_checked = PERCENT_MAX;
   }
-  uint8_t brightness = map(percent_checked,
-                           PERCENT_MIN,
-                           PERCENT_MAX,
-                           BRIGHTNESS_MIN,
-                           BRIGHTNESS_MAX);
+  uint8_t brightness = betterMap(percent_checked,
+                                 PERCENT_MIN,
+                                 PERCENT_MAX,
+                                 BRIGHTNESS_MIN,
+                                 BRIGHTNESS_MAX);
   sendCmd(0x53);
   serial_ptr_->write(brightness);
 }

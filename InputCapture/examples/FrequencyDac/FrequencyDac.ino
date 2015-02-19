@@ -19,6 +19,9 @@
 // Attach function generator to ICP5 (pin 48 on Arudino Mega 2560) and
 // use 0-5V square wave from ~31-400Hz (~32-2.5ms period).
 
+const boolean use_watchdog = true;
+const boolean use_serial = false;
+
 const int DAC_CS = 49;
 const int FREQ_MIN_HZ = 80;
 const int FREQ_MAX_HZ = 300;
@@ -34,7 +37,7 @@ unsigned int freq_hz;
 AD57X4R dac = AD57X4R(DAC_CS);
 
 const int BAUDRATE = 9600;
-const int LOOP_DELAY = 300;
+const int LOOP_DELAY = 1000;
 unsigned long period_display;
 unsigned int freq_display;
 unsigned int dac_value_display;
@@ -46,6 +49,10 @@ void watchdogIsr()
 
 void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
 {
+  if (use_watchdog)
+  {
+    watchdog.resetTimer();
+  }
   freq_hz = 1000000UL/period_us;
   if (freq_hz <= FREQ_MAX_HZ)
   {
@@ -63,7 +70,6 @@ void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
     dac_value = dac_value_max;
   }
   dac.analogWrite(AD57X4R::A,dac_value);
-  watchdog.resetTimer();
 
   period_display = period_us;
   freq_display = freq_hz;
@@ -74,16 +80,23 @@ void setup()
 {
   input_capture.setup();
 
-  Serial.begin(BAUDRATE);
+  if (use_serial)
+  {
+    Serial.begin(BAUDRATE);
+  }
 
   // Initialize DAC
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac.analogWrite(AD57X4R::A,0);
 
   // Use watchdog to set dac to 0 when no edges detected
-  // or frequency is < 62.5Hz (1/16ms)
-  watchdog.enableIsr(watchdogIsr);
-  watchdog.begin(Watchdog::TIMEOUT_16MS);
+  // TIMEOUT_16MS : or frequency is < 62.5Hz (1/16ms)
+  // TIMEOUT_32MS : or frequency is < 31.25Hz (1/32ms)
+  if (use_watchdog)
+  {
+    watchdog.enableIsr(watchdogIsr);
+    watchdog.begin(Watchdog::TIMEOUT_32MS);
+  }
 
   // Setup input_capture cycle task
   dac_value_min = (VOLT_MIN/VOLT_RAIL)*dac.getMaxDacValue();
@@ -94,9 +107,12 @@ void setup()
 
 void loop()
 {
-  Serial << "period (microseconds) = " << period_display << endl;
-  Serial << "freq (Hz)= " << freq_display << endl;
-  Serial << "dac_value = " << dac_value_display << endl;
-  Serial << endl;
-  delay(LOOP_DELAY);
+  if (use_serial)
+  {
+    Serial << "period (microseconds) = " << period_display << endl;
+    Serial << "freq (Hz)= " << freq_display << endl;
+    Serial << "dac_value = " << dac_value_display << endl;
+    Serial << endl;
+    delay(LOOP_DELAY);
+  }
 }

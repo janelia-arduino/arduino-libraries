@@ -5,15 +5,7 @@ C++ libraries for running on Arduino hardware.
 
 ##Install Arduino on your Host Machine
 
-<http://arduino.cc/en/Guide/HomePage>
-
-###Ubuntu Repository Arduino Version
-
-```shell
-sudo apt-get install arduino
-```
-
-###Latest Arduino Version
+####Download the Arduino Software
 
 <http://arduino.cc/en/main/software>
 
@@ -21,11 +13,9 @@ sudo apt-get install arduino
 
 ```shell
 mkdir ~/arduino
-mv ~/Downloads/arduino*.tar.xz ~/arduino/
-tar -xf arduino*.tar.xz
-cd arduino*
-echo "alias arduino=\"cd $PWD && source arduino\"" >> ~/.bashrc
-source ~/.bashrc
+mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/arduino/
+cd ~/arduino/
+tar -xf arduino-X.Y.Z-linuxXX.tar.xz
 ```
 
 On linux, you may need to add yourself to the group 'dialout' in order
@@ -33,15 +23,6 @@ to have write permissions on the USB port:
 
 ```shell
 sudo usermod -aG dialout $USER
-```
-
-###Linux Setup
-
-```shell
-arduino
-# after Arduino starts, go to File : Preferences
-# set Sketchbook location:
-# /home/<yourusername>/sketchbook/
 ```
 
 ##Install These Arduino Libraries on your Host Machine
@@ -85,4 +66,21 @@ git submodule init
 git submodule update
 cd ..
 cp -r libraries2/. libraries/
+cd libraries
+git checkout .
+```
+
+###Running on Linux
+
+```shell
+cd ~/arduino/arduino-X.Y.Z/
+./arduino
+```
+
+###Linux Setup
+
+```shell
+# after Arduino starts, go to File : Preferences
+# set Sketchbook location:
+# /home/<yourusername>/sketchbook/
 ```

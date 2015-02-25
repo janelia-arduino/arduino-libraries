@@ -62,15 +62,7 @@ template <typename T, unsigned int size>
 T& Array<T, size>::operator[](const unsigned int i)
 {
   assert((i>=0) && (i<size));
-  if ((i>=0) && (i<size))
-  {
-    return values_[i];
-  }
-  else
-  {
-    T dummy;
-    return dummy;
-  }
+  return values_[i];
 }
 
 #endif

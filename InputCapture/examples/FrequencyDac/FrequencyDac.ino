@@ -19,8 +19,7 @@
 // Attach function generator to ICP5 (pin 48 on Arudino Mega 2560) and
 // use 0-5V square wave from ~31-400Hz (~32-2.5ms period).
 
-const boolean use_watchdog = true;
-const boolean use_serial = false;
+const boolean use_serial = true;
 
 const int DAC_CS = 49;
 const int FREQ_MIN_HZ = 80;
@@ -49,10 +48,8 @@ void watchdogIsr()
 
 void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
 {
-  if (use_watchdog)
-  {
-    watchdog.resetTimer();
-  }
+  watchdog.resetTimer();
+
   freq_hz = 1000000UL/period_us;
   if (freq_hz <= FREQ_MAX_HZ)
   {
@@ -71,9 +68,12 @@ void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
   }
   dac.analogWrite(AD57X4R::A,dac_value);
 
-  period_display = period_us;
-  freq_display = freq_hz;
-  dac_value_display = dac_value;
+  if (use_serial)
+  {
+    period_display = period_us;
+    freq_display = freq_hz;
+    dac_value_display = dac_value;
+  }
 }
 
 void setup()
@@ -89,19 +89,18 @@ void setup()
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac.analogWrite(AD57X4R::A,0);
 
-  // Use watchdog to set dac to 0 when no edges detected
-  // TIMEOUT_16MS : or frequency is < 62.5Hz (1/16ms)
-  // TIMEOUT_32MS : or frequency is < 31.25Hz (1/32ms)
-  if (use_watchdog)
-  {
-    watchdog.enableIsr(watchdogIsr);
-    watchdog.begin(Watchdog::TIMEOUT_32MS);
-  }
-
   // Setup input_capture cycle task
   dac_value_min = (VOLT_MIN/VOLT_RAIL)*dac.getMaxDacValue();
   dac_value_max = (VOLT_MAX/VOLT_RAIL)*dac.getMaxDacValue();
   input_capture.addCycleTask(writeFreqDac);
+
+  dac.analogWrite(AD57X4R::A,dac_value_max);
+
+  // Use watchdog to set dac to 0 when no edges detected
+  // TIMEOUT_16MS : or frequency is < 62.5Hz (1/16ms)
+  // TIMEOUT_32MS : or frequency is < 31.25Hz (1/32ms)
+  watchdog.enableIsr(watchdogIsr);
+  watchdog.begin(Watchdog::TIMEOUT_16MS);
 }
 
 

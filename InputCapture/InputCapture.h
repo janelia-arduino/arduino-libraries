@@ -29,13 +29,13 @@ private:
     void (*func)(unsigned long period_us, unsigned long on_duration_us);
   };
   task_t cycle_task_;
-  volatile unsigned long long overflow_timer_;
-  volatile unsigned long long capture_time_;
-  volatile unsigned long long rise_time_prev_;
+  volatile unsigned long overflow_timer_;
+  volatile unsigned long capture_time_;
+  volatile unsigned long rise_time_prev_;
   volatile unsigned long duration_;
   volatile unsigned long on_duration_us_;
   volatile unsigned long period_us_;
-  unsigned long long ull_max_;
+  unsigned long ul_max_;
 
   void startTimer();
   void update();

@@ -21,7 +21,7 @@ void InputCapture::setup()
   on_duration_us_ = 0;
   period_us_ = 0;
   overflow_timer_ = 0;
-  ull_max_ = 0ULL - 1ULL;
+  ul_max_ = 0UL - 1UL;
 
   startTimer();
 }
@@ -55,9 +55,8 @@ void InputCapture::update()
   noInterrupts();
   capture_time_ = ICR5;
   TCCR5B ^= _BV(ICES5); // toggle capture edge
-  interrupts();
-
   capture_time_ += overflow_timer_;
+  interrupts();
 
   // check for rollover
   if (capture_time_ > rise_time_prev_)
@@ -66,7 +65,7 @@ void InputCapture::update()
   }
   else
   {
-    duration_ = capture_time_ + (ull_max_ - rise_time_prev_) + 1;
+    duration_ = capture_time_ + (ul_max_ - rise_time_prev_) + 1;
   }
 
   if (TCCR5B & _BV(ICES5))
@@ -90,7 +89,7 @@ void InputCapture::update()
 
 void InputCapture::updateOverflowTimer()
 {
-  overflow_timer_ += 0x10000ULL;
+  overflow_timer_ += 0x10000UL;
 }
 
 InputCapture input_capture;

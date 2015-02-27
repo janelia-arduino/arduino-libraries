@@ -89,7 +89,9 @@ void InputCapture::update()
 
 void InputCapture::updateOverflowTimer()
 {
+  noInterrupts();
   overflow_timer_ += 0x10000UL;
+  interrupts();
 }
 
 InputCapture input_capture;

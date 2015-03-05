@@ -64,6 +64,18 @@ void setup()
   Serial << "array_initialized:" << endl;
   printArray(array_initialized);
 
+  array_initialized.fill(37);
+  Serial << "array_initialized.fill(37):" << endl;
+  printArray(array_initialized);
+
+  array_initialized.fill(array_simple);
+  Serial << "array_initialized.fill(array_simple):" << endl;
+  printArray(array_initialized);
+
+  array_initialized[3] = 666;
+  Serial << "array_initialized[3] = 666:" << endl;
+  printArray(array_initialized);
+
   Array<int,ELEMENT_COUNT> array_generated = generateArray();
   Serial << "array_generated:" << endl;
   printArray(array_generated);
@@ -73,6 +85,9 @@ void setup()
   printArray(array_doubled);
 
   int out_of_bounds = array_doubled[ELEMENT_COUNT+1];
+  Serial << "out_of_bounds: " << out_of_bounds << endl;
+
+  out_of_bounds = array_doubled.at(ELEMENT_COUNT+1);
   Serial << "out_of_bounds:" << out_of_bounds << endl;
 }
 

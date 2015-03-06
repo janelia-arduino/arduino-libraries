@@ -25,11 +25,11 @@ class Array
 public:
   Array();
   Array(const T &value);
-  Array(T values[size]);
+  Array(const T (&values)[size]);
   T& operator[](const unsigned int i);
   T& at(const unsigned int i);
   void fill(const T &value);
-  void fill(T values[size]);
+  void fill(const T (&values)[size]);
 
 private:
   T values_[size];
@@ -46,7 +46,7 @@ Array<T,size>::Array(const T &value)
 }
 
 template <typename T, unsigned int size>
-Array<T, size>::Array(T values[size])
+Array<T, size>::Array(const T (&values)[size])
 {
   fill(values);
 }
@@ -74,7 +74,7 @@ void Array<T, size>::fill(const T &value)
 }
 
 template <typename T, unsigned int size>
-void Array<T, size>::fill(T values[size])
+void Array<T, size>::fill(const T (&values)[size])
 {
   memcpy((void*) values_, (void*) values, size*sizeof(T));
 }

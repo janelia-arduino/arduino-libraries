@@ -9,12 +9,9 @@
 
 MultiArray::MultiArray()
 {
-  int x_array[constants::X_SIZE] = {1,2,3};
-  x_.fill(x_array);
-  int y_array[constants::Y_SIZE] = {4,5,6,7};
-  y_.fill(y_array);
-  int z_array[constants::Z_SIZE] = {8,9,10,11,12};
-  z_.fill(z_array);
+  x_.fill(constants::x_default);
+  y_.fill(constants::y_default);
+  z_.fill(constants::z_default);
 }
 
 void MultiArray::print()

@@ -21,7 +21,7 @@ void printArray(Array<int,ELEMENT_COUNT> array)
   Serial << "}" << endl;
 }
 
-void printArray(int array[])
+void printArray(const int (&array)[ELEMENT_COUNT])
 {
   Array<int,ELEMENT_COUNT> array_copy(array);
   printArray(array_copy);
@@ -52,7 +52,7 @@ void setup()
   Serial.begin(BAUDRATE);
   delay(1000);
 
-  int array_simple[ELEMENT_COUNT] = {15,14,13,12,11};
+  const int array_simple[ELEMENT_COUNT] = {15,14,13,12,11};
   Serial << "array_simple:" << endl;
   printArray(array_simple);
 

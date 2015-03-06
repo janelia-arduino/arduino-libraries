@@ -50,7 +50,7 @@ template <typename T,
 template <unsigned int ARRAY_SIZE>
 void TemplatedMultiArray<T,X_SIZE,Y_SIZE,Z_SIZE>::printArray(Array<T,ARRAY_SIZE> array)
 {
-  Serial << "{";
+  Serial << "[";
   for (int i=0; i<ARRAY_SIZE; i++)
   {
     if (i != 0)
@@ -59,7 +59,7 @@ void TemplatedMultiArray<T,X_SIZE,Y_SIZE,Z_SIZE>::printArray(Array<T,ARRAY_SIZE>
     }
     Serial << array[i];
   }
-  Serial << "}" << endl;
+  Serial << "]" << endl;
 }
 
 #endif

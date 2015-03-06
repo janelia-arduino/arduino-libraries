@@ -17,7 +17,7 @@ MultiArray::MultiArray()
 void MultiArray::print()
 {
   Serial << "x:" << endl;
-  Serial << "{";
+  Serial << "[";
   for (int i=0; i<constants::X_SIZE; i++)
   {
     if (i != 0)
@@ -26,10 +26,10 @@ void MultiArray::print()
     }
     Serial << x_[i];
   }
-  Serial << "}" << endl;
+  Serial << "]" << endl;
 
   Serial << "y:" << endl;
-  Serial << "{";
+  Serial << "[";
   for (int i=0; i<constants::Y_SIZE; i++)
   {
     if (i != 0)
@@ -38,10 +38,10 @@ void MultiArray::print()
     }
     Serial << y_[i];
   }
-  Serial << "}" << endl;
+  Serial << "]" << endl;
 
   Serial << "z:" << endl;
-  Serial << "{";
+  Serial << "[";
   for (int i=0; i<constants::Z_SIZE; i++)
   {
     if (i != 0)
@@ -50,5 +50,5 @@ void MultiArray::print()
     }
     Serial << z_[i];
   }
-  Serial << "}" << endl;
+  Serial << "]" << endl;
 }

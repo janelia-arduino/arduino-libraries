@@ -9,7 +9,7 @@ const int ELEMENT_COUNT = 5;
 
 void printArray(Array<int,ELEMENT_COUNT> array)
 {
-  Serial << "{";
+  Serial << "[";
   for (int i=0; i<ELEMENT_COUNT; i++)
   {
     if (i != 0)
@@ -18,7 +18,7 @@ void printArray(Array<int,ELEMENT_COUNT> array)
     }
     Serial << array[i];
   }
-  Serial << "}" << endl;
+  Serial << "]" << endl;
 }
 
 void printArray(const int (&array)[ELEMENT_COUNT])

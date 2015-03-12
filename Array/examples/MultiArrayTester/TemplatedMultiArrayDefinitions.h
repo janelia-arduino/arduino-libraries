@@ -7,10 +7,6 @@
 // ----------------------------------------------------------------------------
 #ifndef TEMPLATED_MULTI_ARRAY_DEFINITIONS_H
 #define TEMPLATED_MULTI_ARRAY_DEFINITIONS_H
-#include "Arduino.h"
-#include "Streaming.h"
-#include "Array.h"
-#include "Constants.h"
 
 template <typename T,
           unsigned int X_SIZE,

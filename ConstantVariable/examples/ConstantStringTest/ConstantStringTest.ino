@@ -2,7 +2,7 @@
 #include "Streaming.h"
 #include "MemoryFree.h"
 #include "Flash.h"
-#include "ConstantVariables.h"
+#include "ConstantVariable.h"
 
 const int BAUDRATE = 9600;
 CONSTANT_STRING(big_string,

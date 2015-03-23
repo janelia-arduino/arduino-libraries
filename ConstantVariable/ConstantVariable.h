@@ -1,12 +1,12 @@
 // ----------------------------------------------------------------------------
-// ConstantVariables.h
+// ConstantVariable.h
 //
 //
 // Authors:
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
-#ifndef CONSTANT_VARIABLES_H
-#define CONSTANT_VARIABLES_H
+#ifndef CONSTANT_VARIABLE_H
+#define CONSTANT_VARIABLE_H
 #if defined(ARDUINO) && ARDUINO >= 100
 #include "Arduino.h"
 #else

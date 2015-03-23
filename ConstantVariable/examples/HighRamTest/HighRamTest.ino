@@ -1,8 +1,6 @@
 #include "Arduino.h"
 #include "Streaming.h"
-#ifdef __AVR__
 #include "MemoryFree.h"
-#endif
 
 
 const int BAUDRATE = 9600;

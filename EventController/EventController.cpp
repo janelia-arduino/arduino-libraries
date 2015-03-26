@@ -12,10 +12,8 @@ namespace EventController
 {
 void EventController::setup()
 {
-  millis_ = 0;
-  Event default_event;
-  event_array_.fill(default_event);
-  // startTimer();
+  event_array_.fill(default_event_);
+  startTimer();
 }
 
 uint32_t EventController::getTime()
@@ -28,7 +26,7 @@ uint32_t EventController::getTime()
   return time;
 }
 
-void EventController::setTime(uint32_t time)
+void EventController::setTime(const uint32_t time)
 {
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
@@ -36,146 +34,168 @@ void EventController::setTime(uint32_t time)
   }
 }
 
-uint8_t EventController::addEvent(Callback callback)
+uint8_t EventController::addEvent(const Callback callback)
 {
   return addEventUsingTime(callback,0);
 }
 
-uint8_t EventController::addRecurringEvent(Callback callback, uint16_t period, uint16_t count)
+uint8_t EventController::addRecurringEvent(const Callback callback, const uint32_t period_ms, const uint16_t count)
 {
-  return addRecurringEventUsingTime(callback,0,period,count);
+  return addRecurringEventUsingTime(callback,0,period_ms,count);
 }
 
-uint8_t EventController::addInfiniteRecurringEvent(Callback callback, uint16_t period)
+uint8_t EventController::addInfiniteRecurringEvent(const Callback callback, const uint32_t period_ms)
 {
-  return addInfiniteRecurringEventUsingTime(callback,0,period);
+  return addInfiniteRecurringEventUsingTime(callback,0,period_ms);
 }
 
-uint8_t EventController::addEventUsingTime(Callback callback, uint32_t time)
-{
-  uint8_t event_id = findAvailableEventId();
-  if (event_id < EVENT_COUNT_MAX)
-  {
-    events[event_id].callback = callback;
-    events[event_id].time = time;
-    events[event_id].free = false;
-    events[event_id].enabled = true;
-    events[event_id].infinite = false;
-    events[event_id].count = 1;
-    events[event_id].period = 0;
-    events[event_id].inc = 0;
-  }
-  return event_id;
-}
-
-uint8_t EventController::addRecurringEventUsingTime(Callback callback, uint32_t time, uint16_t period, uint16_t count)
+uint8_t EventController::addEventUsingTime(const Callback callback, const uint32_t time)
 {
   uint8_t event_id = findAvailableEventId();
   if (event_id < EVENT_COUNT_MAX)
   {
-    events[event_id].callback = callback;
-    events[event_id].time = time;
-    events[event_id].free = false;
-    events[event_id].enabled = true;
-    events[event_id].infinite = false;
-    events[event_id].period = period;
-    events[event_id].count = count;
-    events[event_id].inc = 0;
+    event_array_[event_id].callback = callback;
+    event_array_[event_id].time = time;
+    event_array_[event_id].free = false;
+    event_array_[event_id].enabled = false;
+    event_array_[event_id].infinite = false;
+    event_array_[event_id].count = 1;
+    event_array_[event_id].period_ms = 0;
+    event_array_[event_id].inc = 0;
   }
+  enableEvent(event_id);
   return event_id;
 }
 
-uint8_t EventController::addInfiniteRecurringEventUsingTime(Callback callback, uint32_t time, uint16_t period)
+uint8_t EventController::addRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms, const uint16_t count)
 {
   uint8_t event_id = findAvailableEventId();
   if (event_id < EVENT_COUNT_MAX)
   {
-    events[event_id].callback = callback;
-    events[event_id].time = time;
-    events[event_id].free = false;
-    events[event_id].enabled = true;
-    events[event_id].infinite = true;
-    events[event_id].period = period;
-    events[event_id].count = 0;
-    events[event_id].inc = 0;
+    event_array_[event_id].callback = callback;
+    event_array_[event_id].time = time;
+    event_array_[event_id].free = false;
+    event_array_[event_id].enabled = false;
+    event_array_[event_id].infinite = false;
+    event_array_[event_id].period_ms = period_ms;
+    event_array_[event_id].count = count;
+    event_array_[event_id].inc = 0;
   }
+  enableEvent(event_id);
   return event_id;
 }
 
-uint8_t EventController::addEventUsingDelay(Callback callback, uint32_t delay)
+uint8_t EventController::addInfiniteRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms)
+{
+  uint8_t event_id = findAvailableEventId();
+  if (event_id < EVENT_COUNT_MAX)
+  {
+    event_array_[event_id].callback = callback;
+    event_array_[event_id].time = time;
+    event_array_[event_id].free = false;
+    event_array_[event_id].enabled = false;
+    event_array_[event_id].infinite = true;
+    event_array_[event_id].period_ms = period_ms;
+    event_array_[event_id].count = 0;
+    event_array_[event_id].inc = 0;
+  }
+  enableEvent(event_id);
+  return event_id;
+}
+
+uint8_t EventController::addEventUsingDelay(const Callback callback, const uint32_t delay)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
   return addEventUsingTime(callback,time);
 }
 
-uint8_t EventController::addRecurringEventUsingDelay(Callback callback, uint32_t delay, uint16_t period, uint16_t count)
+uint8_t EventController::addRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms, const uint16_t count)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addRecurringEventUsingTime(callback,time,period,count);
+  return addRecurringEventUsingTime(callback,time,period_ms,count);
 }
 
-uint8_t EventController::addInfiniteRecurringEventUsingDelay(Callback callback, uint32_t delay, uint16_t period)
+uint8_t EventController::addInfiniteRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addInfiniteRecurringEventUsingTime(callback,time,period);
+  return addInfiniteRecurringEventUsingTime(callback,time,period_ms);
 }
 
-uint8_t EventController::addEventUsingOffset(Callback callback, uint8_t event_id_origin, uint32_t offset)
+uint8_t EventController::addEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset)
 {
-  uint32_t time_origin = event_array_[event_id_origin].time;
-  uint32_t time = time_origin + offset;
-  return addEventUsingTime(callback,time);
+  if (event_id_origin < EVENT_COUNT_MAX)
+  {
+    uint32_t time_origin = event_array_[event_id_origin].time;
+    uint32_t time = time_origin + offset;
+    return addEventUsingTime(callback,time);
+  }
+  else
+  {
+    return event_id_origin;
+  }
 }
 
-uint8_t EventController::addRecurringEventUsingOffset(Callback callback, uint8_t event_id_origin, uint32_t offset, uint16_t period, uint16_t count)
+uint8_t EventController::addRecurringEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count)
 {
-  uint32_t time_origin = event_array_[event_id_origin].time;
-  uint32_t time = time_origin + offset;
-  return addRecurringEventUsingTime(callback,time,period,count);
+  if (event_id_origin < EVENT_COUNT_MAX)
+  {
+    uint32_t time_origin = event_array_[event_id_origin].time;
+    uint32_t time = time_origin + offset;
+    return addRecurringEventUsingTime(callback,time,period_ms,count);
+  }
+  else
+  {
+    return event_id_origin;
+  }
 }
 
-uint8_t EventController::addInfiniteRecurringEventUsingOffset(Callback callback, uint32_t offset, uint16_t period)
+uint8_t EventController::addInfiniteRecurringEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset, const uint32_t period_ms)
 {
-  uint32_t time_origin = event_array_[event_id_origin].time;
-  uint32_t time = time_origin + offset;
-  return addInfiniteRecurringEventUsingTime(callback,time,period);
+  if (event_id_origin < EVENT_COUNT_MAX)
+  {
+    uint32_t time_origin = event_array_[event_id_origin].time;
+    uint32_t time = time_origin + offset;
+    return addInfiniteRecurringEventUsingTime(callback,time,period_ms);
+  }
+  else
+  {
+    return event_id_origin;
+  }
 }
 
-void EventController::removeEvent(uint8_t event_id)
+void EventController::removeEvent(const uint8_t event_id)
 {
   if (event_id < EVENT_COUNT_MAX)
   {
-    Event default_event;
-    event_array_[event_id] = default_event;
+    event_array_[event_id] = default_event_;
   }
 }
 
 void EventController::removeAllEvents()
 {
-  Event default_event;
-  event_array_.fill(default_event);
+  event_array_.fill(default_event_);
 }
 
-void EventController::enableEvent(uint8_t event_id)
+void EventController::enableEvent(const uint8_t event_id)
 {
-  if (event_id < EVENT_COUNT_MAX)
+  if ((event_id < EVENT_COUNT_MAX) && !event_array_[event_id].free)
   {
     event_array_[event_id].enabled = true;
   }
 }
 
-void EventController::disableEvent(uint8_t event_id)
+void EventController::disableEvent(const uint8_t event_id)
 {
-  if (event_id < EVENT_COUNT_MAX)
+  if ((event_id < EVENT_COUNT_MAX) && !event_array_[event_id].free)
   {
     event_array_[event_id].enabled = false;
   }
 }
 
-Event EventController::getEventDetails(uint8_t event_id)
+Event EventController::getEventDetails(const uint8_t event_id)
 {
   if (event_id < EVENT_COUNT_MAX)
   {
@@ -183,8 +203,7 @@ Event EventController::getEventDetails(uint8_t event_id)
   }
   else
   {
-    Event default_event;
-    return default_event;
+    return default_event_;
   }
 }
 
@@ -210,6 +229,7 @@ bool EventController::startTimer()
 {
   ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
   {
+    millis_ = 0;
     TCCR5A = 0;                 // clear control register A
     TCCR5B = _BV(WGM53);        // set mode 8: phase and frequency correct pwm, stop the timer
     long cycles = (F_CPU / 2000); // the counter runs backwards after TOP, interrupt is at BOTTOM so divide microseconds by 2
@@ -232,10 +252,41 @@ uint8_t EventController::findAvailableEventId()
   return event_id;
 }
 
-EventController tts;
+void EventController::update()
+{
+  ATOMIC_BLOCK(ATOMIC_RESTORESTATE)
+  {
+    ++millis_;
+  }
+  for (uint8_t event_id = 0; event_id < EVENT_COUNT_MAX; ++event_id)
+  {
+    if ((!event_array_[event_id].free) && (event_array_[event_id].time <= millis_))
+    {
+      if ((event_array_[event_id].infinite) || (event_array_[event_id].inc < event_array_[event_id].count))
+      {
+        while ((event_array_[event_id].period_ms > 0) &&
+               (event_array_[event_id].time <= millis_))
+        {
+          event_array_[event_id].time += event_array_[event_id].period_ms;
+        }
+        if (event_array_[event_id].enabled)
+        {
+          (*event_array_[event_id].callback)();
+          ++event_array_[event_id].inc;
+        }
+      }
+      else
+      {
+        removeEvent(event_id);
+      }
+    }
+  }
+}
+}
+
+EventController::EventController event_controller;
 
 ISR(TIMER5_OVF_vect)
 {
-  tts.update();
-}
+  EventController::eventControllerUpdate();
 }

@@ -21,8 +21,10 @@ namespace EventController
 {
 void eventControllerUpdate();
 typedef void (*Callback)(void);
+typedef uint8_t index_t;
 
 const int EVENT_COUNT_MAX = 32;
+const int DEFAULT_INDEX = 255;
 
 struct Event
 {
@@ -45,29 +47,38 @@ struct Event
     inc(0) {}
 };
 
+struct EventId
+{
+  index_t index;
+  Callback callback;
+  EventId() :
+    index(DEFAULT_INDEX),
+    callback(NULL) {}
+};
+
 class EventController
 {
 public:
   void setup();
   uint32_t getTime();
   void setTime(const uint32_t time=0);
-  uint8_t addEvent(const Callback callback);
-  uint8_t addRecurringEvent(const Callback callback, const uint32_t period_ms, const uint16_t count);
-  uint8_t addInfiniteRecurringEvent(const Callback callback, const uint32_t period_ms);
-  uint8_t addEventUsingTime(const Callback callback, const uint32_t time);
-  uint8_t addRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms, const uint16_t count);
-  uint8_t addInfiniteRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms);
-  uint8_t addEventUsingDelay(const Callback callback, const uint32_t delay);
-  uint8_t addRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms, const uint16_t count);
-  uint8_t addInfiniteRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms);
-  uint8_t addEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset);
-  uint8_t addRecurringEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count);
-  uint8_t addInfiniteRecurringEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset, const uint32_t period_ms);
-  void removeEvent(const uint8_t event_id);
+  EventId addEvent(const Callback callback);
+  EventId addRecurringEvent(const Callback callback, const uint32_t period_ms, const uint16_t count);
+  EventId addInfiniteRecurringEvent(const Callback callback, const uint32_t period_ms);
+  EventId addEventUsingTime(const Callback callback, const uint32_t time);
+  EventId addRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms, const uint16_t count);
+  EventId addInfiniteRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms);
+  EventId addEventUsingDelay(const Callback callback, const uint32_t delay);
+  EventId addRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms, const uint16_t count);
+  EventId addInfiniteRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms);
+  EventId addEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset);
+  EventId addRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count);
+  EventId addInfiniteRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms);
+  void removeEvent(const EventId event_id);
   void removeAllEvents();
-  void enableEvent(const uint8_t event_id);
-  void disableEvent(const uint8_t event_id);
-  Event getEventDetails(const uint8_t event_id);
+  void enableEvent(const EventId event_id);
+  void disableEvent(const EventId event_id);
+  Event getEvent(const EventId event_id);
   bool activeEvents();
   int countActiveEvents();
   int getEventCountMax();
@@ -75,9 +86,13 @@ private:
   volatile uint32_t millis_;
   Array<Event,EVENT_COUNT_MAX> event_array_;
   const Event default_event_;
+  const EventId default_event_id_;
   bool startTimer();
-  uint8_t findAvailableEventId();
+  index_t findAvailableEventIndex();
   void update();
+  void removeEvent(const index_t event_index);
+  void enableEvent(const index_t event_index);
+  void disableEvent(const index_t event_index);
   friend void eventControllerUpdate();
 };
 }

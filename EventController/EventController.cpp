@@ -34,143 +34,164 @@ void EventController::setTime(const uint32_t time)
   }
 }
 
-uint8_t EventController::addEvent(const Callback callback)
+EventId EventController::addEvent(const Callback callback)
 {
   return addEventUsingTime(callback,0);
 }
 
-uint8_t EventController::addRecurringEvent(const Callback callback, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEvent(const Callback callback, const uint32_t period_ms, const uint16_t count)
 {
   return addRecurringEventUsingTime(callback,0,period_ms,count);
 }
 
-uint8_t EventController::addInfiniteRecurringEvent(const Callback callback, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEvent(const Callback callback, const uint32_t period_ms)
 {
   return addInfiniteRecurringEventUsingTime(callback,0,period_ms);
 }
 
-uint8_t EventController::addEventUsingTime(const Callback callback, const uint32_t time)
+EventId EventController::addEventUsingTime(const Callback callback, const uint32_t time)
 {
-  uint8_t event_id = findAvailableEventId();
-  if (event_id < EVENT_COUNT_MAX)
+  index_t event_index = findAvailableEventIndex();
+  if (event_index < EVENT_COUNT_MAX)
   {
-    event_array_[event_id].callback = callback;
-    event_array_[event_id].time = time;
-    event_array_[event_id].free = false;
-    event_array_[event_id].enabled = false;
-    event_array_[event_id].infinite = false;
-    event_array_[event_id].count = 1;
-    event_array_[event_id].period_ms = 0;
-    event_array_[event_id].inc = 0;
+    event_array_[event_index].callback = callback;
+    event_array_[event_index].time = time;
+    event_array_[event_index].free = false;
+    event_array_[event_index].enabled = false;
+    event_array_[event_index].infinite = false;
+    event_array_[event_index].count = 1;
+    event_array_[event_index].period_ms = 0;
+    event_array_[event_index].inc = 0;
   }
-  enableEvent(event_id);
+  enableEvent(event_index);
+  EventId event_id;
+  event_id.index = event_index;
+  event_id.callback = callback;
   return event_id;
 }
 
-uint8_t EventController::addRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms, const uint16_t count)
 {
-  uint8_t event_id = findAvailableEventId();
-  if (event_id < EVENT_COUNT_MAX)
+  index_t event_index = findAvailableEventIndex();
+  if (event_index < EVENT_COUNT_MAX)
   {
-    event_array_[event_id].callback = callback;
-    event_array_[event_id].time = time;
-    event_array_[event_id].free = false;
-    event_array_[event_id].enabled = false;
-    event_array_[event_id].infinite = false;
-    event_array_[event_id].period_ms = period_ms;
-    event_array_[event_id].count = count;
-    event_array_[event_id].inc = 0;
+    event_array_[event_index].callback = callback;
+    event_array_[event_index].time = time;
+    event_array_[event_index].free = false;
+    event_array_[event_index].enabled = false;
+    event_array_[event_index].infinite = false;
+    event_array_[event_index].period_ms = period_ms;
+    event_array_[event_index].count = count;
+    event_array_[event_index].inc = 0;
   }
-  enableEvent(event_id);
+  enableEvent(event_index);
+  EventId event_id;
+  event_id.index = event_index;
+  event_id.callback = callback;
   return event_id;
 }
 
-uint8_t EventController::addInfiniteRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms)
 {
-  uint8_t event_id = findAvailableEventId();
-  if (event_id < EVENT_COUNT_MAX)
+  index_t event_index = findAvailableEventIndex();
+  if (event_index < EVENT_COUNT_MAX)
   {
-    event_array_[event_id].callback = callback;
-    event_array_[event_id].time = time;
-    event_array_[event_id].free = false;
-    event_array_[event_id].enabled = false;
-    event_array_[event_id].infinite = true;
-    event_array_[event_id].period_ms = period_ms;
-    event_array_[event_id].count = 0;
-    event_array_[event_id].inc = 0;
+    event_array_[event_index].callback = callback;
+    event_array_[event_index].time = time;
+    event_array_[event_index].free = false;
+    event_array_[event_index].enabled = false;
+    event_array_[event_index].infinite = true;
+    event_array_[event_index].period_ms = period_ms;
+    event_array_[event_index].count = 0;
+    event_array_[event_index].inc = 0;
   }
-  enableEvent(event_id);
+  enableEvent(event_index);
+  EventId event_id;
+  event_id.index = event_index;
+  event_id.callback = callback;
   return event_id;
 }
 
-uint8_t EventController::addEventUsingDelay(const Callback callback, const uint32_t delay)
+EventId EventController::addEventUsingDelay(const Callback callback, const uint32_t delay)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
   return addEventUsingTime(callback,time);
 }
 
-uint8_t EventController::addRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms, const uint16_t count)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
   return addRecurringEventUsingTime(callback,time,period_ms,count);
 }
 
-uint8_t EventController::addInfiniteRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
   return addInfiniteRecurringEventUsingTime(callback,time,period_ms);
 }
 
-uint8_t EventController::addEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset)
+EventId EventController::addEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset)
 {
-  if (event_id_origin < EVENT_COUNT_MAX)
+  index_t event_index_origin = event_id_origin.index;
+  if (event_index_origin < EVENT_COUNT_MAX)
   {
-    uint32_t time_origin = event_array_[event_id_origin].time;
+    uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
     return addEventUsingTime(callback,time);
   }
   else
   {
-    return event_id_origin;
+    return default_event_id_;
   }
 }
 
-uint8_t EventController::addRecurringEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count)
 {
-  if (event_id_origin < EVENT_COUNT_MAX)
+  index_t event_index_origin = event_id_origin.index;
+  if (event_index_origin < EVENT_COUNT_MAX)
   {
-    uint32_t time_origin = event_array_[event_id_origin].time;
+    uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
     return addRecurringEventUsingTime(callback,time,period_ms,count);
   }
   else
   {
-    return event_id_origin;
+    return default_event_id_;
   }
 }
 
-uint8_t EventController::addInfiniteRecurringEventUsingOffset(const Callback callback, const uint8_t event_id_origin, const uint32_t offset, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms)
 {
-  if (event_id_origin < EVENT_COUNT_MAX)
+  index_t event_index_origin = event_id_origin.index;
+  if (event_index_origin < EVENT_COUNT_MAX)
   {
-    uint32_t time_origin = event_array_[event_id_origin].time;
+    uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
     return addInfiniteRecurringEventUsingTime(callback,time,period_ms);
   }
   else
   {
-    return event_id_origin;
+    return default_event_id_;
   }
 }
 
-void EventController::removeEvent(const uint8_t event_id)
+void EventController::removeEvent(const EventId event_id)
 {
-  if (event_id < EVENT_COUNT_MAX)
+  index_t event_index = event_id.index;
+  if ((event_index < EVENT_COUNT_MAX) && (event_array_[event_index].callback == event_id.callback))
   {
-    event_array_[event_id] = default_event_;
+    event_array_[event_index] = default_event_;
+  }
+}
+
+void EventController::removeEvent(const index_t event_index)
+{
+  if (event_index < EVENT_COUNT_MAX)
+  {
+    event_array_[event_index] = default_event_;
   }
 }
 
@@ -179,27 +200,50 @@ void EventController::removeAllEvents()
   event_array_.fill(default_event_);
 }
 
-void EventController::enableEvent(const uint8_t event_id)
+void EventController::enableEvent(const EventId event_id)
 {
-  if ((event_id < EVENT_COUNT_MAX) && !event_array_[event_id].free)
+  index_t event_index = event_id.index;
+  if ((event_index < EVENT_COUNT_MAX) &&
+      (event_array_[event_index].callback == event_id.callback) &&
+      !event_array_[event_index].free)
   {
-    event_array_[event_id].enabled = true;
+    event_array_[event_index].enabled = true;
   }
 }
 
-void EventController::disableEvent(const uint8_t event_id)
+void EventController::enableEvent(const index_t event_index)
 {
-  if ((event_id < EVENT_COUNT_MAX) && !event_array_[event_id].free)
+  if ((event_index < EVENT_COUNT_MAX) && !event_array_[event_index].free)
   {
-    event_array_[event_id].enabled = false;
+    event_array_[event_index].enabled = true;
   }
 }
 
-Event EventController::getEventDetails(const uint8_t event_id)
+void EventController::disableEvent(const EventId event_id)
 {
-  if (event_id < EVENT_COUNT_MAX)
+  index_t event_index = event_id.index;
+  if ((event_index < EVENT_COUNT_MAX) &&
+      (event_array_[event_index].callback == event_id.callback) &&
+      !event_array_[event_index].free)
   {
-    return event_array_[event_id];
+    event_array_[event_index].enabled = false;
+  }
+}
+
+void EventController::disableEvent(const index_t event_index)
+{
+  if ((event_index < EVENT_COUNT_MAX) && !event_array_[event_index].free)
+  {
+    event_array_[event_index].enabled = false;
+  }
+}
+
+Event EventController::getEvent(const EventId event_id)
+{
+  index_t event_index = event_id.index;
+  if (event_index < EVENT_COUNT_MAX)
+  {
+    return event_array_[event_index];
   }
   else
   {
@@ -215,9 +259,9 @@ bool EventController::activeEvents()
 int EventController::countActiveEvents()
 {
   int active_events = 0;
-  for (uint8_t event_id=0; event_id<event_array_.size(); ++event_id)
+  for (index_t event_index=0; event_index<event_array_.size(); ++event_index)
   {
-    if ((!event_array_[event_id].free) && event_array_[event_id].enabled)
+    if ((!event_array_[event_index].free) && event_array_[event_index].enabled)
     {
       ++active_events;
     }
@@ -242,14 +286,14 @@ bool EventController::startTimer()
   }
 }
 
-uint8_t EventController::findAvailableEventId()
+index_t EventController::findAvailableEventIndex()
 {
-  uint8_t event_id = 0;
-  while ((event_id < EVENT_COUNT_MAX) && !event_array_[event_id].free)
+  index_t event_index = 0;
+  while ((event_index < EVENT_COUNT_MAX) && !event_array_[event_index].free)
   {
-    ++event_id;
+    ++event_index;
   }
-  return event_id;
+  return event_index;
 }
 
 void EventController::update()
@@ -258,26 +302,26 @@ void EventController::update()
   {
     ++millis_;
   }
-  for (uint8_t event_id = 0; event_id < EVENT_COUNT_MAX; ++event_id)
+  for (index_t event_index = 0; event_index < EVENT_COUNT_MAX; ++event_index)
   {
-    if ((!event_array_[event_id].free) && (event_array_[event_id].time <= millis_))
+    if ((!event_array_[event_index].free) && (event_array_[event_index].time <= millis_))
     {
-      if ((event_array_[event_id].infinite) || (event_array_[event_id].inc < event_array_[event_id].count))
+      if ((event_array_[event_index].infinite) || (event_array_[event_index].inc < event_array_[event_index].count))
       {
-        while ((event_array_[event_id].period_ms > 0) &&
-               (event_array_[event_id].time <= millis_))
+        while ((event_array_[event_index].period_ms > 0) &&
+               (event_array_[event_index].time <= millis_))
         {
-          event_array_[event_id].time += event_array_[event_id].period_ms;
+          event_array_[event_index].time += event_array_[event_index].period_ms;
         }
-        if (event_array_[event_id].enabled)
+        if (event_array_[event_index].enabled)
         {
-          (*event_array_[event_id].callback)();
-          ++event_array_[event_id].inc;
+          (*event_array_[event_index].callback)();
+          ++event_array_[event_index].inc;
         }
       }
       else
       {
-        removeEvent(event_id);
+        removeEvent(event_index);
       }
     }
   }

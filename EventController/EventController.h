@@ -46,6 +46,7 @@ struct Event
     count(0),
     inc(0) {}
 };
+const Event default_event;
 
 struct EventId
 {
@@ -55,6 +56,17 @@ struct EventId
     index(DEFAULT_INDEX),
     callback(NULL) {}
 };
+const EventId default_event_id;
+
+struct EventIdPair
+{
+  EventId event_id_0;
+  EventId event_id_1;
+  EventIdPair() :
+    event_id_0(default_event_id),
+    event_id_1(default_event_id) {}
+};
+const EventIdPair default_event_id_pair;
 
 class EventController
 {
@@ -74,10 +86,19 @@ public:
   EventId addEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset);
   EventId addRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count);
   EventId addInfiniteRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms);
+  EventIdPair addPwmUsingTimePeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t time, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count);
+  EventIdPair addPwmUsingDelayPeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t delay, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count);
+  EventIdPair addPwmUsingOffsetPeriodOnDuration(const Callback callback_0, const Callback callback_1, const EventId event_id_origin, const uint32_t offset, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count);
+  EventIdPair addInfinitePwmUsingTimePeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t time, uint32_t period_ms, uint32_t on_duration_ms);
+  EventIdPair addInfinitePwmUsingDelayPeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t delay, uint32_t period_ms, uint32_t on_duration_ms);
+  EventIdPair addInfinitePwmUsingOffsetPeriodOnDuration(const Callback callback_0, const Callback callback_1, const EventId event_id_origin, const uint32_t offset, uint32_t period_ms, uint32_t on_duration_ms);
   void removeEvent(const EventId event_id);
+  void removeEventPair(const EventIdPair event_id_pair);
   void removeAllEvents();
   void enableEvent(const EventId event_id);
+  void enableEventPair(const EventIdPair event_id_pair);
   void disableEvent(const EventId event_id);
+  void disableEventPair(const EventIdPair event_id_pair);
   Event getEvent(const EventId event_id);
   bool activeEvents();
   int countActiveEvents();
@@ -85,8 +106,6 @@ public:
 private:
   volatile uint32_t millis_;
   Array<Event,EVENT_COUNT_MAX> event_array_;
-  const Event default_event_;
-  const EventId default_event_id_;
   bool startTimer();
   index_t findAvailableEventIndex();
   void update();

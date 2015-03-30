@@ -12,7 +12,7 @@ namespace EventController
 {
 void EventController::setup()
 {
-  event_array_.fill(default_event_);
+  event_array_.fill(default_event);
   startTimer();
 }
 
@@ -144,7 +144,7 @@ EventId EventController::addEventUsingOffset(const Callback callback, const Even
   }
   else
   {
-    return default_event_id_;
+    return default_event_id;
   }
 }
 
@@ -159,7 +159,7 @@ EventId EventController::addRecurringEventUsingOffset(const Callback callback, c
   }
   else
   {
-    return default_event_id_;
+    return default_event_id;
   }
 }
 
@@ -174,7 +174,67 @@ EventId EventController::addInfiniteRecurringEventUsingOffset(const Callback cal
   }
   else
   {
-    return default_event_id_;
+    return default_event_id;
+  }
+}
+
+EventIdPair EventController::addPwmUsingTimePeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t time, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count)
+{
+  EventIdPair event_id_pair;
+  event_id_pair.event_id_0 = addRecurringEventUsingTime(callback_0,time,period_ms,count);
+  event_id_pair.event_id_1 = addRecurringEventUsingOffset(callback_1,event_id_pair.event_id_0,on_duration_ms,period_ms,count);
+  return event_id_pair;
+}
+
+EventIdPair EventController::addPwmUsingDelayPeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t delay, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count)
+{
+  uint32_t time_now = getTime();
+  uint32_t time = time_now + delay;
+  return addPwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,count);
+}
+
+EventIdPair EventController::addPwmUsingOffsetPeriodOnDuration(const Callback callback_0, const Callback callback_1, const EventId event_id_origin, const uint32_t offset, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count)
+{
+  index_t event_index_origin = event_id_origin.index;
+  if (event_index_origin < EVENT_COUNT_MAX)
+  {
+    uint32_t time_origin = event_array_[event_index_origin].time;
+    uint32_t time = time_origin + offset;
+    return addPwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,count);
+  }
+  else
+  {
+    return default_event_id_pair;
+  }
+}
+
+EventIdPair EventController::addInfinitePwmUsingTimePeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t time, uint32_t period_ms, uint32_t on_duration_ms)
+{
+  EventIdPair event_id_pair;
+  event_id_pair.event_id_0 = addInfiniteRecurringEventUsingTime(callback_0,time,period_ms);
+  event_id_pair.event_id_1 = addInfiniteRecurringEventUsingOffset(callback_1,event_id_pair.event_id_0,on_duration_ms,period_ms);
+  return event_id_pair;
+}
+
+EventIdPair EventController::addInfinitePwmUsingDelayPeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t delay, uint32_t period_ms, uint32_t on_duration_ms)
+{
+  uint32_t time_now = getTime();
+  uint32_t time = time_now + delay;
+  return addInfinitePwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms);
+}
+
+EventIdPair EventController::addInfinitePwmUsingOffsetPeriodOnDuration(const Callback callback_0, const Callback callback_1, const EventId event_id_origin, const uint32_t offset, uint32_t period_ms, uint32_t on_duration_ms)
+{
+  index_t event_index_origin = event_id_origin.index;
+  if (event_index_origin < EVENT_COUNT_MAX)
+  {
+    uint32_t time_origin = event_array_[event_index_origin].time;
+    uint32_t time = time_origin + offset;
+    return addInfinitePwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms);
+  }
+  else
+  {
+    return default_event_id_pair;
   }
 }
 
@@ -183,21 +243,27 @@ void EventController::removeEvent(const EventId event_id)
   index_t event_index = event_id.index;
   if ((event_index < EVENT_COUNT_MAX) && (event_array_[event_index].callback == event_id.callback))
   {
-    event_array_[event_index] = default_event_;
+    event_array_[event_index] = default_event;
   }
+}
+
+void EventController::removeEventPair(const EventIdPair event_id_pair)
+{
+  removeEvent(event_id_pair.event_id_0);
+  removeEvent(event_id_pair.event_id_1);
 }
 
 void EventController::removeEvent(const index_t event_index)
 {
   if (event_index < EVENT_COUNT_MAX)
   {
-    event_array_[event_index] = default_event_;
+    event_array_[event_index] = default_event;
   }
 }
 
 void EventController::removeAllEvents()
 {
-  event_array_.fill(default_event_);
+  event_array_.fill(default_event);
 }
 
 void EventController::enableEvent(const EventId event_id)
@@ -209,6 +275,12 @@ void EventController::enableEvent(const EventId event_id)
   {
     event_array_[event_index].enabled = true;
   }
+}
+
+void EventController::enableEventPair(const EventIdPair event_id_pair)
+{
+  enableEvent(event_id_pair.event_id_0);
+  enableEvent(event_id_pair.event_id_1);
 }
 
 void EventController::enableEvent(const index_t event_index)
@@ -230,6 +302,12 @@ void EventController::disableEvent(const EventId event_id)
   }
 }
 
+void EventController::disableEventPair(const EventIdPair event_id_pair)
+{
+  disableEvent(event_id_pair.event_id_0);
+  disableEvent(event_id_pair.event_id_1);
+}
+
 void EventController::disableEvent(const index_t event_index)
 {
   if ((event_index < EVENT_COUNT_MAX) && !event_array_[event_index].free)
@@ -247,7 +325,7 @@ Event EventController::getEvent(const EventId event_id)
   }
   else
   {
-    return default_event_;
+    return default_event;
   }
 }
 

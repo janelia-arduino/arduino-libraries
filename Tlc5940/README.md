@@ -59,3 +59,24 @@ Tlc.update() - Sends the changes from any Tlc.clear's, Tlc.set's, or Tlc.setAll'
 Extended Functions. These require an include statement at the top of the sketch to use.
 
 Functions that require VPRG_ENABLED. These require VPRG_ENABLED == 1 in tlc_config.h
+
+Arduino Mega Hardware Setup
+---------------------------
+
+Required Pins
+
+    Mega pin 51 (MOSI) -> SIN (Tlc pin 26)
+    Mega pin 52 (SCK) -> SCLK (Tlc pin 25)
+    Mega pin 11 (OC1A) -> XLAT (Tlc pin 24)
+    Mega pin 12 (OC1B) -> BLANK (Tlc pin 23)
+    Mega pin 9 (OC2B) -> GSCLK (Tlc pin 18)
+
+Optional Pins
+
+VPRG - for setting dot correction (per-channel current adjustment)
+
+    Mega pin 50 -> VPRG (Tlc pin 27)
+
+XERR - for checking for thermal overloads or disconnected LEDs
+
+    Mega pin 10 -> XERR (Tlc pin 16)

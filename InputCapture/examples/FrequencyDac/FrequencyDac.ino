@@ -3,6 +3,7 @@
 #else
 #include "WProgram.h"
 #endif
+#include <util/atomic.h>
 #include "SPI.h"
 #include "Streaming.h"
 #include "AD57X4R.h"
@@ -60,6 +61,7 @@ void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
     else
     {
       dac_value = 0;
+      Serial << "glitch!" << endl;
     }
   }
   else
@@ -89,29 +91,29 @@ void setup()
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
   dac.analogWrite(AD57X4R::A,0);
 
-  // Setup input_capture cycle task
+  // Setup input_capture cycle callback
   dac_value_min = (VOLT_MIN/VOLT_RAIL)*dac.getMaxDacValue();
   dac_value_max = (VOLT_MAX/VOLT_RAIL)*dac.getMaxDacValue();
-  input_capture.addCycleTask(writeFreqDac);
-
-  dac.analogWrite(AD57X4R::A,dac_value_max);
+  input_capture.addCycleCallback(writeFreqDac);
 
   // Use watchdog to set dac to 0 when no edges detected
   // TIMEOUT_16MS : or frequency is < 62.5Hz (1/16ms)
-  // TIMEOUT_32MS : or frequency is < 31.25Hz (1/32ms)
   watchdog.enableIsr(watchdogIsr);
   watchdog.begin(Watchdog::TIMEOUT_16MS);
+
+  delay(1000);
+  Serial << "reset!!" << endl;
 }
 
 
 void loop()
 {
-  if (use_serial)
-  {
-    Serial << "period (microseconds) = " << period_display << endl;
-    Serial << "freq (Hz)= " << freq_display << endl;
-    Serial << "dac_value = " << dac_value_display << endl;
-    Serial << endl;
-    delay(LOOP_DELAY);
-  }
+  // if (use_serial)
+  // {
+  //   Serial << "period (microseconds) = " << period_display << endl;
+  //   Serial << "freq (Hz)= " << freq_display << endl;
+  //   Serial << "dac_value = " << dac_value_display << endl;
+  //   Serial << endl;
+  //   delay(LOOP_DELAY);
+  // }
 }

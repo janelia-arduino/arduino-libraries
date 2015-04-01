@@ -19,16 +19,15 @@
 class InputCapture
 {
 public:
+  typedef void (*Callback)(unsigned long period_us, unsigned long on_duration_us);
   InputCapture();
   void setup();
-  void addCycleTask(void (*userFunc)(unsigned long period_us, unsigned long on_duration_us));
-  void removeCycleTask();
+  void addCycleCallback(Callback callback);
+  void removeCycleCallback();
+  void begin();
 private:
-  struct task_t {
-    bool enabled;
-    void (*func)(unsigned long period_us, unsigned long on_duration_us);
-  };
-  task_t cycle_task_;
+  boolean callback_enabled_;
+  Callback callback_;
   volatile unsigned long overflow_timer_;
   volatile unsigned long capture_time_;
   volatile unsigned long rise_time_prev_;
@@ -37,7 +36,6 @@ private:
   volatile unsigned long period_us_;
   unsigned long ul_max_;
 
-  void startTimer();
   void update();
   void updateOverflowTimer();
   friend void inputCaptureUpdate();

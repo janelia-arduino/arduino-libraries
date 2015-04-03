@@ -70,7 +70,6 @@ void InputCapture::update()
     else
     {
       // just missed an overflow
-      Serial << "missed overflow!" << endl;
       capture_time_ += overflow_timer_ + 0x10000UL;
     }
   }
@@ -83,7 +82,6 @@ void InputCapture::update()
   else
   {
     duration_ = capture_time_ + (ul_max_ - rise_time_prev_) + 1;
-    Serial << "rollover!!" << endl;
   }
 
   if (TCCR5B & _BV(ICES5))

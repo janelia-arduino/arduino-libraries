@@ -13,7 +13,6 @@
 #include "WProgram.h"
 #endif
 #include <util/atomic.h>
-#include "Streaming.h"
 
 
 class InputCapture

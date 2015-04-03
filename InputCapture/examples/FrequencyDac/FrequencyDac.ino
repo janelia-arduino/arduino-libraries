@@ -4,8 +4,8 @@
 #include "WProgram.h"
 #endif
 #include <util/atomic.h>
-#include "SPI.h"
 #include "Streaming.h"
+#include "SPI.h"
 #include "AD57X4R.h"
 #include "Watchdog.h"
 #include "InputCapture.h"
@@ -36,12 +36,6 @@ unsigned int freq_hz;
 
 AD57X4R dac = AD57X4R(DAC_CS);
 
-const int BAUDRATE = 9600;
-const int LOOP_DELAY = 1000;
-unsigned long period_display;
-unsigned int freq_display;
-unsigned int dac_value_display;
-
 void watchdogIsr()
 {
   dac.analogWrite(AD57X4R::A,0);
@@ -61,7 +55,6 @@ void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
     else
     {
       dac_value = 0;
-      Serial << "glitch!" << endl;
     }
   }
   else
@@ -69,23 +62,11 @@ void writeFreqDac(unsigned long period_us, unsigned long on_duration_us)
     dac_value = dac_value_max;
   }
   dac.analogWrite(AD57X4R::A,dac_value);
-
-  if (use_serial)
-  {
-    period_display = period_us;
-    freq_display = freq_hz;
-    dac_value_display = dac_value;
-  }
 }
 
 void setup()
 {
   input_capture.setup();
-
-  if (use_serial)
-  {
-    Serial.begin(BAUDRATE);
-  }
 
   // Initialize DAC
   dac.init(AD57X4R::AD5754R, AD57X4R::UNIPOLAR_5V);
@@ -100,20 +81,9 @@ void setup()
   // TIMEOUT_16MS : or frequency is < 62.5Hz (1/16ms)
   watchdog.enableIsr(watchdogIsr);
   watchdog.begin(Watchdog::TIMEOUT_16MS);
-
-  delay(1000);
-  Serial << "reset!!" << endl;
 }
 
 
 void loop()
 {
-  // if (use_serial)
-  // {
-  //   Serial << "period (microseconds) = " << period_display << endl;
-  //   Serial << "freq (Hz)= " << freq_display << endl;
-  //   Serial << "dac_value = " << dac_value_display << endl;
-  //   Serial << endl;
-  //   delay(LOOP_DELAY);
-  // }
 }

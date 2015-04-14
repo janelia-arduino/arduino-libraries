@@ -29,27 +29,27 @@ EventController::EventId clock_event_id;
 EventController::EventId counter_event_id;
 EventController::EventIdPair led_2_event_id_pair;
 
-void clockUpdate()
+void clockUpdate(int arg=-1)
 {
   ++clock;
 }
 
-void counterUpdate()
+void counterUpdate(int arg=-1)
 {
   ++counter;
 }
 
-void trigger()
+void trigger(int arg=-1)
 {
   triggered = true;
 }
 
-void ledOn()
+void ledOn(int arg=-1)
 {
   digitalWrite(LED_PIN, HIGH);
 }
 
-void ledOff()
+void ledOff(int arg=-1)
 {
   digitalWrite(LED_PIN, LOW);
 }

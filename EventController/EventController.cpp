@@ -34,22 +34,30 @@ void EventController::setTime(const uint32_t time)
   }
 }
 
-EventId EventController::addEvent(const Callback callback)
+EventId EventController::addEvent(const Callback callback,
+                                  const int arg)
 {
-  return addEventUsingTime(callback,0);
+  return addEventUsingTime(callback,0,arg);
 }
 
-EventId EventController::addRecurringEvent(const Callback callback, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEvent(const Callback callback,
+                                           const uint32_t period_ms,
+                                           const uint16_t count,
+                                           const int arg)
 {
-  return addRecurringEventUsingTime(callback,0,period_ms,count);
+  return addRecurringEventUsingTime(callback,0,period_ms,count,arg);
 }
 
-EventId EventController::addInfiniteRecurringEvent(const Callback callback, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEvent(const Callback callback,
+                                                   const uint32_t period_ms,
+                                                   const int arg)
 {
-  return addInfiniteRecurringEventUsingTime(callback,0,period_ms);
+  return addInfiniteRecurringEventUsingTime(callback,0,period_ms,arg);
 }
 
-EventId EventController::addEventUsingTime(const Callback callback, const uint32_t time)
+EventId EventController::addEventUsingTime(const Callback callback,
+                                           const uint32_t time,
+                                           const int arg)
 {
   index_t event_index = findAvailableEventIndex();
   if (event_index < EVENT_COUNT_MAX)
@@ -62,6 +70,7 @@ EventId EventController::addEventUsingTime(const Callback callback, const uint32
     event_array_[event_index].count = 1;
     event_array_[event_index].period_ms = 0;
     event_array_[event_index].inc = 0;
+    event_array_[event_index].arg = arg;
   }
   enableEvent(event_index);
   EventId event_id;
@@ -70,7 +79,11 @@ EventId EventController::addEventUsingTime(const Callback callback, const uint32
   return event_id;
 }
 
-EventId EventController::addRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEventUsingTime(const Callback callback,
+                                                    const uint32_t time,
+                                                    const uint32_t period_ms,
+                                                    const uint16_t count,
+                                                    const int arg)
 {
   index_t event_index = findAvailableEventIndex();
   if (event_index < EVENT_COUNT_MAX)
@@ -83,6 +96,7 @@ EventId EventController::addRecurringEventUsingTime(const Callback callback, con
     event_array_[event_index].period_ms = period_ms;
     event_array_[event_index].count = count;
     event_array_[event_index].inc = 0;
+    event_array_[event_index].arg = arg;
   }
   enableEvent(event_index);
   EventId event_id;
@@ -91,7 +105,10 @@ EventId EventController::addRecurringEventUsingTime(const Callback callback, con
   return event_id;
 }
 
-EventId EventController::addInfiniteRecurringEventUsingTime(const Callback callback, const uint32_t time, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEventUsingTime(const Callback callback,
+                                                            const uint32_t time,
+                                                            const uint32_t period_ms,
+                                                            const int arg)
 {
   index_t event_index = findAvailableEventIndex();
   if (event_index < EVENT_COUNT_MAX)
@@ -104,6 +121,7 @@ EventId EventController::addInfiniteRecurringEventUsingTime(const Callback callb
     event_array_[event_index].period_ms = period_ms;
     event_array_[event_index].count = 0;
     event_array_[event_index].inc = 0;
+    event_array_[event_index].arg = arg;
   }
   enableEvent(event_index);
   EventId event_id;
@@ -112,35 +130,47 @@ EventId EventController::addInfiniteRecurringEventUsingTime(const Callback callb
   return event_id;
 }
 
-EventId EventController::addEventUsingDelay(const Callback callback, const uint32_t delay)
+EventId EventController::addEventUsingDelay(const Callback callback,
+                                            const uint32_t delay,
+                                            const int arg)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addEventUsingTime(callback,time);
+  return addEventUsingTime(callback,time,arg);
 }
 
-EventId EventController::addRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEventUsingDelay(const Callback callback,
+                                                     const uint32_t delay,
+                                                     const uint32_t period_ms,
+                                                     const uint16_t count,
+                                                     const int arg)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addRecurringEventUsingTime(callback,time,period_ms,count);
+  return addRecurringEventUsingTime(callback,time,period_ms,count,arg);
 }
 
-EventId EventController::addInfiniteRecurringEventUsingDelay(const Callback callback, const uint32_t delay, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEventUsingDelay(const Callback callback,
+                                                             const uint32_t delay,
+                                                             const uint32_t period_ms,
+                                                             const int arg)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addInfiniteRecurringEventUsingTime(callback,time,period_ms);
+  return addInfiniteRecurringEventUsingTime(callback,time,period_ms,arg);
 }
 
-EventId EventController::addEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset)
+EventId EventController::addEventUsingOffset(const Callback callback,
+                                             const EventId event_id_origin,
+                                             const uint32_t offset,
+                                             const int arg)
 {
   index_t event_index_origin = event_id_origin.index;
   if (event_index_origin < EVENT_COUNT_MAX)
   {
     uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
-    return addEventUsingTime(callback,time);
+    return addEventUsingTime(callback,time,arg);
   }
   else
   {
@@ -148,14 +178,19 @@ EventId EventController::addEventUsingOffset(const Callback callback, const Even
   }
 }
 
-EventId EventController::addRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms, const uint16_t count)
+EventId EventController::addRecurringEventUsingOffset(const Callback callback,
+                                                      const EventId event_id_origin,
+                                                      const uint32_t offset,
+                                                      const uint32_t period_ms,
+                                                      const uint16_t count,
+                                                      const int arg)
 {
   index_t event_index_origin = event_id_origin.index;
   if (event_index_origin < EVENT_COUNT_MAX)
   {
     uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
-    return addRecurringEventUsingTime(callback,time,period_ms,count);
+    return addRecurringEventUsingTime(callback,time,period_ms,count,arg);
   }
   else
   {
@@ -163,14 +198,18 @@ EventId EventController::addRecurringEventUsingOffset(const Callback callback, c
   }
 }
 
-EventId EventController::addInfiniteRecurringEventUsingOffset(const Callback callback, const EventId event_id_origin, const uint32_t offset, const uint32_t period_ms)
+EventId EventController::addInfiniteRecurringEventUsingOffset(const Callback callback,
+                                                              const EventId event_id_origin,
+                                                              const uint32_t offset,
+                                                              const uint32_t period_ms,
+                                                              const int arg)
 {
   index_t event_index_origin = event_id_origin.index;
   if (event_index_origin < EVENT_COUNT_MAX)
   {
     uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
-    return addInfiniteRecurringEventUsingTime(callback,time,period_ms);
+    return addInfiniteRecurringEventUsingTime(callback,time,period_ms,arg);
   }
   else
   {
@@ -178,29 +217,48 @@ EventId EventController::addInfiniteRecurringEventUsingOffset(const Callback cal
   }
 }
 
-EventIdPair EventController::addPwmUsingTimePeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t time, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count)
+EventIdPair EventController::addPwmUsingTimePeriodOnDuration(const Callback callback_0,
+                                                             const Callback callback_1,
+                                                             const uint32_t time,
+                                                             const uint32_t period_ms,
+                                                             const uint32_t on_duration_ms,
+                                                             const uint16_t count,
+                                                             const int arg)
 {
   EventIdPair event_id_pair;
-  event_id_pair.event_id_0 = addRecurringEventUsingTime(callback_0,time,period_ms,count);
-  event_id_pair.event_id_1 = addRecurringEventUsingOffset(callback_1,event_id_pair.event_id_0,on_duration_ms,period_ms,count);
+  event_id_pair.event_id_0 = addRecurringEventUsingTime(callback_0,time,period_ms,count,arg);
+  event_id_pair.event_id_1 = addRecurringEventUsingOffset(callback_1,event_id_pair.event_id_0,on_duration_ms,period_ms,count,arg);
   return event_id_pair;
 }
 
-EventIdPair EventController::addPwmUsingDelayPeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t delay, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count)
+EventIdPair EventController::addPwmUsingDelayPeriodOnDuration(const Callback callback_0,
+                                                              const Callback callback_1,
+                                                              const uint32_t delay,
+                                                              const uint32_t period_ms,
+                                                              const uint32_t on_duration_ms,
+                                                              const uint16_t count,
+                                                              const int arg)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addPwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,count);
+  return addPwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,count,arg);
 }
 
-EventIdPair EventController::addPwmUsingOffsetPeriodOnDuration(const Callback callback_0, const Callback callback_1, const EventId event_id_origin, const uint32_t offset, uint32_t period_ms, uint32_t on_duration_ms, uint16_t count)
+EventIdPair EventController::addPwmUsingOffsetPeriodOnDuration(const Callback callback_0,
+                                                               const Callback callback_1,
+                                                               const EventId event_id_origin,
+                                                               const uint32_t offset,
+                                                               const uint32_t period_ms,
+                                                               const uint32_t on_duration_ms,
+                                                               const uint16_t count,
+                                                               const int arg)
 {
   index_t event_index_origin = event_id_origin.index;
   if (event_index_origin < EVENT_COUNT_MAX)
   {
     uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
-    return addPwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,count);
+    return addPwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,count,arg);
   }
   else
   {
@@ -208,29 +266,45 @@ EventIdPair EventController::addPwmUsingOffsetPeriodOnDuration(const Callback ca
   }
 }
 
-EventIdPair EventController::addInfinitePwmUsingTimePeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t time, uint32_t period_ms, uint32_t on_duration_ms)
+EventIdPair EventController::addInfinitePwmUsingTimePeriodOnDuration(const Callback callback_0,
+                                                                     const Callback callback_1,
+                                                                     const uint32_t time,
+                                                                     const uint32_t period_ms,
+                                                                     const uint32_t on_duration_ms,
+                                                                     const int arg)
 {
   EventIdPair event_id_pair;
-  event_id_pair.event_id_0 = addInfiniteRecurringEventUsingTime(callback_0,time,period_ms);
-  event_id_pair.event_id_1 = addInfiniteRecurringEventUsingOffset(callback_1,event_id_pair.event_id_0,on_duration_ms,period_ms);
+  event_id_pair.event_id_0 = addInfiniteRecurringEventUsingTime(callback_0,time,period_ms,arg);
+  event_id_pair.event_id_1 = addInfiniteRecurringEventUsingOffset(callback_1,event_id_pair.event_id_0,on_duration_ms,period_ms,arg);
   return event_id_pair;
 }
 
-EventIdPair EventController::addInfinitePwmUsingDelayPeriodOnDuration(const Callback callback_0, const Callback callback_1, uint32_t delay, uint32_t period_ms, uint32_t on_duration_ms)
+EventIdPair EventController::addInfinitePwmUsingDelayPeriodOnDuration(const Callback callback_0,
+                                                                      const Callback callback_1,
+                                                                      const uint32_t delay,
+                                                                      const uint32_t period_ms,
+                                                                      const uint32_t on_duration_ms,
+                                                                      const int arg)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addInfinitePwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms);
+  return addInfinitePwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,arg);
 }
 
-EventIdPair EventController::addInfinitePwmUsingOffsetPeriodOnDuration(const Callback callback_0, const Callback callback_1, const EventId event_id_origin, const uint32_t offset, uint32_t period_ms, uint32_t on_duration_ms)
+EventIdPair EventController::addInfinitePwmUsingOffsetPeriodOnDuration(const Callback callback_0,
+                                                                       const Callback callback_1,
+                                                                       const EventId event_id_origin,
+                                                                       const uint32_t offset,
+                                                                       const uint32_t period_ms,
+                                                                       const uint32_t on_duration_ms,
+                                                                       const int arg)
 {
   index_t event_index_origin = event_id_origin.index;
   if (event_index_origin < EVENT_COUNT_MAX)
   {
     uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
-    return addInfinitePwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms);
+    return addInfinitePwmUsingTimePeriodOnDuration(callback_0,callback_1,time,period_ms,on_duration_ms,arg);
   }
   else
   {
@@ -393,7 +467,7 @@ void EventController::update()
         }
         if (event_array_[event_index].enabled)
         {
-          (*event_array_[event_index].callback)();
+          (*event_array_[event_index].callback)(event_array_[event_index].arg);
           ++event_array_[event_index].inc;
         }
       }

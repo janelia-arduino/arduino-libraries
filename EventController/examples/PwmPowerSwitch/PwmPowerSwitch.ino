@@ -11,21 +11,21 @@ const int LOOP_DELAY = 1000;
 const int CS_PIN = 49;
 const int IN_PIN = 48;
 const int IC_COUNT = 4;
-const int CHANNEL = 0;
+const int CHANNEL = 1;
 
 PowerSwitch power_switch = PowerSwitch(CS_PIN, IN_PIN);
 
-void channelOn()
+void channelOn(int channel)
 {
-  power_switch.setChannelOn(CHANNEL);
+  power_switch.setChannelOn(channel);
 }
 
-void channelOff()
+void channelOff(int channel)
 {
-  power_switch.setChannelOff(CHANNEL);
+  power_switch.setChannelOff(channel);
 }
 
-void spikeAndHold()
+void spikeAndHold(int channel)
 {
   int delay_ms = 100;
   int period_ms = 2;
@@ -38,7 +38,8 @@ void spikeAndHold()
                                                       delay_ms,
                                                       period_ms,
                                                       on_duration_ms,
-                                                      count);
+                                                      count,
+                                                      channel);
   int offset_ms = count*period_ms;
   period_ms = 4;
   pwm_event_id_pair =
@@ -48,16 +49,15 @@ void spikeAndHold()
                                                        offset_ms,
                                                        period_ms,
                                                        on_duration_ms,
-                                                       count);
+                                                       count,
+                                                       channel);
 }
 
 void setup()
 {
   Serial.begin(BAUDRATE);
-  delay(1000);
 
   power_switch.setup(IC_COUNT);
-  power_switch.setChannelOff(CHANNEL);
 
   event_controller.setup();
 }
@@ -65,6 +65,8 @@ void setup()
 
 void loop()
 {
-  spikeAndHold();
+  spikeAndHold(CHANNEL);
+  delay(LOOP_DELAY);
+  spikeAndHold(CHANNEL+1);
   delay(LOOP_DELAY);
 }

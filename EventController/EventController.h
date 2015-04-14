@@ -187,10 +187,10 @@ private:
   void disableEvent(const index_t event_index);
   friend void eventControllerUpdate();
 };
+
+extern EventController event_controller;
+
+inline void eventControllerUpdate() {event_controller.update();}
 }
-
-extern EventController::EventController event_controller;
-
-inline void EventController::eventControllerUpdate() {event_controller.update();}
 
 #endif

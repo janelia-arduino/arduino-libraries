@@ -478,9 +478,9 @@ void EventController::update()
     }
   }
 }
-}
 
-EventController::EventController event_controller;
+EventController event_controller;
+}
 
 ISR(TIMER5_OVF_vect)
 {

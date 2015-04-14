@@ -33,24 +33,24 @@ void spikeAndHold(int channel)
   int count = 5;
   EventController::EventIdPair pwm_event_id_pair;
   pwm_event_id_pair =
-    event_controller.addPwmUsingDelayPeriodOnDuration(channelOn,
-                                                      channelOff,
-                                                      delay_ms,
-                                                      period_ms,
-                                                      on_duration_ms,
-                                                      count,
-                                                      channel);
+    EventController::event_controller.addPwmUsingDelayPeriodOnDuration(channelOn,
+                                                                       channelOff,
+                                                                       delay_ms,
+                                                                       period_ms,
+                                                                       on_duration_ms,
+                                                                       count,
+                                                                       channel);
   int offset_ms = count*period_ms;
   period_ms = 4;
   pwm_event_id_pair =
-    event_controller.addPwmUsingOffsetPeriodOnDuration(channelOn,
-                                                       channelOff,
-                                                       pwm_event_id_pair.event_id_0,
-                                                       offset_ms,
-                                                       period_ms,
-                                                       on_duration_ms,
-                                                       count,
-                                                       channel);
+    EventController::event_controller.addPwmUsingOffsetPeriodOnDuration(channelOn,
+                                                                        channelOff,
+                                                                        pwm_event_id_pair.event_id_0,
+                                                                        offset_ms,
+                                                                        period_ms,
+                                                                        on_duration_ms,
+                                                                        count,
+                                                                        channel);
 }
 
 void setup()
@@ -59,7 +59,7 @@ void setup()
 
   power_switch.setup(IC_COUNT);
 
-  event_controller.setup();
+  EventController::event_controller.setup();
 }
 
 

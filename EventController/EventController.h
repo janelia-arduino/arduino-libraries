@@ -37,6 +37,8 @@ struct Event
   uint16_t count;
   uint16_t inc;
   int arg;
+  Callback callback_start;
+  Callback callback_stop;
   Event() :
     callback(NULL),
     time(0),
@@ -46,7 +48,9 @@ struct Event
     period_ms(0),
     count(0),
     inc(0),
-    arg(-1) {}
+    arg(-1),
+    callback_start(NULL),
+    callback_stop(NULL) {}
 };
 const Event default_event;
 
@@ -60,6 +64,8 @@ struct EventId
 };
 const EventId default_event_id;
 
+bool operator==(const EventId& lhs, const EventId& rhs);
+
 struct EventIdPair
 {
   EventId event_id_0;
@@ -69,6 +75,8 @@ struct EventIdPair
     event_id_1(default_event_id) {}
 };
 const EventIdPair default_event_id_pair;
+
+bool operator==(const EventIdPair& lhs, const EventIdPair& rhs);
 
 class EventController
 {
@@ -81,10 +89,13 @@ public:
   EventId addRecurringEvent(const Callback callback,
                             const uint32_t period_ms,
                             const uint16_t count,
-                            const int arg=-1);
+                            const int arg=-1,
+                            const Callback callback_start=NULL,
+                            const Callback callback_stop=NULL);
   EventId addInfiniteRecurringEvent(const Callback callback,
                                     const uint32_t period_ms,
-                                    const int arg=-1);
+                                    const int arg=-1,
+                                    const Callback callback_start=NULL);
   EventId addEventUsingTime(const Callback callback,
                             const uint32_t time,
                             const int arg=-1);
@@ -92,11 +103,14 @@ public:
                                      const uint32_t time,
                                      const uint32_t period_ms,
                                      const uint16_t count,
-                                     const int arg=-1);
+                                     const int arg=-1,
+                                     const Callback callback_start=NULL,
+                                     const Callback callback_stop=NULL);
   EventId addInfiniteRecurringEventUsingTime(const Callback callback,
                                              const uint32_t time,
                                              const uint32_t period_ms,
-                                             const int arg=-1);
+                                             const int arg=-1,
+                                             const Callback callback_start=NULL);
   EventId addEventUsingDelay(const Callback callback,
                              const uint32_t delay,
                              const int arg=-1);
@@ -104,11 +118,14 @@ public:
                                       const uint32_t delay,
                                       const uint32_t period_ms,
                                       const uint16_t count,
-                                      const int arg=-1);
+                                      const int arg=-1,
+                                      const Callback callback_start=NULL,
+                                      const Callback callback_stop=NULL);
   EventId addInfiniteRecurringEventUsingDelay(const Callback callback,
                                               const uint32_t delay,
                                               const uint32_t period_ms,
-                                              const int arg=-1);
+                                              const int arg=-1,
+                                              const Callback callback_start=NULL);
   EventId addEventUsingOffset(const Callback callback,
                               const EventId event_id_origin,
                               const uint32_t offset,
@@ -118,26 +135,33 @@ public:
                                        const uint32_t offset,
                                        const uint32_t period_ms,
                                        const uint16_t count,
-                                       const int arg=-1);
+                                       const int arg=-1,
+                                       const Callback callback_start=NULL,
+                                       const Callback callback_stop=NULL);
   EventId addInfiniteRecurringEventUsingOffset(const Callback callback,
                                                const EventId event_id_origin,
                                                const uint32_t offset,
                                                const uint32_t period_ms,
-                                               const int arg=-1);
+                                               const int arg=-1,
+                                               const Callback callback_start=NULL);
   EventIdPair addPwmUsingTimePeriodOnDuration(const Callback callback_0,
                                               const Callback callback_1,
                                               const uint32_t time,
                                               const uint32_t period_ms,
                                               const uint32_t on_duration_ms,
                                               const uint16_t count,
-                                              const int arg=-1);
+                                              const int arg=-1,
+                                              const Callback callback_start=NULL,
+                                              const Callback callback_stop=NULL);
   EventIdPair addPwmUsingDelayPeriodOnDuration(const Callback callback_0,
                                                const Callback callback_1,
                                                const uint32_t delay,
                                                const uint32_t period_ms,
                                                const uint32_t on_duration_ms,
                                                const uint16_t count,
-                                               const int arg=-1);
+                                               const int arg=-1,
+                                               const Callback callback_start=NULL,
+                                               const Callback callback_stop=NULL);
   EventIdPair addPwmUsingOffsetPeriodOnDuration(const Callback callback_0,
                                                 const Callback callback_1,
                                                 const EventId event_id_origin,
@@ -145,26 +169,31 @@ public:
                                                 const uint32_t period_ms,
                                                 const uint32_t on_duration_ms,
                                                 const uint16_t count,
-                                                const int arg=-1);
+                                                const int arg=-1,
+                                                const Callback callback_start=NULL,
+                                                const Callback callback_stop=NULL);
   EventIdPair addInfinitePwmUsingTimePeriodOnDuration(const Callback callback_0,
                                                       const Callback callback_1,
                                                       const uint32_t time,
                                                       const uint32_t period_ms,
                                                       const uint32_t on_duration_ms,
-                                                      const int arg=-1);
+                                                      const int arg=-1,
+                                                      const Callback callback_start=NULL);
   EventIdPair addInfinitePwmUsingDelayPeriodOnDuration(const Callback callback_0,
                                                        const Callback callback_1,
                                                        const uint32_t delay,
                                                        const uint32_t period_ms,
                                                        const uint32_t on_duration_ms,
-                                                       const int arg=-1);
+                                                       const int arg=-1,
+                                                       const Callback callback_start=NULL);
   EventIdPair addInfinitePwmUsingOffsetPeriodOnDuration(const Callback callback_0,
                                                         const Callback callback_1,
                                                         const EventId event_id_origin,
                                                         const uint32_t offset,
                                                         const uint32_t period_ms,
                                                         const uint32_t on_duration_ms,
-                                                        const int arg=-1);
+                                                        const int arg=-1,
+                                                        const Callback callback_start=NULL);
   void removeEvent(const EventId event_id);
   void removeEventPair(const EventIdPair event_id_pair);
   void removeAllEvents();

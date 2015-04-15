@@ -29,29 +29,39 @@ EventController::EventId clock_event_id;
 EventController::EventId counter_event_id;
 EventController::EventIdPair led_2_event_id_pair;
 
-void clockUpdate(int arg=-1)
+void clockUpdateEventCallback(int arg=-1)
 {
   ++clock;
 }
 
-void counterUpdate(int arg=-1)
+void counterUpdateEventCallback(int arg=-1)
 {
   ++counter;
 }
 
-void trigger(int arg=-1)
+void triggerEventCallback(int arg=-1)
 {
   triggered = true;
 }
 
-void ledOn(int arg=-1)
+void ledOnEventCallback(int arg=-1)
 {
   digitalWrite(LED_PIN, HIGH);
 }
 
-void ledOff(int arg=-1)
+void ledOffEventCallback(int arg=-1)
 {
   digitalWrite(LED_PIN, LOW);
+}
+
+void ledPwmStartEventCallback(int arg=-1)
+{
+  Serial << "led pwm start!" << endl;
+}
+
+void ledPwmStopEventCallback(int arg=-1)
+{
+  Serial << "led pwm stop!" << endl;
 }
 
 void setup()
@@ -60,25 +70,28 @@ void setup()
   delay(1000);
 
   pinMode(LED_PIN, OUTPUT);
-  ledOff();
+  ledOffEventCallback();
 
   EventController::event_controller.setup();
-  clock_event_id = EventController::event_controller.addInfiniteRecurringEventUsingDelay(clockUpdate,
+  clock_event_id = EventController::event_controller.addInfiniteRecurringEventUsingDelay(clockUpdateEventCallback,
                                                                                          CLOCK_START_DELAY,
                                                                                          CLOCK_PERIOD);
-  counter_event_id = EventController::event_controller.addRecurringEventUsingDelay(counterUpdate,
+  counter_event_id = EventController::event_controller.addRecurringEventUsingDelay(counterUpdateEventCallback,
                                                                                    COUNTER_START_DELAY,
                                                                                    CLOCK_PERIOD,
                                                                                    COUNTER_LIMIT);
-  EventController::event_controller.addEventUsingOffset(trigger,counter_event_id,TRIGGER_OFFSET);
-  EventController::event_controller.addPwmUsingDelayPeriodOnDuration(ledOn,
-                                                                     ledOff,
+  EventController::event_controller.addEventUsingOffset(triggerEventCallback,counter_event_id,TRIGGER_OFFSET);
+  EventController::event_controller.addPwmUsingDelayPeriodOnDuration(ledOnEventCallback,
+                                                                     ledOffEventCallback,
                                                                      LED_DELAY,
                                                                      LED_PERIOD,
                                                                      LED_ON_DURATION,
-                                                                     LED_COUNT);
-  led_2_event_id_pair = EventController::event_controller.addInfinitePwmUsingDelayPeriodOnDuration(ledOn,
-                                                                                                   ledOff,
+                                                                     LED_COUNT,
+                                                                     -1,
+                                                                     ledPwmStartEventCallback,
+                                                                     ledPwmStopEventCallback);
+  led_2_event_id_pair = EventController::event_controller.addInfinitePwmUsingDelayPeriodOnDuration(ledOnEventCallback,
+                                                                                                   ledOffEventCallback,
                                                                                                    LED_2_DELAY,
                                                                                                    LED_2_PERIOD,
                                                                                                    LED_2_ON_DURATION);

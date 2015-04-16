@@ -80,6 +80,7 @@ int IndexedSet<T, max_size_>::add(const T &value)
       values_[index] = value;
       available_[index] = false;
       ++size_;
+      return index;
     }
   }
   return -1;

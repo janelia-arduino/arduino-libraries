@@ -85,7 +85,9 @@ public:
   uint32_t getTime();
   void setTime(const uint32_t time=0);
   EventId addEvent(const Callback callback,
-                   const int arg=-1);
+                   const int arg=-1,
+                   const Callback callback_start=NULL,
+                   const Callback callback_stop=NULL);
   EventId addRecurringEvent(const Callback callback,
                             const uint32_t period_ms,
                             const uint16_t count,
@@ -98,7 +100,9 @@ public:
                                     const Callback callback_start=NULL);
   EventId addEventUsingTime(const Callback callback,
                             const uint32_t time,
-                            const int arg=-1);
+                            const int arg=-1,
+                            const Callback callback_start=NULL,
+                            const Callback callback_stop=NULL);
   EventId addRecurringEventUsingTime(const Callback callback,
                                      const uint32_t time,
                                      const uint32_t period_ms,
@@ -113,7 +117,9 @@ public:
                                              const Callback callback_start=NULL);
   EventId addEventUsingDelay(const Callback callback,
                              const uint32_t delay,
-                             const int arg=-1);
+                             const int arg=-1,
+                             const Callback callback_start=NULL,
+                             const Callback callback_stop=NULL);
   EventId addRecurringEventUsingDelay(const Callback callback,
                                       const uint32_t delay,
                                       const uint32_t period_ms,
@@ -129,7 +135,9 @@ public:
   EventId addEventUsingOffset(const Callback callback,
                               const EventId event_id_origin,
                               const uint32_t offset,
-                              const int arg=-1);
+                              const int arg=-1,
+                              const Callback callback_start=NULL,
+                              const Callback callback_stop=NULL);
   EventId addRecurringEventUsingOffset(const Callback callback,
                                        const EventId event_id_origin,
                                        const uint32_t offset,

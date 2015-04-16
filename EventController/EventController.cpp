@@ -35,9 +35,15 @@ void EventController::setTime(const uint32_t time)
 }
 
 EventId EventController::addEvent(const Callback callback,
-                                  const int arg)
+                                  const int arg,
+                                  const Callback callback_start,
+                                  const Callback callback_stop)
 {
-  return addEventUsingTime(callback,0,arg);
+  return addEventUsingTime(callback,
+                           0,
+                           arg,
+                           callback_start,
+                           callback_stop);
 }
 
 EventId EventController::addRecurringEvent(const Callback callback,
@@ -71,7 +77,9 @@ EventId EventController::addInfiniteRecurringEvent(const Callback callback,
 
 EventId EventController::addEventUsingTime(const Callback callback,
                                            const uint32_t time,
-                                           const int arg)
+                                           const int arg,
+                                           const Callback callback_start,
+                                           const Callback callback_stop)
 {
   index_t event_index = findAvailableEventIndex();
   if (event_index < EVENT_COUNT_MAX)
@@ -85,8 +93,8 @@ EventId EventController::addEventUsingTime(const Callback callback,
     event_array_[event_index].period_ms = 0;
     event_array_[event_index].inc = 0;
     event_array_[event_index].arg = arg;
-    event_array_[event_index].callback_start = NULL;
-    event_array_[event_index].callback_stop = NULL;
+    event_array_[event_index].callback_start = callback_start;
+    event_array_[event_index].callback_stop = callback_stop;
   }
   enableEvent(event_index);
   EventId event_id;
@@ -155,11 +163,17 @@ EventId EventController::addInfiniteRecurringEventUsingTime(const Callback callb
 
 EventId EventController::addEventUsingDelay(const Callback callback,
                                             const uint32_t delay,
-                                            const int arg)
+                                            const int arg,
+                                            const Callback callback_start,
+                                            const Callback callback_stop)
 {
   uint32_t time_now = getTime();
   uint32_t time = time_now + delay;
-  return addEventUsingTime(callback,time,arg);
+  return addEventUsingTime(callback,
+                           time,
+                           arg,
+                           callback_start,
+                           callback_stop);
 }
 
 EventId EventController::addRecurringEventUsingDelay(const Callback callback,
@@ -199,14 +213,20 @@ EventId EventController::addInfiniteRecurringEventUsingDelay(const Callback call
 EventId EventController::addEventUsingOffset(const Callback callback,
                                              const EventId event_id_origin,
                                              const uint32_t offset,
-                                             const int arg)
+                                             const int arg,
+                                             const Callback callback_start,
+                                             const Callback callback_stop)
 {
   index_t event_index_origin = event_id_origin.index;
   if (event_index_origin < EVENT_COUNT_MAX)
   {
     uint32_t time_origin = event_array_[event_index_origin].time;
     uint32_t time = time_origin + offset;
-    return addEventUsingTime(callback,time,arg);
+    return addEventUsingTime(callback,
+                             time,
+                             arg,
+                             callback_start,
+                             callback_stop);
   }
   else
   {

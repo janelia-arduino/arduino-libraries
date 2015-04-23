@@ -8,7 +8,6 @@
 #include "SavedVariable.h"
 
 
-#ifdef __AVR__
 SavedVariable::SavedVariable()
 {
 }
@@ -22,8 +21,7 @@ void SavedVariable::setDefaultValue()
 {
   const byte* p = (const byte*)(const void*)default_value_ptr_;
   int ee = eeprom_index_;
-  int i;
-  for (i = 0; i < size_; i++)
+  for (unsigned int i = 0; i < size_; i++)
   {
     if(EEPROM.read(ee)==*p)
     {
@@ -46,4 +44,3 @@ boolean SavedVariable::compareName(const ConstantString &name_to_compare)
 {
   return (&name_to_compare == name_ptr_);
 }
-#endif

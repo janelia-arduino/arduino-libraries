@@ -10,7 +10,6 @@
 #include "ConstantVariable.h"
 
 
-#ifdef __AVR__
 #include <EEPROM.h>
 
 class SavedVariable
@@ -46,6 +45,5 @@ private:
   unsigned int array_length_;
   unsigned int array_element_size_;
 };
-#endif
 #include "SavedVariableDefinitions.h"
 #endif

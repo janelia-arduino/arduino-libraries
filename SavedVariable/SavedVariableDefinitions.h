@@ -9,7 +9,6 @@
 #define SAVED_VARIABLE_DEFINITIONS_H
 
 
-#ifdef __AVR__
 template<typename T>
 SavedVariable::SavedVariable(const ConstantString &name,
                              const unsigned int eeprom_index,
@@ -120,6 +119,5 @@ int SavedVariable::getValue(T value[], unsigned int array_index)
   }
   return i;
 }
-#endif
 
 #endif

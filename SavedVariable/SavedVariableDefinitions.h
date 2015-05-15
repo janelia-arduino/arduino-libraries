@@ -79,7 +79,6 @@ int SavedVariable::setValue(const T value[], const unsigned int array_index)
         EEPROM.write(ee++,*p++);
       }
     }
-    size_ = i;
   }
   return i;
 }

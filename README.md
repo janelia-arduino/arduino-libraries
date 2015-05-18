@@ -16,6 +16,9 @@ mkdir ~/Arduino
 mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/Arduino/
 cd ~/Arduino/
 tar -xf arduino-X.Y.Z-linuxXX.tar.xz
+cd arduino-X.Y.Z-linuxXX
+echo "alias arduino='source $(pwd)/arduino'" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 On linux, you may need to add yourself to the group 'dialout' in order

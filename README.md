@@ -17,7 +17,7 @@ mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/Arduino/
 cd ~/Arduino/
 tar -xf arduino-X.Y.Z-linuxXX.tar.xz
 cd arduino-X.Y.Z-linuxXX
-echo "alias arduino='source $(pwd)/arduino'" >> ~/.bashrc
+echo "alias arduino='$(pwd)/arduino'" >> ~/.bashrc
 source ~/.bashrc
 ```
 

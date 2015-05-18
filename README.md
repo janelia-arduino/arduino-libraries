@@ -12,9 +12,9 @@ C++ libraries for running on Arduino hardware.
 ####Linux Install
 
 ```shell
-mkdir ~/arduino
-mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/arduino/
-cd ~/arduino/
+mkdir ~/Arduino
+mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/Arduino/
+cd ~/Arduino/
 tar -xf arduino-X.Y.Z-linuxXX.tar.xz
 ```
 
@@ -23,6 +23,7 @@ to have write permissions on the USB port:
 
 ```shell
 sudo usermod -aG dialout $USER
+sudo reboot
 ```
 
 ##Install These Arduino Libraries on your Host Machine
@@ -81,6 +82,6 @@ cd ~/arduino/arduino-X.Y.Z/
 
 ```shell
 # after Arduino starts, go to File : Preferences
-# set Sketchbook location:
-# /home/<yourusername>/sketchbook/
+# verify Sketchbook location:
+# /home/<yourusername>/Arduino/
 ```

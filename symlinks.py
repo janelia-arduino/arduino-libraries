@@ -21,7 +21,8 @@ import platform
 
 USERDIR = os.path.expanduser('~')
 if platform.system() == 'Linux':
-    LIBDIR = os.path.join(USERDIR,'sketchbook','libraries')
+    # LIBDIR = os.path.join(USERDIR,'sketchbook','libraries')
+    LIBDIR = os.path.join(USERDIR,'Arduino','libraries')
 elif platform.system() == 'Darwin':
     LIBDIR = os.path.join(USERDIR,'Documents','Arduino','libraries')
 elif platform.system() == 'Windows':

@@ -12,6 +12,7 @@ C++ libraries for running on Arduino hardware.
 ####Linux Install
 
 ```shell
+sudo apt-get remove arduino #remove older version if necessary
 mkdir ~/Arduino
 mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/Arduino/
 cd ~/Arduino/
@@ -77,8 +78,7 @@ git checkout .
 ###Running on Linux
 
 ```shell
-cd ~/arduino/arduino-X.Y.Z/
-./arduino
+arduino
 ```
 
 ###Linux Setup

@@ -28,6 +28,7 @@ void NewhavenDisplay::setSerial(HardwareSerial &serial)
 
 void NewhavenDisplay::setup()
 {
+  resetDefaultPaddingChar();
   serial_ptr_->begin(BAUDRATE);
   setContrastDefault();
   setBrightnessDefault();
@@ -35,6 +36,16 @@ void NewhavenDisplay::setup()
   blinkingCursorOff();
   underlineCursorOff();
   displayOn();
+}
+
+void NewhavenDisplay::resetDefaultPaddingChar()
+{
+  padding_char_ = ' ';
+}
+
+char NewhavenDisplay::getPaddingChar()
+{
+  return padding_char_;
 }
 
 void NewhavenDisplay::displayOn()
@@ -221,7 +232,7 @@ void NewhavenDisplay::stringPadLeft(String &str, const int length_total)
   {
     str = str.substring(0,length_total);
   }
-  String padding = " ";
+  String padding = String(padding_char_);
   while (str.length() < length_total)
   {
     str = padding + str;
@@ -235,7 +246,7 @@ void NewhavenDisplay::stringPadRight(String &str, const int length_total)
   {
     str = str.substring(0,length_total);
   }
-  String padding = " ";
+  String padding = String(padding_char_);
   while (str.length() < length_total)
   {
     str += padding;

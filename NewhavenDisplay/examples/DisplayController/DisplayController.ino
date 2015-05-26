@@ -54,8 +54,8 @@ void loop() {
     {
       if (0 < strlen(argv[1]))
       {
-        String arg2 = argv[1];
-        display.print(arg2);
+        String display_str = argv[1];
+        display.print(display_str);
       } else
       {
         Serial.println("print <DISPLAY_STRING>");
@@ -157,11 +157,55 @@ void loop() {
     {
       display.displayRs232Rate();
     }
+    else if (strcmp(argv[0], "printPadLeft") == 0)
+    {
+      if ((0 < strlen(argv[1])) && (0 < strlen(argv[2]))) {
+        String display_str = argv[1];
+        int length = atoi(argv[2]);
+        display.printPadLeft(display_str,length);
+      }
+      else
+      {
+        Serial.println("printPadLeft <DISPLAY_STRING> <LENGTH>, LENGTH = {1..20}");
+      }
+    }
+    else if (strcmp(argv[0], "printPadRight") == 0)
+    {
+      if ((0 < strlen(argv[1])) && (0 < strlen(argv[2]))) {
+        String display_str = argv[1];
+        int length = atoi(argv[2]);
+        display.printPadRight(display_str,length);
+      }
+      else
+      {
+        Serial.println("printPadRight <DISPLAY_STRING> <LENGTH>, LENGTH = {1..20}");
+      }
+    }
+    else if (strcmp(argv[0], "setPaddingChar") == 0)
+    {
+      if (0 < strlen(argv[1]))
+      {
+        String padding_char = argv[1];
+        display.setPaddingChar(padding_char);
+      } else
+      {
+        Serial.println("setPaddingChar <PADDING_CHAR>");
+      }
+    }
+    else if (strcmp(argv[0], "resetDefaultPaddingChar") == 0)
+    {
+      display.resetDefaultPaddingChar();
+    }
+    else if (strcmp(argv[0], "getPaddingChar") == 0)
+    {
+      char padding_char = display.getPaddingChar();
+      Serial.println(String("\'") + String(padding_char) + String("\'"));
+    }
     else
     {
       Serial.println("print <DISPLAY_STRING>, displayOn, displayOff, setCursor <ROW> <COL>, homeCursor, underlineCursorOn, underlineCursorOff, moveCursorLeft, moveCursorRight ...");
       Serial.println("blinkingCursorOn, blinkingCursorOff, backspace, clearScreen, setContrast <CONTRAST>, setBrightness <BRIGHTNESS>, moveDisplayLeft, moveDisplayRight ...");
-      Serial.println("displayFirmwareVersion, displayRs232Rate");
+      Serial.println("displayFirmwareVersion, displayRs232Rate, printPadLeft, printPadRight, setPaddingChar, resetDefaultPaddingChar, getPaddingChar");
     }
 
     inputComplete = false;

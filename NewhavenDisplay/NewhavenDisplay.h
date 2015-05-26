@@ -44,6 +44,21 @@ class NewhavenDisplay {
     stringPadRight(string,total_length);
     serial_ptr_->print(string);
   }
+  template<typename T>
+  void setPaddingChar(const T value)
+  {
+    String string = String(value);
+    if (string.length() > 0)
+    {
+      padding_char_ = string.charAt(0);
+    }
+    else
+    {
+      padding_char_ = ' ';
+    }
+  }
+  void resetDefaultPaddingChar();
+  char getPaddingChar();
   void displayOn();
   void displayOff();
   void setCursor(const int row, const int col);
@@ -72,6 +87,7 @@ class NewhavenDisplay {
   HardwareSerial *serial_ptr_;
   const int row_count_;
   const int col_count_;
+  char padding_char_;
   const static int ROW_COUNT_DEFAULT = 4;
   const static int COL_COUNT_DEFAULT = 20;
   const static int BAUDRATE = 9600;

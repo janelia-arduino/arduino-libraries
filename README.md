@@ -45,7 +45,7 @@ Open terminal:
 ```shell
 mkdir ~/git
 cd ~/git
-git clone https://github.com/JaneliaSciComp/arduino-libraries.git
+git clone https://github.com/janelia-arduino/arduino-libraries.git
 cd arduino-libraries
 git submodule init
 git submodule update
@@ -65,7 +65,7 @@ Open Git Bash:
 ```shell
 cd ~/My\ Documents/Arduino
 mv libraries/ libraries2/
-git clone https://github.com/JaneliaSciComp/arduino-libraries.git libraries
+git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
 cd libraries
 git submodule init
 git submodule update

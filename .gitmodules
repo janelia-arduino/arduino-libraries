@@ -1,18 +1,18 @@
 [submodule "StandaloneInterface"]
 	path = StandaloneInterface
-	url = https://github.com/JaneliaSciComp/arduino_standalone_interface.git
+	url = https://github.com/janelia-arduino/arduino_standalone_interface.git
 [submodule "ModularDevice"]
 	path = ModularDevice
-	url = https://github.com/JaneliaSciComp/modular_device_arduino.git
+	url = https://github.com/janelia-arduino/modular_device_arduino.git
 [submodule "Flash"]
 	path = Flash
-	url = https://github.com/peterpolidoro/Flash.git
+	url = https://github.com/janelia-arduino/Flash.git
 [submodule "ArduinoJson"]
 	path = ArduinoJson
-	url = https://github.com/peterpolidoro/ArduinoJson.git
+	url = https://github.com/janelia-arduino/ArduinoJson.git
 [submodule "StandardCplusplus"]
 	path = StandardCplusplus
-	url = https://github.com/peterpolidoro/StandardCplusplus.git
+	url = https://github.com/janelia-arduino/StandardCplusplus.git
 [submodule "MemoryFree"]
 	path = MemoryFree
-	url = https://github.com/peterpolidoro/MemoryFree.git
+	url = https://github.com/janelia-arduino/MemoryFree.git

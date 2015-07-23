@@ -13,9 +13,9 @@ C++ libraries for running on Arduino hardware.
 
 ```shell
 sudo apt-get remove arduino #remove older version if necessary
-mkdir ~/Arduino
-mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/Arduino/
-cd ~/Arduino/
+mkdir ~/ArduinoIde
+mv ~/Downloads/arduino-X.Y.Z-linuxXX.tar.xz ~/ArduinoIde/
+cd ~/ArduinoIde/
 tar -xf arduino-X.Y.Z-linuxXX.tar.xz
 cd arduino-X.Y.Z-linuxXX
 echo "alias arduino='$(pwd)/arduino'" >> ~/.bashrc

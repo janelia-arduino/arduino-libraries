@@ -16,3 +16,9 @@
 [submodule "MemoryFree"]
 	path = MemoryFree
 	url = https://github.com/janelia-arduino/MemoryFree.git
+[submodule "TimerOne"]
+	path = TimerOne
+	url = git@github.com:janelia-arduino/TimerOne.git
+[submodule "TimerThree"]
+	path = TimerThree
+	url = git@github.com:janelia-arduino/TimerThree.git

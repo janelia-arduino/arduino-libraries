@@ -22,3 +22,6 @@
 [submodule "TimerThree"]
 	path = TimerThree
 	url = git@github.com:janelia-arduino/TimerThree.git
+[submodule "Filters"]
+	path = Filters
+	url = git@github.com:janelia-arduino/Filters.git

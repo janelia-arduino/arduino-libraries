@@ -3,7 +3,6 @@
 //
 //
 // Authors:
-// Paul Badger
 // Peter Polidoro polidorop@janelia.hhmi.org
 // ----------------------------------------------------------------------------
 #ifndef FILTER_SMOOTH_H

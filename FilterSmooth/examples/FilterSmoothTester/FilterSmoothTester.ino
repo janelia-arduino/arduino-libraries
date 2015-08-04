@@ -4,7 +4,7 @@
 
 
 const int BAUDRATE = 9600;
-const int SAMPLE_COUNT = 5;
+const int SAMPLE_COUNT = 100;
 const int SENSOR_PIN = 0;
 
 FilterSmooth<SAMPLE_COUNT> filter;

@@ -26,6 +26,7 @@ public:
 private:
   int raw_values_[sample_count_];
   uint8_t index_;
+  long total_;
 };
 #include "FilterSmoothDefinitions.h"
 

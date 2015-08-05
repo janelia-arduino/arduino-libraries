@@ -16,10 +16,10 @@
 
 
 template <uint8_t sample_count_>
-class FilterSmooth
+class FilterMean
 {
 public:
-  FilterSmooth();
+  FilterMean();
   void addSample(const int &value);
   int getFilteredValue();
 private:

@@ -43,19 +43,15 @@ T& Array<T, max_size_>::at(const unsigned int i)
 template <typename T, unsigned int max_size_>
 T& Array<T, max_size_>::front()
 {
-  if (!empty())
-  {
-    return values_[0];
-  }
+  assert(!empty());
+  return values_[0];
 }
 
 template <typename T, unsigned int max_size_>
 T& Array<T, max_size_>::back()
 {
-  if (!empty())
-  {
-    return values_[size_-1];
-  }
+  assert(!empty());
+  return values_[size_-1];
 }
 
 template <typename T, unsigned int max_size_>

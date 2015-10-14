@@ -1,15 +1,14 @@
-arduino-libraries
-=================
+#arduino-libraries
 
 C++ libraries for running on Arduino hardware.
 
 ##Install Arduino on your Host Machine
 
-####Download the Arduino Software
+###Download the Arduino Software
 
 <http://arduino.cc/en/main/software>
 
-####Linux Install
+###Linux Install
 
 ```shell
 sudo apt-get remove arduino #remove older version if necessary
@@ -28,6 +27,31 @@ to have write permissions on the USB port:
 ```shell
 sudo usermod -aG dialout $USER
 sudo reboot
+```
+
+##Install Teensyduino
+
+###Download Teensyduino Installer
+
+<https://www.pjrc.com/teensy/td_download.html>
+
+###Linux Install
+
+```shell
+mv ~/Downloads/teensyduino.64bit ~/ArduinoIde/
+cd ~/ArduinoIde/
+chmod 755 teensyduino.64bit
+./teensyduino
+#select folder ~/ArduinoIde/arduino-X.Y.Z/
+#select 'None' additional libraries to install
+```
+
+####Download Linux udev rules
+
+<https://www.pjrc.com/teensy/td_download.html>
+
+```shell
+sudo cp ~/Downloads/49-teensy.rules /etc/udev/rules.d/
 ```
 
 ##Install These Arduino Libraries on your Host Machine

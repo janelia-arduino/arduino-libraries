@@ -1,5 +1,4 @@
-ConstantVariable
-================
+#ConstantVariable
 
 Authors:
 

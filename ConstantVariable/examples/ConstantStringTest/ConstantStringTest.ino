@@ -42,6 +42,7 @@ void loop()
 #ifdef __AVR__
   Serial << "free_memory = " << freeMemory() << endl;
 #endif
+  Serial << "big_string.length() = " << big_string.length() << endl;
   char char_array[big_string.length()];
   big_string.copy(char_array);
   Serial << endl;

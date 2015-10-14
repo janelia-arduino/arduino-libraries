@@ -48,7 +48,7 @@ public:
   {
     if (size == -1)
     {
-      str_.substring(offset).toCharArray(to,(str_.length()-offset));
+      str_.substring(offset).toCharArray(to,(str_.length() + 1 - offset));
     }
     else
     {

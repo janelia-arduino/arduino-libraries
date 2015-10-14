@@ -44,7 +44,7 @@ public:
   {
     return str_.length();
   }
-  char *copy(char *to, size_t size = -1, size_t offset = 0) const
+  char *copy(char *to, int size = -1, int offset = 0) const
   {
     if (size == -1)
     {

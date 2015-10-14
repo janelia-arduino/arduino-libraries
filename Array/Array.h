@@ -12,12 +12,12 @@
 #else
 #include "WProgram.h"
 #endif
-#define __ASSERT_USE_STDERR
-#include <assert.h>
+// #define __ASSERT_USE_STDERR
+// #include <assert.h>
 
 
-// handle diagnostic informations given by assertion and abort program execution:
-void __assert(const char *__func, const char *__file, int __lineno, const char *__sexp);
+// // handle diagnostic informations given by assertion and abort program execution:
+// void __assert(const char *__func, const char *__file, int __lineno, const char *__sexp);
 
 template <typename T, unsigned int max_size_>
 class Array

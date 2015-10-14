@@ -36,21 +36,21 @@ T& Array<T, max_size_>::operator[](const unsigned int i)
 template <typename T, unsigned int max_size_>
 T& Array<T, max_size_>::at(const unsigned int i)
 {
-  assert((i>=0) && (i<size_));
+  // assert((i>=0) && (i<size_));
   return values_[i];
 }
 
 template <typename T, unsigned int max_size_>
 T& Array<T, max_size_>::front()
 {
-  assert(!empty());
+  // assert(!empty());
   return values_[0];
 }
 
 template <typename T, unsigned int max_size_>
 T& Array<T, max_size_>::back()
 {
-  assert(!empty());
+  // assert(!empty());
   return values_[size_-1];
 }
 

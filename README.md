@@ -112,3 +112,39 @@ arduino
 # verify Sketchbook location:
 # /home/<yourusername>/Arduino/
 ```
+
+##chipKit
+
+###Install IDE
+
+Download MPIDE
+
+<http://chipkit.net/started/install-chipkit-software/>
+
+```shell
+mkdir ~/mpide
+mv ~/Downloads/
+mv ~/Downloads/mpide* ~/mpide
+sudo apt-get install librxtx-java
+cd ~/mpide
+tar -xvzf mpide*
+cd mpide*
+cd ~/mpide
+echo "alias mpide='$(pwd)/mpide'" >> ~/.bashrc
+source ~/.bashrc
+```
+
+###Running on Linux
+
+```shell
+mpide
+```
+
+###Linux Setup
+
+```shell
+# after MPIDE starts, go to File : Preferences
+# verify Sketchbook location:
+# /home/<yourusername>/Arduino
+```
+

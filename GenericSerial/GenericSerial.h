@@ -26,6 +26,19 @@ private:
   HardwareSerial *serial_ptr_;
 };
 
+#elif defined(__PIC32MX__)
+
+class GenericSerial
+{
+public:
+  GenericSerial();
+  GenericSerial(HardwareSerial &serial);
+  void setSerial(HardwareSerial &serial);
+  HardwareSerial &getSerial();
+private:
+  HardwareSerial *serial_ptr_;
+};
+
 #else
 
 class GenericSerial

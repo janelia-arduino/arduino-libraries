@@ -29,6 +29,23 @@ HardwareSerial& GenericSerial::getSerial()
   return *serial_ptr_;
 }
 
+#elif defined(__PIC32MX__)
+
+GenericSerial::GenericSerial(HardwareSerial &serial)
+{
+  setSerial(serial);
+}
+
+void GenericSerial::setSerial(HardwareSerial &serial)
+{
+  serial_ptr_ = &serial;
+}
+
+HardwareSerial& GenericSerial::getSerial()
+{
+  return *serial_ptr_;
+}
+
 #else
 
 GenericSerial::GenericSerial(usb_serial_class &serial)

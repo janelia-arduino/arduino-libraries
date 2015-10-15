@@ -9,8 +9,10 @@
 #define SAVED_VARIABLE_H
 #include "ConstantVariable.h"
 
-
+#ifndef ARDUINO_SAM_DUE
 #include <EEPROM.h>
+#endif
+
 
 class SavedVariable
 {

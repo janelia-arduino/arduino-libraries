@@ -14,7 +14,7 @@ CONSTANT_STRING(complex_struct,"complex_struct");
 CONSTANT_STRING(one_d_array,"one_d_array");
 CONSTANT_STRING(two_d_array,"two_d_array");
 
-const int eeprom_initialized_value = 123;
+const int eeprom_initialized_value = 111;
 const int simple_int_default_value = 4567;
 const double simple_double_default_value = 3.1415;
 struct Product

@@ -17,6 +17,7 @@ void SavedVariable::setName(const ConstantString &name)
   name_ptr_ = &name;
 }
 
+#ifndef ARDUINO_SAM_DUE
 void SavedVariable::setDefaultValue()
 {
   const byte* p = (const byte*)(const void*)default_value_ptr_;
@@ -34,6 +35,11 @@ void SavedVariable::setDefaultValue()
     }
   }
 }
+#else
+void SavedVariable::setDefaultValue()
+{
+}
+#endif
 
 int SavedVariable::getSize()
 {

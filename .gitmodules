@@ -28,3 +28,6 @@
 [submodule "Audio"]
 	path = Audio
 	url = git@github.com:janelia-arduino/Audio.git
+[submodule "SerialFlash"]
+	path = SerialFlash
+	url = git@github.com:janelia-arduino/SerialFlash.git

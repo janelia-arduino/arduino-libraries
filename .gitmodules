@@ -25,3 +25,6 @@
 [submodule "Filters"]
 	path = Filters
 	url = git@github.com:janelia-arduino/Filters.git
+[submodule "Audio"]
+	path = Audio
+	url = git@github.com:janelia-arduino/Audio.git

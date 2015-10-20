@@ -88,3 +88,6 @@
 [submodule "NewhavenDisplay"]
 	path = NewhavenDisplay
 	url = https://github.com/janelia-arduino/NewhavenDisplay.git
+[submodule "PowerSwitch"]
+	path = PowerSwitch
+	url = https://github.com/janelia-arduino/PowerSwitch.git

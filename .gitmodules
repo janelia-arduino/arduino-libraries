@@ -73,3 +73,6 @@
 [submodule "GenericSerial"]
 	path = GenericSerial
 	url = https://github.com/janelia-arduino/GenericSerial.git
+[submodule "IndexedContainer"]
+	path = IndexedContainer
+	url = https://github.com/janelia-arduino/IndexedContainer.git

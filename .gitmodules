@@ -40,3 +40,6 @@
 [submodule "AD7328"]
 	path = AD7328
 	url = https://github.com/janelia-arduino/AD7328.git
+[submodule "Array"]
+	path = Array
+	url = https://github.com/janelia-arduino/Array.git

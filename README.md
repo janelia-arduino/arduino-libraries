@@ -29,6 +29,20 @@ sudo usermod -aG dialout $USER
 sudo reboot
 ```
 
+####Running on Linux
+
+```shell
+arduino
+```
+
+####Linux Setup
+
+```shell
+# after Arduino starts, go to File : Preferences
+# verify Sketchbook location:
+# /home/<yourusername>/Arduino/
+```
+
 ###Mac OS X Install
 
 <https://www.arduino.cc/en/Guide/MacOSX>
@@ -86,9 +100,7 @@ python symlinks.py --install
 
 ###Windows
 
-Install git if necessary.
-
-[Setup Git for Windows](./GIT_SETUP_WINDOWS.md)
+[Install and Setup Git for Windows](./GIT_SETUP_WINDOWS.md)
 
 Open Git Bash:
 
@@ -105,20 +117,6 @@ cd ..
 cp -r libraries2/. libraries/
 cd libraries
 git checkout .
-```
-
-###Running on Linux
-
-```shell
-arduino
-```
-
-###Linux Setup
-
-```shell
-# after Arduino starts, go to File : Preferences
-# verify Sketchbook location:
-# /home/<yourusername>/Arduino/
 ```
 
 ##chipKit

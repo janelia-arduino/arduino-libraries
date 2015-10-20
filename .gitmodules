@@ -64,3 +64,6 @@
 [submodule "Encoder"]
 	path = Encoder
 	url = https://github.com/janelia-arduino/Encoder.git
+[submodule "EventController"]
+	path = EventController
+	url = https://github.com/janelia-arduino/EventController.git

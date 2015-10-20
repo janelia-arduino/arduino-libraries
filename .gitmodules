@@ -43,3 +43,6 @@
 [submodule "Array"]
 	path = Array
 	url = https://github.com/janelia-arduino/Array.git
+[submodule "BCSIII"]
+	path = BCSIII
+	url = https://github.com/janelia-arduino/BCSIII.git

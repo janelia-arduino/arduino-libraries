@@ -1,6 +1,6 @@
 [submodule "StandaloneInterface"]
 	path = StandaloneInterface
-	url = https://github.com/janelia-arduino/arduino_standalone_interface.git
+	url = https://github.com/janelia-arduino/StandaloneInterface.git
 [submodule "ModularDevice"]
 	path = ModularDevice
 	url = https://github.com/janelia-arduino/ModularDevice.git

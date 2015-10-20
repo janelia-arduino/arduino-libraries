@@ -79,3 +79,6 @@
 [submodule "IndexedSet"]
 	path = IndexedSet
 	url = https://github.com/janelia-arduino/IndexedSet.git
+[submodule "InputCapture"]
+	path = InputCapture
+	url = https://github.com/janelia-arduino/InputCapture.git

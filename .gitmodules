@@ -97,3 +97,6 @@
 [submodule "Streaming"]
 	path = Streaming
 	url = https://github.com/janelia-arduino/Streaming.git
+[submodule "Tlc5940"]
+	path = Tlc5940
+	url = https://github.com/janelia-arduino/Tlc5940.git

@@ -103,3 +103,6 @@
 [submodule "Watchdog"]
 	path = Watchdog
 	url = https://github.com/janelia-arduino/Watchdog.git
+[submodule "JsonPrinter"]
+	path = JsonPrinter
+	url = https://github.com/janelia-arduino/JsonPrinter.git

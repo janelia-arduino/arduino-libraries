@@ -55,3 +55,6 @@
 [submodule "LCD2x16"]
 	path = LCD2x16
 	url = https://github.com/janelia-arduino/LCD2x16.git
+[submodule "BetterMap"]
+	path = BetterMap
+	url = https://github.com/janelia-arduino/BetterMap.git

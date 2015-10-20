@@ -82,3 +82,6 @@
 [submodule "InputCapture"]
 	path = InputCapture
 	url = https://github.com/janelia-arduino/InputCapture.git
+[submodule "LinearSensorArray"]
+	path = LinearSensorArray
+	url = https://github.com/janelia-arduino/LinearSensorArray.git

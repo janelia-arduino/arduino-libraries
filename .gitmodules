@@ -3,7 +3,7 @@
 	url = https://github.com/janelia-arduino/arduino_standalone_interface.git
 [submodule "ModularDevice"]
 	path = ModularDevice
-	url = https://github.com/janelia-arduino/modular_device_arduino.git
+	url = https://github.com/janelia-arduino/ModularDevice.git
 [submodule "Flash"]
 	path = Flash
 	url = https://github.com/janelia-arduino/Flash.git

@@ -61,3 +61,6 @@
 [submodule "ConstantVariable"]
 	path = ConstantVariable
 	url = https://github.com/janelia-arduino/ConstantVariable.git
+[submodule "Encoder"]
+	path = Encoder
+	url = https://github.com/janelia-arduino/Encoder.git

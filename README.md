@@ -29,6 +29,14 @@ sudo usermod -aG dialout $USER
 sudo reboot
 ```
 
+###Mac OS X Install
+
+<https://www.arduino.cc/en/Guide/MacOSX>
+
+###Windows Install
+
+<https://www.arduino.cc/en/Guide/Windows>
+
 ##Install Teensyduino
 
 ###Download Teensyduino Installer
@@ -121,6 +129,8 @@ Download MPIDE
 
 <http://chipkit.net/started/install-chipkit-software/>
 
+###Linux Install
+
 ```shell
 mkdir ~/mpide
 mv ~/Downloads/
@@ -134,13 +144,13 @@ echo "alias mpide='$(pwd)/mpide'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-###Running on Linux
+####Running on Linux
 
 ```shell
 mpide
 ```
 
-###Linux Setup
+####Linux Setup
 
 ```shell
 # after MPIDE starts, go to File : Preferences
@@ -148,3 +158,10 @@ mpide
 # /home/<yourusername>/Arduino
 ```
 
+###Mac OS X Install
+
+<http://chipkit.net/started/install-chipkit-software/installing-mpide-mac-os/>
+
+###Windows Install
+
+<http://chipkit.net/started/install-chipkit-software/install-mpide-windows/>

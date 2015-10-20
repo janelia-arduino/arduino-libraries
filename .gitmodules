@@ -52,3 +52,6 @@
 [submodule "MCP23S17"]
 	path = MCP23S17
 	url = https://github.com/janelia-arduino/MCP23S17.git
+[submodule "LCD2x16"]
+	path = LCD2x16
+	url = https://github.com/janelia-arduino/LCD2x16.git

@@ -85,3 +85,6 @@
 [submodule "LinearSensorArray"]
 	path = LinearSensorArray
 	url = https://github.com/janelia-arduino/LinearSensorArray.git
+[submodule "NewhavenDisplay"]
+	path = NewhavenDisplay
+	url = https://github.com/janelia-arduino/NewhavenDisplay.git

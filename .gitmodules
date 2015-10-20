@@ -91,3 +91,6 @@
 [submodule "PowerSwitch"]
 	path = PowerSwitch
 	url = https://github.com/janelia-arduino/PowerSwitch.git
+[submodule "SavedVariable"]
+	path = SavedVariable
+	url = https://github.com/janelia-arduino/SavedVariable.git

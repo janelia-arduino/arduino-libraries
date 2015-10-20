@@ -76,3 +76,6 @@
 [submodule "IndexedContainer"]
 	path = IndexedContainer
 	url = https://github.com/janelia-arduino/IndexedContainer.git
+[submodule "IndexedSet"]
+	path = IndexedSet
+	url = https://github.com/janelia-arduino/IndexedSet.git

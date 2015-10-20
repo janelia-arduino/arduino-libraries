@@ -94,3 +94,6 @@
 [submodule "SavedVariable"]
 	path = SavedVariable
 	url = https://github.com/janelia-arduino/SavedVariable.git
+[submodule "Streaming"]
+	path = Streaming
+	url = https://github.com/janelia-arduino/Streaming.git

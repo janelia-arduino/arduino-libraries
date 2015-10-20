@@ -33,4 +33,4 @@
 	url = https://github.com:janelia-arduino/SerialFlash.git
 [submodule "AD5666"]
 	path = AD5666
-	url = https://github.com:janelia-arduino/AD5666.git
+	url = https://github.com/janelia-arduino/AD5666.git

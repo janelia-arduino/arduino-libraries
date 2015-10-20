@@ -49,3 +49,6 @@
 [submodule "CS"]
 	path = CS
 	url = https://github.com/janelia-arduino/CS.git
+[submodule "MCP23S17"]
+	path = MCP23S17
+	url = https://github.com/janelia-arduino/MCP23S17.git

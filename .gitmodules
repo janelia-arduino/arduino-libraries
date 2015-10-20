@@ -67,3 +67,6 @@
 [submodule "EventController"]
 	path = EventController
 	url = https://github.com/janelia-arduino/EventController.git
+[submodule "FilterSmooth"]
+	path = FilterSmooth
+	url = https://github.com/janelia-arduino/FilterSmooth.git

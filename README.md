@@ -34,15 +34,15 @@ Open Git Bash:
 
 ```shell
 cd ~/My\ Documents/Arduino
-mv libraries/ libraries2/
+mv libraries/ libraries2/ #Make copy of old libraries
 git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
 cd libraries
 git submodule init
 git submodule update
 cd ..
-cp -r libraries2/. libraries/
+cp -r libraries2/. libraries/ #Add old libraries to new libraries if desired
 cd libraries
-git checkout .
+git checkout . #Delete any old library code that conflicts with new library code
 ```
 
 ##Install Arduino on your Host Machine

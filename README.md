@@ -21,7 +21,7 @@ git clone https://github.com/janelia-arduino/arduino-libraries.git
 cd arduino-libraries
 git submodule init
 git submodule update
-python symlinks.py --install
+python symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
 ```
 
 ###Windows

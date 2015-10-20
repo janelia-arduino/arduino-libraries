@@ -34,3 +34,6 @@
 [submodule "AD5666"]
 	path = AD5666
 	url = https://github.com/janelia-arduino/AD5666.git
+[submodule "AD57X4R"]
+	path = AD57X4R
+	url = https://github.com/janelia-arduino/AD57X4R.git

@@ -58,3 +58,6 @@
 [submodule "BetterMap"]
 	path = BetterMap
 	url = https://github.com/janelia-arduino/BetterMap.git
+[submodule "ConstantVariable"]
+	path = ConstantVariable
+	url = https://github.com/janelia-arduino/ConstantVariable.git

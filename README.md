@@ -2,6 +2,49 @@
 
 C++ libraries for running on Arduino hardware.
 
+##Install These Arduino Libraries on your Host Machine
+
+###Linux or Mac OS X
+
+Install Python and git on your system if necessary.
+
+[Setup Python and Git for Linux](./PYTHON_GIT_SETUP_LINUX.md)
+
+[Setup Python and Git for Mac OS X](./PYTHON_GIT_SETUP_MAC_OS_X.md)
+
+Open terminal:
+
+```shell
+mkdir ~/git
+cd ~/git
+git clone https://github.com/janelia-arduino/arduino-libraries.git
+cd arduino-libraries
+git submodule init
+git submodule update
+python symlinks.py --install
+```
+
+###Windows
+
+[Install and Setup Git for Windows](./GIT_SETUP_WINDOWS.md)
+
+Open Git Bash:
+
+(Use "Insert" key to paste into Git Bash)
+
+```shell
+cd ~/My\ Documents/Arduino
+mv libraries/ libraries2/
+git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
+cd libraries
+git submodule init
+git submodule update
+cd ..
+cp -r libraries2/. libraries/
+cd libraries
+git checkout .
+```
+
 ##Install Arduino on your Host Machine
 
 ###Download the Arduino Software
@@ -74,49 +117,6 @@ chmod 755 teensyduino.64bit
 
 ```shell
 sudo cp ~/Downloads/49-teensy.rules /etc/udev/rules.d/
-```
-
-##Install These Arduino Libraries on your Host Machine
-
-###Linux or Mac OS X
-
-Install Python and git on your system if necessary.
-
-[Setup Python and Git for Linux](./PYTHON_GIT_SETUP_LINUX.md)
-
-[Setup Python and Git for Mac OS X](./PYTHON_GIT_SETUP_MAC_OS_X.md)
-
-Open terminal:
-
-```shell
-mkdir ~/git
-cd ~/git
-git clone https://github.com/janelia-arduino/arduino-libraries.git
-cd arduino-libraries
-git submodule init
-git submodule update
-python symlinks.py --install
-```
-
-###Windows
-
-[Install and Setup Git for Windows](./GIT_SETUP_WINDOWS.md)
-
-Open Git Bash:
-
-(Use "Insert" key to paste into Git Bash)
-
-```shell
-cd ~/My\ Documents/Arduino
-mv libraries/ libraries2/
-git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
-cd libraries
-git submodule init
-git submodule update
-cd ..
-cp -r libraries2/. libraries/
-cd libraries
-git checkout .
 ```
 
 ##chipKit

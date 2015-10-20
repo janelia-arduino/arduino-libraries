@@ -46,3 +46,6 @@
 [submodule "BCSIII"]
 	path = BCSIII
 	url = https://github.com/janelia-arduino/BCSIII.git
+[submodule "CS"]
+	path = CS
+	url = https://github.com/janelia-arduino/CS.git

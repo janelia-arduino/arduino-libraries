@@ -18,19 +18,19 @@
 	url = https://github.com/janelia-arduino/MemoryFree.git
 [submodule "TimerOne"]
 	path = TimerOne
-	url = https://github.com:janelia-arduino/TimerOne.git
+	url = https://github.com/janelia-arduino/TimerOne.git
 [submodule "TimerThree"]
 	path = TimerThree
-	url = https://github.com:janelia-arduino/TimerThree.git
+	url = https://github.com/janelia-arduino/TimerThree.git
 [submodule "Filters"]
 	path = Filters
-	url = https://github.com:janelia-arduino/Filters.git
+	url = https://github.com/janelia-arduino/Filters.git
 [submodule "Audio"]
 	path = Audio
-	url = https://github.com:janelia-arduino/Audio.git
+	url = https://github.com/janelia-arduino/Audio.git
 [submodule "SerialFlash"]
 	path = SerialFlash
-	url = https://github.com:janelia-arduino/SerialFlash.git
+	url = https://github.com/janelia-arduino/SerialFlash.git
 [submodule "AD5666"]
 	path = AD5666
 	url = https://github.com/janelia-arduino/AD5666.git

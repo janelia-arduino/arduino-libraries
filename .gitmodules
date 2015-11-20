@@ -109,3 +109,6 @@
 [submodule "jsmn"]
 	path = jsmn
 	url = https://github.com/janelia-arduino/jsmn.git
+[submodule "JsonStream"]
+	path = JsonStream
+	url = https://github.com/janelia-arduino/JsonStream.git

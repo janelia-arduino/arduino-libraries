@@ -109,3 +109,6 @@
 [submodule "JsonSanitizer"]
 	path = JsonSanitizer
 	url = https://github.com/janelia-arduino/JsonSanitizer.git
+[submodule "jsmn"]
+	path = jsmn
+	url = https://github.com/janelia-arduino/jsmn.git

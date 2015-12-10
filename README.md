@@ -8,9 +8,9 @@ C++ libraries for running on Arduino hardware.
 
 Install Python and git on your system if necessary.
 
-[Setup Python and Git for Linux](./PYTHON_GIT_SETUP_LINUX.md)
+[Setup Python](https://github.com/janelia-pypi/python_setup)
 
-[Setup Python and Git for Mac OS X](./PYTHON_GIT_SETUP_MAC_OS_X.md)
+[Setup Git](https://github.com/janelia-idf/git_setup.git)
 
 Open terminal:
 
@@ -26,7 +26,7 @@ python symlinks.py --install #Makes symbolic links to libraries in /home/<yourus
 
 ###Windows
 
-[Install and Setup Git for Windows](./GIT_SETUP_WINDOWS.md)
+[Setup Git](https://github.com/janelia-idf/git_setup.git)
 
 Open Git Bash:
 

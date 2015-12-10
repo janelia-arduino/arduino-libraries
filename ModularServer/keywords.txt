@@ -1,0 +1,51 @@
+#######################################
+# Syntax Coloring Map For ModularDevice
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+Method	KEYWORD1
+Parameter	KEYWORD1
+SavedVariable	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setServerSerial	KEYWORD2
+setName	KEYWORD2
+setModelNumber	KEYWORD2
+setFirmwareVersion	KEYWORD2
+createMethod	KEYWORD2
+copyMethod	KEYWORD2
+createParameter	KEYWORD2
+copyParameter	KEYWORD2
+getParameterValue	KEYWORD2
+createSavedVariable	KEYWORD2
+setSavedVariableValue	KEYWORD2
+getSavedVariableValue	KEYWORD2
+addKeyToResponse	KEYWORD2
+addToResponse	KEYWORD2
+addNullToResponse	KEYWORD2
+sendErrorResponse	KEYWORD2
+beginResponseObject	KEYWORD2
+endResponseObject	KEYWORD2
+beginResponseArray	KEYWORD2
+endResponseArray	KEYWORD2
+startServer	KEYWORD2
+handleServerRequests	KEYWORD2
+resetDefaults	KEYWORD2
+setSerialNumber	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+modular_device	KEYWORD2
+controller	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+

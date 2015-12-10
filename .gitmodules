@@ -1,9 +1,9 @@
 [submodule "StandaloneInterface"]
 	path = StandaloneInterface
 	url = https://github.com/janelia-arduino/StandaloneInterface.git
-[submodule "ModularDevice"]
-	path = ModularDevice
-	url = https://github.com/janelia-arduino/ModularDevice.git
+[submodule "ModularServer"]
+	path = ModularServer
+	url = https://github.com/janelia-arduino/ModularServer.git
 [submodule "Flash"]
 	path = Flash
 	url = https://github.com/janelia-arduino/Flash.git

@@ -33,15 +33,15 @@ Open Git Bash:
 (Use "Insert" key to paste into Git Bash)
 
 ```shell
-cd ~/My\ Documents/
-mv Arduino/ Arduino2/ #Make copy of old libraries
-git clone https://github.com/janelia-arduino/arduino-libraries.git Arduino
-cd Arduino
+cd ~/My\ Documents/Arduino/
+mv libraries/ libraries2/ #Make copy of old libraries
+git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
+cd libraries
 git submodule init
 git submodule update
 cd ..
-cp -r Arduino2/. Arduino/ #Add old libraries to new libraries if desired
-cd Arduino
+cp -r libraries2/. libraries/ #Add old libraries to new libraries if desired
+cd libraries
 git checkout . #Delete any old library code that conflicts with new library code
 ```
 

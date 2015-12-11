@@ -109,3 +109,6 @@
 [submodule "JsonStream"]
 	path = JsonStream
 	url = https://github.com/janelia-arduino/JsonStream.git
+[submodule "ModularServer"]
+	path = ModularServer
+	url = https://github.com/janelia-arduino/ModularServer.git

@@ -78,14 +78,6 @@ sudo reboot
 arduino
 ```
 
-####Linux Setup
-
-```shell
-# after Arduino starts, go to File : Preferences
-# verify Sketchbook location:
-# /home/<yourusername>/Arduino/
-```
-
 ###Mac OS X Install
 
 <https://www.arduino.cc/en/Guide/MacOSX>
@@ -93,6 +85,14 @@ arduino
 ###Windows Install
 
 <https://www.arduino.cc/en/Guide/Windows>
+
+###Setup
+
+```shell
+# after Arduino starts, go to File : Preferences
+# verify Sketchbook location:
+# /home/<yourusername>/Arduino/
+```
 
 ##Install Teensyduino
 

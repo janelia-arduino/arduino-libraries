@@ -109,3 +109,6 @@
 [submodule "ModularServer"]
 	path = ModularServer
 	url = https://github.com/janelia-arduino/ModularServer.git
+[submodule "StandaloneInterface"]
+	path = StandaloneInterface
+	url = https://github.com/janelia-arduino/StandaloneInterface.git

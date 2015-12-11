@@ -1,6 +1,3 @@
-[submodule "StandaloneInterface"]
-	path = StandaloneInterface
-	url = https://github.com/janelia-arduino/StandaloneInterface.git
 [submodule "Flash"]
 	path = Flash
 	url = https://github.com/janelia-arduino/Flash.git

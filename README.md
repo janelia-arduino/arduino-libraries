@@ -33,15 +33,15 @@ Open Git Bash:
 (Use "Insert" key to paste into Git Bash)
 
 ```shell
-cd ~/My\ Documents/Arduino
-mv libraries/ libraries2/ #Make copy of old libraries
-git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
-cd libraries
+cd ~/My\ Documents/
+mv Arduino/ Arduino2/ #Make copy of old libraries
+git clone https://github.com/janelia-arduino/arduino-libraries.git Arduino
+cd Arduino
 git submodule init
 git submodule update
 cd ..
-cp -r libraries2/. libraries/ #Add old libraries to new libraries if desired
-cd libraries
+cp -r Arduino2/. Arduino/ #Add old libraries to new libraries if desired
+cd Arduino
 git checkout . #Delete any old library code that conflicts with new library code
 ```
 
@@ -148,14 +148,6 @@ source ~/.bashrc
 mpide
 ```
 
-####Linux Setup
-
-```shell
-# after MPIDE starts, go to File : Preferences
-# verify Sketchbook location:
-# /home/<yourusername>/Arduino
-```
-
 ###Mac OS X Install
 
 <http://chipkit.net/started/install-chipkit-software/installing-mpide-mac-os/>
@@ -163,3 +155,11 @@ mpide
 ###Windows Install
 
 <http://chipkit.net/started/install-chipkit-software/install-mpide-windows/>
+
+###Setup
+
+```shell
+# after MPIDE starts, go to File : Preferences
+# verify Sketchbook location:
+# /home/<yourusername>/Arduino
+```

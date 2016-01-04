@@ -115,3 +115,6 @@
 [submodule "ModularDevice"]
 	path = ModularDevice
 	url = https://github.com/janelia-arduino/ModularDevice.git
+[submodule "Vector"]
+	path = Vector
+	url = https://github.com/janelia-arduino/Vector.git

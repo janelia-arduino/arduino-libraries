@@ -118,3 +118,6 @@
 [submodule "Vector"]
 	path = Vector
 	url = https://github.com/janelia-arduino/Vector.git
+[submodule "JsmnStream"]
+	path = JsmnStream
+	url = https://github.com/janelia-arduino/JsmnStream.git

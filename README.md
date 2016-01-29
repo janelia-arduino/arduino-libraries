@@ -121,13 +121,35 @@ sudo cp ~/Downloads/49-teensy.rules /etc/udev/rules.d/
 
 ##chipKit
 
-###Install IDE
+###Arduino IDE 1.6.7 or Greater
+
+From within the Arduino IDE, go to File->Preferences dialog box. Look
+at the text entry field called "Additional Boards Manager URLs:". If
+that text entry field is blank, then you can just copy/paste the
+following URL into that text field
+<https://github.com/chipKIT32/chipKIT-core/raw/master/package_chipkit_index.json>
+Then click OK to close the Preferences dialog box.
+
+Now select the Tools->Board->Board Manager menu from the Arduino IDE,
+and it will open up the Boards Manager window. From there, scroll down
+until you see the chipKIT board. Click once on any of the text in the
+chipKIT section, and you will see a button appear that says
+"Install". It will take some time to download all of the chipKIT
+components and install them, but when it's done, you can click the
+Close button to close the Board Manager window.
+
+Now choose a chipKIT board from the Tools->Board menu and program your
+chipKIT board!
+
+###Arduino IDE Before 1.6.7
+
+####Install MPIDE
 
 Download MPIDE
 
 <http://chipkit.net/started/install-chipkit-software/>
 
-###Linux Install
+####Linux Install
 
 ```shell
 mkdir ~/mpide
@@ -142,21 +164,21 @@ echo "alias mpide='$(pwd)/mpide'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-####Running on Linux
+#####Running on Linux
 
 ```shell
 mpide
 ```
 
-###Mac OS X Install
+####Mac OS X Install
 
 <http://chipkit.net/started/install-chipkit-software/installing-mpide-mac-os/>
 
-###Windows Install
+####Windows Install
 
 <http://chipkit.net/started/install-chipkit-software/install-mpide-windows/>
 
-###Setup
+#### MPIDE Setup
 
 ```shell
 # after MPIDE starts, go to File : Preferences

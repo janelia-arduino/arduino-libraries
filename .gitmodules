@@ -118,3 +118,6 @@
 [submodule "JsmnStream"]
 	path = JsmnStream
 	url = https://github.com/janelia-arduino/JsmnStream.git
+[submodule "Encoder"]
+	path = Encoder
+	url = https://github.com/janelia-arduino/Encoder.git

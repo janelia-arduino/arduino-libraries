@@ -121,3 +121,6 @@
 [submodule "EncoderPlus"]
 	path = EncoderPlus
 	url = https://github.com/janelia-arduino/EncoderPlus.git
+[submodule "Tlc5940"]
+	path = Tlc5940
+	url = git@github.com:janelia-arduino/Tlc5940.git

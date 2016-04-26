@@ -103,9 +103,9 @@ arduino
 ###Linux Install
 
 ```shell
-mv ~/Downloads/teensyduino.64bit ~/ArduinoIde/
+mv ~/Downloads/TeensyduinoInstall.linux64 ~/ArduinoIde/
 cd ~/ArduinoIde/
-chmod 755 teensyduino.64bit
+chmod 755 TeensyduinoInstall.linux64
 ./teensyduino
 #select folder ~/ArduinoIde/arduino-X.Y.Z/
 #select 'None' additional libraries to install

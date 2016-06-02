@@ -121,3 +121,6 @@
 [submodule "Tlc5940"]
 	path = Tlc5940
 	url = git@github.com:janelia-arduino/Tlc5940.git
+[submodule "TLE72X"]
+	path = TLE72X
+	url = https://github.com/peterpolidoro/TLE72X.git

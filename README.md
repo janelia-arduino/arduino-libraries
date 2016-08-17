@@ -106,7 +106,7 @@ arduino
 mv ~/Downloads/TeensyduinoInstall.linux64 ~/ArduinoIde/
 cd ~/ArduinoIde/
 chmod 755 TeensyduinoInstall.linux64
-./teensyduino
+./TeensyduinoInstall.linux64
 #select folder ~/ArduinoIde/arduino-X.Y.Z/
 #select 'None' additional libraries to install
 ```

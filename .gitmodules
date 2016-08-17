@@ -1,6 +1,3 @@
-[submodule "Flash"]
-	path = Flash
-	url = https://github.com/janelia-arduino/Flash.git
 [submodule "ArduinoJson"]
 	path = ArduinoJson
 	url = https://github.com/janelia-arduino/ArduinoJson.git

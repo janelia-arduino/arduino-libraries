@@ -121,3 +121,6 @@
 [submodule "TLE72X"]
 	path = TLE72X
 	url = https://github.com/peterpolidoro/TLE72X.git
+[submodule "Flash"]
+	path = Flash
+	url = https://github.com/janelia-arduino/Flash.git

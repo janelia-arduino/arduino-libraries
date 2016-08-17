@@ -124,3 +124,6 @@
 [submodule "Flash"]
 	path = Flash
 	url = https://github.com/janelia-arduino/Flash.git
+[submodule "Firmata"]
+	path = Firmata
+	url = https://github.com/janelia-arduino/Firmata.git

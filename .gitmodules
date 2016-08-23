@@ -124,3 +124,6 @@
 [submodule "Firmata"]
 	path = Firmata
 	url = https://github.com/janelia-arduino/Firmata.git
+[submodule "Tlc5940"]
+	path = Tlc5940
+	url = https://github.com/janelia-arduino/Tlc5940.git

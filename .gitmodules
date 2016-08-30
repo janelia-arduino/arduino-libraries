@@ -130,3 +130,6 @@
 [submodule "SD"]
 	path = SD
 	url = https://github.com/janelia-arduino/SD.git
+[submodule "SPI"]
+	path = SPI
+	url = https://github.com/janelia-arduino/SPI.git

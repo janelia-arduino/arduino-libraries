@@ -133,3 +133,6 @@
 [submodule "SPI"]
 	path = SPI
 	url = https://github.com/janelia-arduino/SPI.git
+[submodule "Functor"]
+	path = Functor
+	url = https://github.com/peterpolidoro/Functor.git

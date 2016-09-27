@@ -136,3 +136,6 @@
 [submodule "Functor"]
 	path = Functor
 	url = https://github.com/peterpolidoro/Functor.git
+[submodule "ConcatenatedArray"]
+	path = ConcatenatedArray
+	url = https://github.com/janelia-arduino/ConcatenatedArray.git

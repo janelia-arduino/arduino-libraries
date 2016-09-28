@@ -136,3 +136,6 @@
 [submodule "ConcatenatedArray"]
 	path = ConcatenatedArray
 	url = https://github.com/janelia-arduino/ConcatenatedArray.git
+[submodule "ModularClient"]
+	path = ModularClient
+	url = https://github.com/janelia-arduino/ModularClient.git

@@ -139,3 +139,6 @@
 [submodule "ModularClient"]
 	path = ModularClient
 	url = https://github.com/janelia-arduino/ModularClient.git
+[submodule "ModularDevice"]
+	path = ModularDevice
+	url = https://github.com/janelia-arduino/ModularDevice.git

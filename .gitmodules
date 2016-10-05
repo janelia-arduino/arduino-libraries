@@ -145,3 +145,6 @@
 [submodule "HBridgeController"]
 	path = HBridgeController
 	url = https://github.com/peterpolidoro/HBridgeController.git
+[submodule "RungWheelController"]
+	path = RungWheelController
+	url = https://github.com/janelia-arduino/RungWheelController.git

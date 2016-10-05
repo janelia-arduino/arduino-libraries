@@ -148,3 +148,6 @@
 [submodule "RungWheelController"]
 	path = RungWheelController
 	url = https://github.com/janelia-arduino/RungWheelController.git
+[submodule "FunctorCallbacks"]
+	path = FunctorCallbacks
+	url = https://github.com/janelia-arduino/FunctorCallbacks.git

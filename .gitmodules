@@ -151,3 +151,6 @@
 [submodule "FunctorCallbacks"]
 	path = FunctorCallbacks
 	url = https://github.com/janelia-arduino/FunctorCallbacks.git
+[submodule "AudioController"]
+	path = AudioController
+	url = https://github.com/peterpolidoro/AudioController.git

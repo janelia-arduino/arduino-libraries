@@ -154,3 +154,6 @@
 [submodule "AudioController"]
 	path = AudioController
 	url = https://github.com/peterpolidoro/AudioController.git
+[submodule "PowerSwitchController"]
+	path = PowerSwitchController
+	url = https://github.com/janelia-arduino/PowerSwitchController.git

@@ -157,3 +157,6 @@
 [submodule "PowerSwitchController"]
 	path = PowerSwitchController
 	url = https://github.com/janelia-arduino/PowerSwitchController.git
+[submodule "AuditoryStimulator"]
+	path = AuditoryStimulator
+	url = https://github.com/janelia-arduino/AuditoryStimulator.git

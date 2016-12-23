@@ -160,9 +160,6 @@
 [submodule "AuditoryStimulator"]
 	path = AuditoryStimulator
 	url = https://github.com/janelia-arduino/AuditoryStimulator.git
-[submodule "SimpleStepDirController"]
-	path = SimpleStepDirController
-	url = https://github.com/janelia-arduino/SimpleStepDirController.git
 [submodule "RotaryPelletController"]
 	path = RotaryPelletController
 	url = https://github.com/janelia-arduino/RotaryPelletController.git

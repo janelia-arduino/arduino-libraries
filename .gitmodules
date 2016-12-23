@@ -163,3 +163,6 @@
 [submodule "RotaryPelletController"]
 	path = RotaryPelletController
 	url = https://github.com/janelia-arduino/RotaryPelletController.git
+[submodule "StepDirControllerSimple"]
+	path = StepDirControllerSimple
+	url = https://github.com/janelia-arduino/StepDirControllerSimple.git

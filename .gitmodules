@@ -166,3 +166,6 @@
 [submodule "RotaryDiskControllerSimple"]
 	path = RotaryDiskControllerSimple
 	url = https://github.com/janelia-arduino/RotaryDiskControllerSimple.git
+[submodule "TMC429"]
+	path = TMC429
+	url = https://github.com/janelia-arduino/TMC429.git

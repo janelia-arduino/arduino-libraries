@@ -169,3 +169,6 @@
 [submodule "TMC429"]
 	path = TMC429
 	url = https://github.com/janelia-arduino/TMC429.git
+[submodule "TMC26X"]
+	path = TMC26X
+	url = https://github.com/janelia-arduino/TMC26X.git

@@ -178,3 +178,6 @@
 [submodule "StepDirController"]
 	path = StepDirController
 	url = https://github.com/janelia-arduino/StepDirController.git
+[submodule "StepperController"]
+	path = StepperController
+	url = https://github.com/janelia-arduino/StepperController.git

@@ -172,3 +172,6 @@
 [submodule "TMC26X"]
 	path = TMC26X
 	url = https://github.com/janelia-arduino/TMC26X.git
+[submodule "ModularDeviceBase"]
+	path = ModularDeviceBase
+	url = https://github.com/janelia-arduino/ModularDeviceBase.git

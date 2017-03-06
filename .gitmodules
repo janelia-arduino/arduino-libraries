@@ -181,3 +181,6 @@
 [submodule "StepperController"]
 	path = StepperController
 	url = https://github.com/janelia-arduino/StepperController.git
+[submodule "PelletDispenser"]
+	path = PelletDispenser
+	url = https://github.com/janelia-arduino/PelletDispenser.git

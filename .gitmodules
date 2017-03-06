@@ -184,3 +184,6 @@
 [submodule "PelletDispenser"]
 	path = PelletDispenser
 	url = https://github.com/janelia-arduino/PelletDispenser.git
+[submodule "StageController"]
+	path = StageController
+	url = https://github.com/janelia-arduino/StageController.git

@@ -175,3 +175,6 @@
 [submodule "ModularDeviceBase"]
 	path = ModularDeviceBase
 	url = https://github.com/janelia-arduino/ModularDeviceBase.git
+[submodule "StepDirController"]
+	path = StepDirController
+	url = https://github.com/janelia-arduino/StepDirController.git

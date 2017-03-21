@@ -187,3 +187,6 @@
 [submodule "StageController"]
 	path = StageController
 	url = https://github.com/janelia-arduino/StageController.git
+[submodule "HighPowerSwitchController"]
+	path = HighPowerSwitchController
+	url = https://github.com/janelia-arduino/HighPowerSwitchController.git

@@ -190,3 +190,6 @@
 [submodule "HighPowerSwitchController"]
 	path = HighPowerSwitchController
 	url = https://github.com/janelia-arduino/HighPowerSwitchController.git
+[submodule "Time"]
+	path = Time
+	url = https://github.com/janelia-arduino/Time.git

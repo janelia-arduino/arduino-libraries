@@ -1,10 +1,10 @@
-#arduino-libraries
+# arduino-libraries
 
 C++ libraries for running on Arduino hardware.
 
-##Install These Arduino Libraries on your Host Machine
+## Install These Arduino Libraries on your Host Machine
 
-###Linux or Mac OS X
+### Linux or Mac OS X
 
 Install Python and git on your system if necessary.
 
@@ -24,7 +24,7 @@ git submodule update
 python symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
 ```
 
-###Windows
+### Windows
 
 [Setup Git](https://github.com/janelia-idf/git_setup.git)
 
@@ -45,13 +45,13 @@ cd libraries
 git checkout . #Delete any old library code that conflicts with new library code
 ```
 
-##Install Arduino on your Host Machine
+## Install Arduino on your Host Machine
 
-###Download the Arduino Software
+### Download the Arduino Software
 
 <http://arduino.cc/en/main/software>
 
-###Linux Install
+### Linux Install
 
 ```shell
 sudo apt-get remove arduino #remove older version if necessary
@@ -72,21 +72,21 @@ sudo usermod -aG dialout $USER
 sudo reboot
 ```
 
-####Running on Linux
+#### Running on Linux
 
 ```shell
 arduino
 ```
 
-###Mac OS X Install
+### Mac OS X Install
 
 <https://www.arduino.cc/en/Guide/MacOSX>
 
-###Windows Install
+### Windows Install
 
 <https://www.arduino.cc/en/Guide/Windows>
 
-###Setup
+### Setup
 
 ```shell
 # after Arduino starts, go to File : Preferences
@@ -94,13 +94,13 @@ arduino
 # /home/<yourusername>/Arduino/
 ```
 
-##Install Teensyduino
+## Install Teensyduino
 
-###Download Teensyduino Installer
+### Download Teensyduino Installer
 
 <https://www.pjrc.com/teensy/td_download.html>
 
-###Linux Install
+### Linux Install
 
 ```shell
 mv ~/Downloads/TeensyduinoInstall.linux64 ~/ArduinoIde/
@@ -111,7 +111,7 @@ chmod 755 TeensyduinoInstall.linux64
 #select 'None' additional libraries to install
 ```
 
-####Download Linux udev rules
+#### Download Linux udev rules
 
 <https://www.pjrc.com/teensy/td_download.html>
 
@@ -119,9 +119,9 @@ chmod 755 TeensyduinoInstall.linux64
 sudo cp ~/Downloads/49-teensy.rules /etc/udev/rules.d/
 ```
 
-##chipKit
+## chipKit
 
-###Arduino IDE 1.6.7 or Greater
+### Arduino IDE 1.6.7 or Greater
 
 From within the Arduino IDE, go to File->Preferences dialog box. Look
 at the text entry field called "Additional Boards Manager URLs:". If
@@ -141,15 +141,15 @@ Close button to close the Board Manager window.
 Now choose a chipKIT board from the Tools->Board menu and program your
 chipKIT board!
 
-###Arduino IDE Before 1.6.7
+### Arduino IDE Before 1.6.7
 
-####Install MPIDE
+#### Install MPIDE
 
 Download MPIDE
 
 <http://chipkit.net/started/install-chipkit-software/>
 
-####Linux Install
+#### Linux Install
 
 ```shell
 mkdir ~/mpide
@@ -164,17 +164,17 @@ echo "alias mpide='$(pwd)/mpide'" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-#####Running on Linux
+##### Running on Linux
 
 ```shell
 mpide
 ```
 
-####Mac OS X Install
+#### Mac OS X Install
 
 <http://chipkit.net/started/install-chipkit-software/installing-mpide-mac-os/>
 
-####Windows Install
+#### Windows Install
 
 <http://chipkit.net/started/install-chipkit-software/install-mpide-windows/>
 

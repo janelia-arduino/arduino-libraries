@@ -193,3 +193,6 @@
 [submodule "SD"]
 	path = SD
 	url = https://github.com/janelia-arduino/SD.git
+[submodule "Ethernet"]
+	path = Ethernet
+	url = https://github.com/janelia-arduino/Ethernet.git

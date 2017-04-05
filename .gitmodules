@@ -124,9 +124,6 @@
 [submodule "Tlc5940"]
 	path = Tlc5940
 	url = https://github.com/janelia-arduino/Tlc5940.git
-[submodule "SD"]
-	path = SD
-	url = https://github.com/janelia-arduino/SD.git
 [submodule "SPI"]
 	path = SPI
 	url = https://github.com/janelia-arduino/SPI.git

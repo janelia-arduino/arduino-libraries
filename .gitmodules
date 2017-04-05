@@ -190,3 +190,6 @@
 [submodule "Time"]
 	path = Time
 	url = https://github.com/janelia-arduino/Time.git
+[submodule "SD"]
+	path = SD
+	url = https://github.com/janelia-arduino/SD.git

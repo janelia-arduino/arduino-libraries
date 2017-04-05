@@ -196,3 +196,6 @@
 [submodule "Ethernet"]
 	path = Ethernet
 	url = https://github.com/janelia-arduino/Ethernet.git
+[submodule "Temboo"]
+	path = Temboo
+	url = https://github.com/arduino-libraries/Temboo.git

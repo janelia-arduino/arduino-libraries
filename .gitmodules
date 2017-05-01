@@ -199,3 +199,6 @@
 [submodule "Temboo"]
 	path = Temboo
 	url = https://github.com/arduino-libraries/Temboo.git
+[submodule "EncoderFunctors"]
+	path = EncoderFunctors
+	url = https://github.com/janelia-arduino/EncoderFunctors.git

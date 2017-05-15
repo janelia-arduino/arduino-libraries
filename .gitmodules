@@ -202,3 +202,6 @@
 [submodule "EncoderFunctors"]
 	path = EncoderFunctors
 	url = https://github.com/janelia-arduino/EncoderFunctors.git
+[submodule "OpticalSwitchInterface"]
+	path = OpticalSwitchInterface
+	url = https://github.com/janelia-arduino/OpticalSwitchInterface.git

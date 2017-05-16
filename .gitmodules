@@ -205,3 +205,6 @@
 [submodule "OpticalSwitchInterface"]
 	path = OpticalSwitchInterface
 	url = https://github.com/janelia-arduino/OpticalSwitchInterface.git
+[submodule "EncoderInterfaceSimple"]
+	path = EncoderInterfaceSimple
+	url = https://github.com/janelia-arduino/EncoderInterfaceSimple.git

@@ -208,3 +208,6 @@
 [submodule "EncoderInterfaceSimple"]
 	path = EncoderInterfaceSimple
 	url = https://github.com/janelia-arduino/EncoderInterfaceSimple.git
+[submodule "SleepAssayController"]
+	path = SleepAssayController
+	url = https://github.com/janelia-arduino/SleepAssayController.git

@@ -211,3 +211,6 @@
 [submodule "SleepAssayController"]
 	path = SleepAssayController
 	url = https://github.com/janelia-arduino/SleepAssayController.git
+[submodule "TMC2130"]
+	path = TMC2130
+	url = https://github.com/janelia-arduino/TMC2130.git

@@ -214,3 +214,6 @@
 [submodule "TMC2130"]
 	path = TMC2130
 	url = https://github.com/janelia-arduino/TMC2130.git
+[submodule "MouseJoystick"]
+	path = MouseJoystick
+	url = https://github.com/janelia-arduino/MouseJoystick.git

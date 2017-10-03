@@ -4,9 +4,6 @@
 [submodule "StandardCplusplus"]
 	path = StandardCplusplus
 	url = https://github.com/janelia-arduino/StandardCplusplus.git
-[submodule "MemoryFree"]
-	path = MemoryFree
-	url = https://github.com/janelia-arduino/MemoryFree.git
 [submodule "TimerOne"]
 	path = TimerOne
 	url = https://github.com/janelia-arduino/TimerOne.git

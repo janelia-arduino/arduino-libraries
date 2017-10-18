@@ -229,3 +229,6 @@
 [submodule "I2CInterface"]
 	path = I2CInterface
 	url = https://github.com/janelia-arduino/I2CInterface.git
+[submodule "SpinningPlatformController"]
+	path = SpinningPlatformController
+	url = https://github.com/janelia-arduino/SpinningPlatformController.git

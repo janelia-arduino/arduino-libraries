@@ -10,7 +10,7 @@ Install Python and git on your system if necessary.
 
 [Setup Python](https://github.com/janelia-pypi/python_setup)
 
-[Setup Git](https://github.com/janelia-idf/git_setup.git)
+[Setup Git](https://github.com/janelia-experimental-technology/git_setup.git)
 
 Open terminal:
 
@@ -26,7 +26,7 @@ python symlinks.py --install #Makes symbolic links to libraries in /home/<yourus
 
 ### Windows
 
-[Setup Git](https://github.com/janelia-idf/git_setup.git)
+[Setup Git](https://github.com/janelia-experimental-technology/git_setup.git)
 
 Open Git Bash:
 

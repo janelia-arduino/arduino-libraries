@@ -232,3 +232,6 @@
 [submodule "MixingValveController"]
 	path = MixingValveController
 	url = https://github.com/janelia-arduino/MixingValveController.git
+[submodule "MouseJoystickController"]
+	path = MouseJoystickController
+	url = https://github.com/janelia-arduino/MouseJoystickController.git

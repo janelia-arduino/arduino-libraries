@@ -235,3 +235,6 @@
 [submodule "MouseJoystickController"]
 	path = MouseJoystickController
 	url = https://github.com/janelia-arduino/MouseJoystickController.git
+[submodule "GradientController"]
+	path = GradientController
+	url = https://github.com/janelia-arduino/GradientController.git

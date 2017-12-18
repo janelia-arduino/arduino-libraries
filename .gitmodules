@@ -238,3 +238,6 @@
 [submodule "GradientController"]
 	path = GradientController
 	url = https://github.com/janelia-arduino/GradientController.git
+[submodule "PulseController"]
+	path = PulseController
+	url = https://github.com/janelia-arduino/PulseController.git

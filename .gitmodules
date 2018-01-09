@@ -238,3 +238,6 @@
 [submodule "PulseController"]
 	path = PulseController
 	url = https://github.com/janelia-arduino/PulseController.git
+[submodule "Rs232Interface"]
+	path = Rs232Interface
+	url = https://github.com/janelia-arduino/Rs232Interface.git

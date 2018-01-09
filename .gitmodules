@@ -220,9 +220,6 @@
 [submodule "ModularDeviceTemplate"]
 	path = ModularDeviceTemplate
 	url = https://github.com/janelia-arduino/ModularDeviceTemplate.git
-[submodule "RS232Interface"]
-	path = RS232Interface
-	url = https://github.com/janelia-arduino/RS232Interface.git
 [submodule "I2CInterface"]
 	path = I2CInterface
 	url = https://github.com/janelia-arduino/I2CInterface.git

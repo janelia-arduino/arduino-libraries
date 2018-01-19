@@ -238,3 +238,6 @@
 [submodule "PulseController"]
 	path = PulseController
 	url = https://github.com/janelia-arduino/PulseController.git
+[submodule "ZebrafishTrackerController"]
+	path = ZebrafishTrackerController
+	url = https://github.com/janelia-arduino/ZebrafishTrackerController.git

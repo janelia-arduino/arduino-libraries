@@ -241,3 +241,6 @@
 [submodule "ZebrafishTrackerController"]
 	path = ZebrafishTrackerController
 	url = https://github.com/janelia-arduino/ZebrafishTrackerController.git
+[submodule "LavisController"]
+	path = LavisController
+	url = https://github.com/janelia-arduino/LavisController.git

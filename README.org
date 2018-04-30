@@ -4,31 +4,48 @@
 
 C++ libraries for running on Arduino and other embedded processors.
 
+* Install and Setup Software on your Host Machine
+** Arduino
+
+   [[https://github.com/janelia-arduino/arduino_setup.git][Setup Arduino]]
+
+** Git
+
+   [[https://github.com/janelia-experimental-technology/git_setup.git][Setup Git]]
+
 * Install These Arduino Libraries on your Host Machine
 ** Linux or Mac OS X
+*** Clone this Repository
 
-   Install Python and git on your system if necessary.
+    #+BEGIN_SRC sh
+      mkdir ~/git
+      cd ~/git
+      git clone https://github.com/janelia-arduino/arduino-libraries.git
+      cd arduino-libraries
+      git submodule init
+      git submodule update
+    #+END_SRC
 
-   [[https://github.com/janelia-pypi/python_setup][Setup Python]]
+*** Make Symbolic Links to Libraries
+**** Using Python
+***** Install and Setup Python if Necessary
 
-   [[https://github.com/janelia-experimental-technology/git_setup.git][Setup Git]]
+      [[https://github.com/janelia-pypi/python_setup][Setup Python]]
 
-   Open terminal:
+***** Run Python Symbolic Link Installer
 
-   #+BEGIN_SRC sh
-     mkdir ~/git
-     cd ~/git
-     git clone https://github.com/janelia-arduino/arduino-libraries.git
-     cd arduino-libraries
-     git submodule init
-     git submodule update
-     python symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
-   #+END_SRC
+      #+BEGIN_SRC sh
+        cd ~/git/arduino-libraries
+        python3 symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
+      #+END_SRC
+
+**** Using Bash
+
+     #+BEGIN_SRC sh
+       find ~/git/arduino-libraries -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 ln -s -t ~/Arduino/libraries
+     #+END_SRC
 
 ** Windows
-
-   [[https://github.com/janelia-experimental-technology/git_setup.git][Setup Git]]
-
    Open Git Bash:
 
    (Use "Insert" key to paste into Git Bash)
@@ -45,7 +62,3 @@ C++ libraries for running on Arduino and other embedded processors.
      cd libraries
      git checkout . #Delete any old library code that conflicts with new library code
    #+END_SRC
-
-* Install and Setup Arduino on your Host Machine
-
-  [[https://github.com/janelia-arduino/arduino_setup.git][Setup Arduino]]

@@ -5,7 +5,6 @@
 C++ libraries for running on Arduino and other embedded processors.
 
 * Install These Arduino Libraries on your Host Machine
-
 ** Linux or Mac OS X
 
    Install Python and git on your system if necessary.
@@ -17,13 +16,13 @@ C++ libraries for running on Arduino and other embedded processors.
    Open terminal:
 
    #+BEGIN_SRC sh
-mkdir ~/git
-cd ~/git
-git clone https://github.com/janelia-arduino/arduino-libraries.git
-cd arduino-libraries
-git submodule init
-git submodule update
-python symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
+     mkdir ~/git
+     cd ~/git
+     git clone https://github.com/janelia-arduino/arduino-libraries.git
+     cd arduino-libraries
+     git submodule init
+     git submodule update
+     python symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
    #+END_SRC
 
 ** Windows
@@ -35,16 +34,16 @@ python symlinks.py --install #Makes symbolic links to libraries in /home/<yourus
    (Use "Insert" key to paste into Git Bash)
 
    #+BEGIN_SRC sh
-cd ~/My\ Documents/Arduino/
-mv libraries/ libraries2/ #Make copy of old libraries
-git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
-cd libraries
-git submodule init
-git submodule update
-cd ..
-cp -r libraries2/. libraries/ #Add old libraries to new libraries if desired
-cd libraries
-git checkout . #Delete any old library code that conflicts with new library code
+     cd ~/My\ Documents/Arduino/
+     mv libraries/ libraries2/ #Make copy of old libraries
+     git clone https://github.com/janelia-arduino/arduino-libraries.git libraries
+     cd libraries
+     git submodule init
+     git submodule update
+     cd ..
+     cp -r libraries2/. libraries/ #Add old libraries to new libraries if desired
+     cd libraries
+     git checkout . #Delete any old library code that conflicts with new library code
    #+END_SRC
 
 * Install and Setup Arduino on your Host Machine

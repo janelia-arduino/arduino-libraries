@@ -5,16 +5,19 @@
 C++ libraries for running on Arduino and other embedded processors.
 
 * Install and Setup Software on your Host Machine
+
 ** Arduino
 
-   [[https://github.com/janelia-arduino/arduino_setup.git][Setup Arduino]]
+   [[https://github.com/janelia-arduino/arduino_setup.git]]
 
 ** Git
 
-   [[https://github.com/janelia-experimental-technology/git_setup.git][Setup Git]]
+   [[https://github.com/janelia-experimental-technology/git_setup.git]]
 
 * Install These Arduino Libraries on your Host Machine
+
 ** Linux or Mac OS X
+
 *** Clone this Repository
 
     #+BEGIN_SRC sh
@@ -27,7 +30,9 @@ C++ libraries for running on Arduino and other embedded processors.
     #+END_SRC
 
 *** Make Symbolic Links to Libraries
+
 **** Using Python
+
 ***** Install and Setup Python if Necessary
 
       [[https://github.com/janelia-pypi/python_setup][Setup Python]]
@@ -46,6 +51,7 @@ C++ libraries for running on Arduino and other embedded processors.
      #+END_SRC
 
 ** Windows
+
    Open Git Bash:
 
    (Use "Insert" key to paste into Git Bash)
@@ -62,3 +68,13 @@ C++ libraries for running on Arduino and other embedded processors.
      cd libraries
      git checkout . #Delete any old library code that conflicts with new library code
    #+END_SRC
+
+* Compile Library Example and Upload to Board
+
+** Arduino Board
+
+   [[https://www.arduino.cc/en/Guide/ArduinoMega2560]]
+
+** Teensy Board
+
+   [[https://www.pjrc.com/teensy/td_usage.html]]

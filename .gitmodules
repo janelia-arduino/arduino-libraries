@@ -235,3 +235,6 @@
 [submodule "LavisController"]
 	path = LavisController
 	url = https://github.com/janelia-arduino/LavisController.git
+[submodule "HeadFixationController"]
+	path = HeadFixationController
+	url = https://github.com/janelia-arduino/HeadFixationController.git

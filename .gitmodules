@@ -238,3 +238,6 @@
 [submodule "HeadFixationController"]
 	path = HeadFixationController
 	url = https://github.com/janelia-arduino/HeadFixationController.git
+[submodule "OdorNozzleController"]
+	path = OdorNozzleController
+	url = https://github.com/peterpolidoro/OdorNozzleController.git

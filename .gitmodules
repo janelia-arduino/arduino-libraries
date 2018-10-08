@@ -241,3 +241,6 @@
 [submodule "OdorNozzleController"]
 	path = OdorNozzleController
 	url = https://github.com/peterpolidoro/OdorNozzleController.git
+[submodule "DacController"]
+	path = DacController
+	url = https://github.com/janelia-arduino/DacController.git

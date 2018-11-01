@@ -247,3 +247,6 @@
 [submodule "DigitalController"]
 	path = DigitalController
 	url = https://github.com/janelia-arduino/DigitalController.git
+[submodule "BacklightController"]
+	path = BacklightController
+	url = https://github.com/janelia-arduino/BacklightController.git

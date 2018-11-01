@@ -250,3 +250,6 @@
 [submodule "BacklightController"]
 	path = BacklightController
 	url = https://github.com/janelia-arduino/BacklightController.git
+[submodule "FlyBowlController"]
+	path = FlyBowlController
+	url = https://github.com/janelia-arduino/FlyBowlController.git

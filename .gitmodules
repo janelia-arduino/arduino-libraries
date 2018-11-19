@@ -253,3 +253,12 @@
 [submodule "FlyBowlController"]
 	path = FlyBowlController
 	url = https://github.com/janelia-arduino/FlyBowlController.git
+[submodule "SerialInterface"]
+	path = SerialInterface
+	url = https://github.com/janelia-arduino/SerialInterface.git
+[submodule "UltravioletDetectorInterface"]
+	path = UltravioletDetectorInterface
+	url = https://github.com/janelia-arduino/UltravioletDetectorInterface.git
+[submodule "HplcController"]
+	path = HplcController
+	url = https://github.com/janelia-arduino/HplcController.git

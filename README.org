@@ -31,6 +31,13 @@ C++ libraries for running on Arduino and other embedded processors.
 
 *** Make Symbolic Links to Libraries
 
+**** Using Bash
+
+     #+BEGIN_SRC sh
+       mkdir ~/Arduino/libraries/
+       find ~/git/arduino-libraries -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 ln -s -t ~/Arduino/libraries
+     #+END_SRC
+
 **** Using Python
 
 ***** Install and Setup Python if Necessary
@@ -43,12 +50,6 @@ C++ libraries for running on Arduino and other embedded processors.
         cd ~/git/arduino-libraries
         python3 symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
       #+END_SRC
-
-**** Using Bash
-
-     #+BEGIN_SRC sh
-       find ~/git/arduino-libraries -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 ln -s -t ~/Arduino/libraries
-     #+END_SRC
 
 ** Windows
 
@@ -71,10 +72,10 @@ C++ libraries for running on Arduino and other embedded processors.
 
 * Compile Library Example and Upload to Board
 
-** Arduino Board
-
-   [[https://www.arduino.cc/en/Guide/ArduinoMega2560]]
-
 ** Teensy Board
 
    [[https://www.pjrc.com/teensy/td_usage.html]]
+
+** Arduino Board
+
+   [[https://www.arduino.cc/en/Guide/ArduinoMega2560]]

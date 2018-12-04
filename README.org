@@ -16,9 +16,16 @@ C++ libraries for running on Arduino and other embedded processors.
 
 * Install These Arduino Libraries on your Host Machine
 
+  Run Arduino IDE and go to File / Preferences and make note of 'Sketchbook
+  location:'. On Linux and Mac OS X, it is usually located in ~/Arduino. On
+  older versions of Windows, it may be located in ~/My\ Documents/Arduino. On
+  newer versions of WIndows, it may be located in ~/Documents/Arduino.
+
 ** Linux or Mac OS X
 
 *** Clone this Repository
+
+    Open a terminal.
 
     #+BEGIN_SRC sh
       mkdir ~/git
@@ -33,6 +40,8 @@ C++ libraries for running on Arduino and other embedded processors.
 
 **** Using Bash
 
+     Open a terminal.
+
      #+BEGIN_SRC sh
        mkdir ~/Arduino/libraries/
        find ~/git/arduino-libraries -maxdepth 1 -mindepth 1 -type d -print0 | xargs -0 ln -s -t ~/Arduino/libraries
@@ -46,9 +55,11 @@ C++ libraries for running on Arduino and other embedded processors.
 
 ***** Run Python Symbolic Link Installer
 
+      Open a terminal.
+
       #+BEGIN_SRC sh
         cd ~/git/arduino-libraries
-        python3 symlinks.py --install #Makes symbolic links to libraries in /home/<yourusername>/Arduino/
+        python3 symlinks.py --install # Makes symbolic links to libraries in /home/<yourusername>/Arduino/
       #+END_SRC
 
 ** Windows
@@ -58,16 +69,17 @@ C++ libraries for running on Arduino and other embedded processors.
    (Use "Insert" key to paste into Git Bash)
 
    #+BEGIN_SRC sh
-     cd ~/My\ Documents/Arduino/
-     mv libraries/ libraries2/ #Make copy of old libraries
+     cd ~/My\ Documents/Arduino/ # Older versions of Windows
+     cd ~/Documents/Arduino/ # Newer versions of Windows
+     mv libraries/ libraries2/ # Make copy of old libraries
      git clone https://github.com/janelia-arduino/arduino-libraries libraries
      cd libraries
      git submodule init
      git submodule update
      cd ..
-     cp -r libraries2/. libraries/ #Add old libraries to new libraries if desired
+     cp -r libraries2/. libraries/ # Add old libraries to new libraries if desired
      cd libraries
-     git checkout . #Delete any old library code that conflicts with new library code
+     git checkout . # Delete any old library code that conflicts with new library code
    #+END_SRC
 
 * Compile Library Example and Upload to Board
@@ -79,3 +91,22 @@ C++ libraries for running on Arduino and other embedded processors.
 ** Arduino Board
 
    [[https://www.arduino.cc/en/Guide/ArduinoMega2560]]
+
+* Update These Arduino Libraries on your Host Machine
+
+** Linux or Mac OS X
+
+   #+BEGIN_SRC sh
+     cd ~/git/arduino-libraries
+     git submodule update --recursive --remote
+   #+END_SRC
+
+** Windows
+
+   Open Git Bash:
+
+   #+BEGIN_SRC sh
+     cd ~/My\ Documents/Arduino/libraries # Older versions of Windows
+     cd ~/Documents/Arduino/libraries # Newer versions of Windows
+     git submodule update --recursive --remote
+   #+END_SRC

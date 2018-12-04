@@ -98,7 +98,7 @@ C++ libraries for running on Arduino and other embedded processors.
 
    #+BEGIN_SRC sh
      cd ~/git/arduino-libraries
-     git submodule update --recursive --remote
+     git pull origin master
    #+END_SRC
 
 ** Windows
@@ -108,5 +108,5 @@ C++ libraries for running on Arduino and other embedded processors.
    #+BEGIN_SRC sh
      cd ~/My\ Documents/Arduino/libraries # Older versions of Windows
      cd ~/Documents/Arduino/libraries # Newer versions of Windows
-     git submodule update --recursive --remote
+     git pull origin master
    #+END_SRC

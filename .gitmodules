@@ -262,6 +262,3 @@
 [submodule "HplcController"]
 	path = HplcController
 	url = https://github.com/janelia-arduino/HplcController.git
-[submodule "PumpController"]
-	path = PumpController
-	url = https://github.com/janelia-arduino/PumpController.git

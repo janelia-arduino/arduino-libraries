@@ -265,3 +265,9 @@
 [submodule "PCA9685"]
 	path = PCA9685
 	url = https://github.com/janelia-arduino/PCA9685.git
+[submodule "ServoController"]
+	path = ServoController
+	url = https://github.com/janelia-arduino/ServoController.git
+[submodule "OlfactoryArenaController"]
+	path = OlfactoryArenaController
+	url = https://github.com/janelia-arduino/OlfactoryArenaController.git

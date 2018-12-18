@@ -262,3 +262,6 @@
 [submodule "HplcController"]
 	path = HplcController
 	url = https://github.com/janelia-arduino/HplcController.git
+[submodule "PCA9685"]
+	path = PCA9685
+	url = https://github.com/janelia-arduino/PCA9685.git

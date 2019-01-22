@@ -271,3 +271,6 @@
 [submodule "OlfactoryArenaController"]
 	path = OlfactoryArenaController
 	url = https://github.com/janelia-arduino/OlfactoryArenaController.git
+[submodule "MPR121"]
+	path = MPR121
+	url = https://github.com/janelia-arduino/MPR121.git

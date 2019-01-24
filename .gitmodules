@@ -271,3 +271,6 @@
 [submodule "MPR121"]
 	path = MPR121
 	url = https://github.com/janelia-arduino/MPR121.git
+[submodule "WireInterface"]
+	path = WireInterface
+	url = https://github.com/janelia-arduino/WireInterface.git
